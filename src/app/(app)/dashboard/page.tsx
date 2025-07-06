@@ -15,48 +15,46 @@ import { Progress } from "@/components/ui/progress";
 import {
   ArrowRight,
   BookText,
+  Gift,
   Layers,
   Mic,
-  Scaling,
-  Wand2,
   PencilRuler,
-  Sparkles,
+  Scaling,
+  Swords,
+  Target,
+  Wand2,
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
-import { flashcards, vocabularyCategories } from "@/lib/sanskrit-data";
+import { dailyTasks } from "@/lib/sanskrit-data";
 
-// Get a random word for "Word of the Day"
-const allWords = vocabularyCategories.flatMap(cat => cat.words);
-
-const FeatureCard = ({ href, icon: Icon, title, description }: { href: string; icon: React.ElementType; title: string; description: string; }) => (
-    <Link href={href}>
-        <div className="p-4 rounded-lg border bg-card hover:bg-secondary/50 transition-colors h-full flex flex-col">
-            <Icon className="h-8 w-8 text-muted-foreground mb-3"/>
-            <h3 className="font-semibold font-headline text-lg">{title}</h3>
-            <p className="text-sm text-muted-foreground mt-1 flex-grow">{description}</p>
-        </div>
+const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
+    <Link href={href} className="flex">
+        <Card className="w-full bg-card hover:border-primary/50 hover:bg-secondary/50 transition-colors flex flex-col">
+            <CardHeader>
+                <div className="flex justify-between items-start">
+                    <Icon className="h-8 w-8 text-muted-foreground mb-3"/>
+                    {badge && <div className="text-xs bg-primary/20 text-primary font-bold px-2 py-1 rounded-full">{badge}</div>}
+                </div>
+                <CardTitle className="font-headline text-lg">{title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow">
+                <CardDescription>{description}</CardDescription>
+            </CardContent>
+        </Card>
     </Link>
 );
 
-
 export default function DashboardPage() {
-  const wordOfTheDay = useMemo(() => {
-    // This runs only on the client, avoiding hydration errors.
-    return allWords[Math.floor(Math.random() * allWords.length)];
-  }, []);
+    const tasksComplete = useMemo(() => dailyTasks.every(task => task.progress >= task.goal), []);
 
-  const masteredFlashcards = 15; // Mock data
-  const learnedWords = 25; // Mock data
-  const totalWords = allWords.length;
-  
   return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
       <header>
         <h1 className="text-4xl font-headline font-bold">
-          Welcome back to Samskriti
+          Namaste!
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Ready to continue your Sanskrit journey?
+          Here are your goals for today. Let's make progress!
         </p>
       </header>
 
@@ -64,32 +62,30 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Quick Start</CardTitle>
-              <CardDescription>Jump right back into your learning.</CardDescription>
+              <CardTitle className="flex items-center gap-2 font-headline">
+                  <Target className="text-primary"/> Daily Goals
+              </CardTitle>
+              <CardDescription>Complete all three tasks to unlock your daily chest.</CardDescription>
             </CardHeader>
-            <CardContent className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <Link href="/practice" passHref>
-                <Button variant="outline" size="lg" className="w-full h-24 justify-start flex-col items-start p-4 text-left hover:bg-primary/10 hover:border-primary">
-                  <PencilRuler className="mb-2 h-6 w-6 text-primary" />
-                  <span className="font-semibold">Practice Quiz</span>
-                  <span className="text-xs text-muted-foreground">Test your knowledge</span>
-                </Button>
-              </Link>
-              <Link href="/flashcards" passHref>
-                <Button variant="outline" size="lg" className="w-full h-24 justify-start flex-col items-start p-4 text-left hover:bg-primary/10 hover:border-primary">
-                  <Layers className="mb-2 h-6 w-6 text-primary" />
-                  <span className="font-semibold">Review Flashcards</span>
-                  <span className="text-xs text-muted-foreground">Master new words</span>
-                </Button>
-              </Link>
-              <Link href="/pronunciation" passHref>
-                <Button variant="outline" size="lg" className="w-full h-24 justify-start flex-col items-start p-4 text-left hover:bg-primary/10 hover:border-primary">
-                  <Mic className="mb-2 h-6 w-6 text-primary" />
-                  <span className="font-semibold">Pronunciation AI</span>
-                  <span className="text-xs text-muted-foreground">Perfect your accent</span>
-                </Button>
-              </Link>
+            <CardContent className="space-y-4">
+              {dailyTasks.map((task, index) => (
+                 <Link href={task.href} key={index}>
+                    <div className="p-4 rounded-lg border hover:bg-secondary/50 transition-colors cursor-pointer">
+                        <div className="flex justify-between items-center mb-1">
+                            <span className="font-semibold">{task.title}</span>
+                            <span className="text-sm font-medium text-primary">{task.progress} / {task.goal}</span>
+                        </div>
+                        <Progress value={(task.progress / task.goal) * 100} />
+                    </div>
+                </Link>
+              ))}
             </CardContent>
+             <CardFooter>
+                 <Button className="w-full" disabled={!tasksComplete}>
+                    <Gift className="mr-2"/>
+                    {tasksComplete ? "Claim Daily Chest" : "Complete All Tasks to Unlock"}
+                </Button>
+            </CardFooter>
           </Card>
           
           <Card>
@@ -98,6 +94,13 @@ export default function DashboardPage() {
                 <CardDescription>Discover all the features Samskriti has to offer.</CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FeatureCard
+                    href="/word-builder"
+                    icon={Swords}
+                    title="Word Builder"
+                    description="Form words from roots and syllables in this fun game."
+                    badge="New"
+                />
                 <FeatureCard
                     href="/grammar"
                     icon={Scaling}
@@ -116,54 +119,52 @@ export default function DashboardPage() {
                     title="Grammar Tool"
                     description="Get an interactive breakdown of words within a sentence."
                 />
-                <FeatureCard
-                    href="/culture"
-                    icon={DiyaLampIcon}
-                    title="Cultural Insights"
-                    description="Explore the rich history and context behind the language."
-                />
             </CardContent>
           </Card>
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-secondary/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-headline">
-                <Sparkles className="text-primary"/> Word of the Day
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-4xl font-headline font-bold">{wordOfTheDay.sanskrit}</p>
-              <p className="text-xl text-muted-foreground mt-2">{wordOfTheDay.english}</p>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
-                <CardTitle className="font-headline">Your Progress</CardTitle>
-                <CardDescription>A summary of your learning activity.</CardDescription>
+                <CardTitle className="font-headline">Learning Hub</CardTitle>
+                <CardDescription>Your core learning activities.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div>
-                    <div className="flex justify-between text-sm mb-1 font-medium">
-                        <span>Flashcards Mastered</span>
-                        <span className="font-semibold text-primary">{masteredFlashcards} / {flashcards.length}</span>
-                    </div>
-                    <Progress value={(masteredFlashcards / flashcards.length) * 100} />
-                </div>
-                 <div>
-                    <div className="flex justify-between text-sm mb-1 font-medium">
-                        <span>Words Learned</span>
-                        <span className="font-semibold text-primary">{learnedWords} / {totalWords}</span>
-                    </div>
-                    <Progress value={(learnedWords / totalWords) * 100} />
-                </div>
+            <CardContent className="space-y-3">
+              <Link href="/practice" passHref>
+                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
+                  <PencilRuler className="text-primary" />
+                  <span>Practice Quiz</span>
+                  <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
+                </Button>
+              </Link>
+              <Link href="/flashcards" passHref>
+                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
+                  <Layers className="text-primary" />
+                  <span>Review Flashcards</span>
+                  <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
+                </Button>
+              </Link>
+              <Link href="/pronunciation" passHref>
+                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
+                  <Mic className="text-primary" />
+                  <span>Pronunciation AI</span>
+                   <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
+                </Button>
+              </Link>
             </CardContent>
+          </Card>
+           <Card>
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <DiyaLampIcon />
+                    Cultural Insights
+                </CardTitle>
+                <CardDescription>Explore the rich history and context behind the language.</CardDescription>
+            </CardHeader>
              <CardFooter>
-                <Link href="/practice" className="w-full">
+                <Link href="/culture" className="w-full">
                     <Button className="w-full">
-                        Keep Practicing <ArrowRight className="ml-2 h-4 w-4" />
+                        Discover More <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                 </Link>
             </CardFooter>

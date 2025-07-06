@@ -1,26 +1,50 @@
+export const dailyTasks = [
+    {
+        title: "Learn 5 New Words",
+        description: "Expand your vocabulary.",
+        progress: 2,
+        goal: 5,
+        href: "/vocabulary",
+    },
+    {
+        title: "Take 1 Quiz",
+        description: "Test your knowledge.",
+        progress: 0,
+        goal: 1,
+        href: "/practice",
+    },
+    {
+        title: "Practice Pronunciation",
+        description: "Master one phrase.",
+        progress: 1,
+        goal: 1,
+        href: "/pronunciation",
+    }
+];
+
 export const vocabularyCategories = [
   {
     category: "Common Nouns",
     words: [
-      { sanskrit: "नरः", english: "Man" },
+      { sanskrit: "नरः", english: "Man", etymology: { root: "नृ", meaning: "to lead, guide", related: [{lang: "Proto-Indo-European", word: "*h₂nḗr"}] } },
       { sanskrit: "गजः", english: "Elephant" },
-      { sanskrit: "बालकः", english: "Boy" },
-      { sanskrit: "सूर्यः", english: "Sun" },
+      { sanskrit: "बालकः", english: "Boy", etymology: { root: "बाल", meaning: "young, child" } },
+      { sanskrit: "सूर्यः", english: "Sun", etymology: { root: "सुर्", meaning: "to shine", related: [{lang: "Avestan", word: "hvar"}] } },
     ],
   },
   {
     category: "Verbs",
     words: [
-      { sanskrit: "पठति", english: "Reads" },
-      { sanskrit: "गच्छति", english: "Goes" },
-      { sanskrit: "अस्ति", english: "Is" },
-      { sanskrit: "करोति", english: "Does" },
+      { sanskrit: "पठति", english: "Reads", etymology: { root: "पठ्", meaning: "to read, recite" } },
+      { sanskrit: "गच्छति", english: "Goes", etymology: { root: "गम्", meaning: "to go" } },
+      { sanskrit: "अस्ति", english: "Is", etymology: { root: "अस्", meaning: "to be" } },
+      { sanskrit: "करोति", english: "Does", etymology: { root: "कृ", meaning: "to do, make" } },
     ],
   },
   {
     category: "Nature",
     words: [
-      { sanskrit: "वृक्षः", english: "Tree" },
+      { sanskrit: "वृक्षः", english: "Tree", etymology: { root: "वृक्ष्", meaning: "to grow" } },
       { sanskrit: "नदी", english: "River" },
       { sanskrit: "पर्वतः", english: "Mountain" },
       { sanskrit: "आकाशः", english: "Sky" },
@@ -107,4 +131,27 @@ export const culturalFacts = [
         title: "A Scientific Grammar",
         content: "The grammar of Sanskrit, particularly as codified by the ancient grammarian Pāṇini in his Aṣṭādhyāyī, is considered one of the most systematic and scientific grammars ever developed."
     }
-]
+];
+
+export const wordBuilderGame = {
+    roots: [
+        {
+            root: "गम्",
+            meaning: "to go",
+            syllables: ["ग", "च्छ", "ति", "मि", "सि", "न्ति", "वः", "मः"],
+            validWords: ["गच्छति", "गच्छामि", "गच्छसि", "गच्छन्ति", "गच्छावः", "गच्छामः"]
+        },
+        {
+            root: "भू",
+            meaning: "to be, to become",
+            syllables: ["भ", "व", "ति", "सि", "न्ति", "थः", "मि", "मः"],
+            validWords: ["भवति", "भवसि", "भवन्ति", "भवथः", "भवामि", "भवामः"]
+        },
+        {
+            root: "कृ",
+            meaning: "to do, to make",
+            syllables: ["क", "रो", "ति", "षि", "कु", "र्व", "न्ति", "मि"],
+            validWords: ["करोति", "करोषि", "कुर्वन्ति", "करोमि"]
+        }
+    ]
+};

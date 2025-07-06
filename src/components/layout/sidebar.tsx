@@ -8,23 +8,20 @@ import {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
-    SidebarFooter,
-    SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
     BookText,
     Bot,
-    ChevronLeft,
-    ChevronRight,
     LayoutGrid,
     Layers,
     Mic,
     PencilRuler,
     Scaling,
+    Swords,
     Wand2,
 } from 'lucide-react';
 import { DiyaLampIcon, Logo } from '@/components/icons';
-import { Button } from '../ui/button';
+import { SidebarTrigger } from '../ui/sidebar';
 
 const menuItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutGrid },
@@ -34,6 +31,7 @@ const menuItems = [
     { href: '/flashcards', label: 'Flashcards', icon: Layers },
     { href: '/pronunciation', label: 'Pronunciation AI', icon: Mic },
     { href: '/grammar-tool', label: 'Grammar Tool', icon: Wand2 },
+    { href: '/word-builder', label: 'Word Builder', icon: Swords },
     { href: '/culture', label: 'Culture', icon: DiyaLampIcon },
 ];
 
@@ -57,7 +55,7 @@ export function AppSidebar() {
                         <SidebarMenuItem key={item.href}>
                             <SidebarMenuButton
                                 asChild
-                                isActive={pathname === item.href}
+                                isActive={pathname.startsWith(item.href)}
                                 tooltip={{ children: item.label }}
                             >
                                 <Link href={item.href}>
