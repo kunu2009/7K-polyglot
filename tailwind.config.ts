@@ -1,5 +1,7 @@
 import type {Config} from 'tailwindcss';
 
+const plugin = require('tailwindcss/plugin');
+
 export default {
   darkMode: ['class'],
   content: [
@@ -11,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['Literata', 'serif'],
         code: ['monospace'],
       },
       colors: {
@@ -88,12 +90,41 @@ export default {
             height: '0',
           },
         },
+        'fade-in-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function({ addUtilities } : { addUtilities: any }) {
+      addUtilities({
+        '.transform-style-preserve-3d': {
+          'transform-style': 'preserve-3d',
+        },
+        '.perspective-1000': {
+          'perspective': '1000px',
+        },
+        '.backface-hidden': {
+          'backface-visibility': 'hidden',
+        },
+        '.rotate-y-180': {
+          'transform': 'rotateY(180deg)',
+        },
+      })
+    })
+  ],
 } satisfies Config;
