@@ -8,6 +8,7 @@ import {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import {
     BookText,
@@ -37,6 +38,11 @@ const menuItems = [
 
 export function AppSidebar() {
     const pathname = usePathname();
+    const { setOpenMobile } = useSidebar();
+
+    const handleLinkClick = () => {
+        setOpenMobile(false);
+    };
 
     return (
         <Sidebar collapsible="icon" className="border-r">
@@ -57,6 +63,7 @@ export function AppSidebar() {
                                 asChild
                                 isActive={pathname.startsWith(item.href)}
                                 tooltip={{ children: item.label }}
+                                onClick={handleLinkClick}
                             >
                                 <Link href={item.href}>
                                     <item.icon />
