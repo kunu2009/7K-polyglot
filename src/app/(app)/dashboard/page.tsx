@@ -6,15 +6,15 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
-  ArrowRight,
   BookText,
+  FilePenLine,
   Gift,
   Layers,
   Mic,
@@ -44,6 +44,18 @@ const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: st
     </Link>
 );
 
+const allFeatures = [
+    { href: '/vocabulary', icon: BookText, title: 'Textbook', description: 'Interactive chapters from the HSC syllabus.' },
+    { href: '/grammar', icon: Scaling, title: 'Grammar Lessons', description: 'Detailed explanations of core grammar concepts.' },
+    { href: '/practice', icon: PencilRuler, title: 'Practice Quiz', description: 'Test your knowledge with MCQ questions.' },
+    { href: '/flashcards', icon: Layers, title: 'Flashcards', description: 'Learn vocabulary with spaced repetition.' },
+    { href: '/pronunciation', icon: Mic, title: 'Pronunciation AI', description: 'Get feedback on your spoken Sanskrit.' },
+    { href: '/grammar-tool', icon: Wand2, title: 'Grammar Tool', description: 'Get grammatical breakdowns of sentences.' },
+    { href: '/word-builder', icon: Swords, title: 'Word Builder', description: 'Form words from roots in a fun game.', badge: 'New' },
+    { href: '/writing-practice', icon: FilePenLine, title: 'Writing Practice', description: 'Practice writing essays on key topics.' },
+    { href: '/culture', icon: DiyaLampIcon, title: 'Cultural Insights', description: 'Discover the rich history behind Sanskrit.' },
+];
+
 export default function DashboardPage() {
     const { tasks } = useDailyTasks();
     const tasksComplete = useMemo(() => tasks.every(task => task.progress >= task.goal), [tasks]);
@@ -59,119 +71,43 @@ export default function DashboardPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-headline">
-                  <Target className="text-primary"/> Daily Goals
-              </CardTitle>
-              <CardDescription>Complete all three tasks to unlock your daily chest.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {tasks.map((task) => (
-                 <Link href={task.href} key={task.id}>
-                    <div className="p-4 rounded-lg border hover:bg-secondary/50 transition-colors cursor-pointer">
-                        <div className="flex justify-between items-center mb-1">
-                            <span className="font-semibold">{task.title}</span>
-                            <span className="text-sm font-medium text-primary">{task.progress} / {task.goal}</span>
-                        </div>
-                        <Progress value={task.goal > 0 ? (task.progress / task.goal) * 100 : 0} />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 font-headline">
+              <Target className="text-primary"/> Daily Goals
+          </CardTitle>
+          <CardDescription>Complete all three tasks to unlock your daily chest.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {tasks.map((task) => (
+             <Link href={task.href} key={task.id}>
+                <div className="p-4 rounded-lg border hover:bg-secondary/50 transition-colors cursor-pointer">
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="font-semibold">{task.title}</span>
+                        <span className="text-sm font-medium text-primary">{task.progress} / {task.goal}</span>
                     </div>
-                </Link>
-              ))}
-            </CardContent>
-             <CardFooter>
-                 <Button className="w-full" disabled={!tasksComplete}>
-                    <Gift className="mr-2"/>
-                    {tasksComplete ? "Claim Daily Chest" : "Complete All Tasks to Unlock"}
-                </Button>
-            </CardFooter>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-                <CardTitle>Explore Tools</CardTitle>
-                <CardDescription>Discover all the features 7K polyglot has to offer.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FeatureCard
-                    href="/word-builder"
-                    icon={Swords}
-                    title="Word Builder"
-                    description="Form words from roots and syllables in this fun game."
-                    badge="New"
-                />
-                <FeatureCard
-                    href="/grammar"
-                    icon={Scaling}
-                    title="Grammar Lessons"
-                    description="Learn the fundamental rules of the Sanskrit language step-by-step."
-                />
-                <FeatureCard
-                    href="/vocabulary"
-                    icon={BookText}
-                    title="Vocabulary Lists"
-                    description="Browse curated lists of essential words organized by category."
-                />
-                <FeatureCard
-                    href="/grammar-tool"
-                    icon={Wand2}
-                    title="Grammar Tool"
-                    description="Get an interactive breakdown of words within a sentence."
-                />
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Learning Hub</CardTitle>
-                <CardDescription>Your core learning activities.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Link href="/practice" passHref>
-                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
-                  <PencilRuler className="text-primary" />
-                  <span>Practice Quiz</span>
-                  <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
-                </Button>
-              </Link>
-              <Link href="/flashcards" passHref>
-                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
-                  <Layers className="text-primary" />
-                  <span>Review Flashcards</span>
-                  <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
-                </Button>
-              </Link>
-              <Link href="/pronunciation" passHref>
-                <Button variant="outline" size="lg" className="w-full justify-start gap-4 h-16">
-                  <Mic className="text-primary" />
-                  <span>Pronunciation AI</span>
-                   <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground"/>
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-           <Card>
-            <CardHeader>
-                <CardTitle className="font-headline flex items-center gap-2">
-                    <DiyaLampIcon />
-                    Cultural Insights
-                </CardTitle>
-                <CardDescription>Explore the rich history and context behind the language.</CardDescription>
-            </CardHeader>
-             <CardFooter>
-                <Link href="/culture" className="w-full">
-                    <Button className="w-full">
-                        Discover More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                </Link>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
+                    <Progress value={task.goal > 0 ? (task.progress / task.goal) * 100 : 0} />
+                </div>
+            </Link>
+          ))}
+        </CardContent>
+         <CardFooter>
+             <Button className="w-full" disabled={!tasksComplete}>
+                <Gift className="mr-2"/>
+                {tasksComplete ? "Claim Daily Chest" : "Complete All Tasks to Unlock"}
+            </Button>
+        </CardFooter>
+      </Card>
+      
+      <Card>
+        <CardHeader>
+            <CardTitle className="font-headline">Explore All Features</CardTitle>
+            <CardDescription>Quick access to all learning modules and tools.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {allFeatures.map(feature => <FeatureCard key={feature.href} {...feature} />)}
+        </CardContent>
+      </Card>
     </div>
   );
 }
