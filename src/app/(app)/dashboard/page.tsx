@@ -1,18 +1,16 @@
 'use client';
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight,
   BookText,
   FilePenLine,
   Layers,
@@ -21,14 +19,14 @@ import {
   Scaling,
   Swords,
   Wand2,
+  CheckCircle2,
+  RefreshCcw,
+  Trophy,
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
-import { flashcards, practiceQuestions, textbookChapters } from "@/lib/sanskrit-data";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { Progress } from "@/components/ui/progress";
+import { useDailyTasks } from "@/context/daily-tasks-context";
 import { cn } from "@/lib/utils";
-
 
 const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
     <Link href={href} className="flex">
@@ -60,27 +58,8 @@ const allFeatures = [
 ];
 
 export default function DashboardPage() {
-    const { toast } = useToast();
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-
-    const firstFlashcard = flashcards[0];
-    const firstQuestion = practiceQuestions[0];
-    const firstChapter = textbookChapters[0];
-    
-    const isAnswered = selectedAnswer !== null;
-
-    const handleSelectOption = (option: string) => {
-        if (isAnswered) return;
-
-        setSelectedAnswer(option);
-        const isCorrect = option === firstQuestion.answer;
-        if (isCorrect) {
-            toast({ title: "Correct!" });
-        } else {
-            toast({ title: "Incorrect!", description: `The correct answer is: ${firstQuestion.answer}`, variant: "destructive" });
-        }
-    };
+    const { tasks, resetTasks } = useDailyTasks();
+    const allTasksCompleted = tasks.every(task => task.progress >= task.goal);
 
   return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
@@ -89,90 +68,61 @@ export default function DashboardPage() {
             नमो नमः!
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-            Welcome back! Here's a quick start for your Sanskrit studies.
+            Welcome back! Here are your goals for today.
         </p>
       </header>
       
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="flex flex-col">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 font-headline">
-                        <Layers className="text-primary"/> Flashcard Quick Review
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow flex items-center justify-center rounded-md p-6 perspective-1000">
-                     <div
-                        className={`relative w-full h-full transform-style-preserve-3d transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}
-                        onClick={() => setIsFlipped(!isFlipped)}
-                        style={{minHeight: '100px'}}
-                    >
-                        <div className="absolute w-full h-full backface-hidden flex items-center justify-center bg-secondary rounded-lg cursor-pointer">
-                             <p className="text-4xl font-headline text-center">{firstFlashcard.front}</p>
-                        </div>
-                        <div className="absolute w-full h-full backface-hidden rotate-y-180 flex items-center justify-center bg-accent text-accent-foreground rounded-lg cursor-pointer">
-                             <p className="text-3xl font-semibold text-center">{firstFlashcard.back}</p>
-                        </div>
+      <Card>
+        <CardHeader className="flex-row items-center justify-between">
+          <div>
+            <CardTitle className="font-headline text-2xl flex items-center gap-2">
+              <Trophy className="text-primary"/> Today's Goals
+            </CardTitle>
+            <CardDescription>Complete these tasks to stay on track.</CardDescription>
+          </div>
+          <Button variant="outline" size="sm" onClick={resetTasks}>
+            <RefreshCcw className="mr-2 h-4 w-4"/> Reset
+          </Button>
+        </CardHeader>
+        <CardContent className="space-y-6">
+            {allTasksCompleted && (
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3 text-green-800 animate-fade-in-up dark:bg-green-900/30 dark:border-green-800 dark:text-green-300">
+                    <CheckCircle2 className="h-6 w-6"/>
+                    <div>
+                        <h3 className="font-bold">All goals completed!</h3>
+                        <p className="text-sm">उत्तमम्! You're all set for today. Come back tomorrow for new goals.</p>
                     </div>
-                </CardContent>
-                <CardFooter className="pt-6">
-                    <Button asChild className="w-full">
-                        <Link href="/flashcards">Study Full Deck <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-
-            <Card className="flex flex-col">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 font-headline">
-                        <PencilRuler className="text-primary"/> Practice Question
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow space-y-4">
-                    <p className="text-base font-semibold">{firstQuestion.question}</p>
-                    <RadioGroup
-                        value={selectedAnswer || ''}
-                        onValueChange={handleSelectOption}
-                        disabled={isAnswered}
-                    >
-                        {firstQuestion.options.map((option, index) => (
-                        <Label
-                            key={index}
-                            className={cn('flex items-center space-x-2 p-3 rounded-md border transition-colors',
-                            isAnswered && option === firstQuestion.answer ? 'border-green-500 bg-green-50' : '',
-                            isAnswered && option === selectedAnswer && option !== firstQuestion.answer ? 'border-red-500 bg-red-50' : '',
-                            !isAnswered ? 'cursor-pointer hover:bg-secondary' : 'cursor-not-allowed'
-                            )}
-                        >
-                            <RadioGroupItem value={option} id={`q-option-${index}`} />
-                            <span>{option}</span>
-                        </Label>
-                        ))}
-                    </RadioGroup>
-                </CardContent>
-                <CardFooter className="pt-6">
-                    <Button asChild className="w-full">
-                        <Link href="/practice">Take the Full Quiz <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-
-            <Card className="flex flex-col">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 font-headline">
-                        <BookText className="text-primary"/> Featured Chapter
-                    </CardTitle>
-                    <CardDescription>{firstChapter.category}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                    <p className="text-sm text-muted-foreground line-clamp-4">{firstChapter.summary}</p>
-                </CardContent>
-                <CardFooter className="pt-6">
-                    <Button asChild className="w-full">
-                        <Link href="/textbook">Read Full Chapter <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-        </div>
+                </div>
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {tasks.map((task) => {
+                    const isCompleted = task.progress >= task.goal;
+                    return (
+                        <Link key={task.id} href={task.href} className="flex">
+                            <Card className={cn(
+                                "w-full transition-colors", 
+                                isCompleted 
+                                ? "bg-green-50/50 border-green-200 dark:bg-green-900/20 dark:border-green-800"
+                                : "hover:bg-secondary/50"
+                            )}>
+                                <CardHeader>
+                                    <div className="flex justify-between items-start">
+                                        <CardTitle className="text-base font-semibold">{task.title}</CardTitle>
+                                        {isCompleted && <CheckCircle2 className="h-5 w-5 text-green-600"/>}
+                                    </div>
+                                    <CardDescription className="text-sm">{task.description}</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <Progress value={(task.progress / task.goal) * 100} className="h-2" />
+                                    <p className="text-xs text-muted-foreground mt-2 text-right">{task.progress} / {task.goal}</p>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                    )
+                })}
+            </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

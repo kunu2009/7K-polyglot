@@ -36,12 +36,12 @@ export default function PracticePage() {
         toast({ title: "Incorrect!", description: `The correct answer is: ${currentQuestion.answer}`, variant: "destructive" });
     }
 
-    if (currentQuestionIndex === practiceQuestions.length - 1 && !quizCompleted) {
+    if (Object.keys(newAnswers).length === practiceQuestions.length && !quizCompleted) {
         updateTaskProgress('task-1', 1);
         setQuizCompleted(true);
         toast({
             title: "Quiz Complete!",
-            description: "You've finished the last question.",
+            description: "You've finished all the questions.",
         });
     }
   };
@@ -100,9 +100,9 @@ export default function PracticePage() {
               <Label
                 key={index}
                 className={`flex items-center space-x-2 p-4 rounded-md border transition-colors ${
-                  isAnswered && option === currentQuestion.answer ? 'border-green-500 bg-green-50' : ''
+                  isAnswered && option === currentQuestion.answer ? 'border-green-500 bg-green-50 dark:bg-green-900/20 dark:border-green-700' : ''
                 } ${
-                  isAnswered && option === selectedOption && option !== currentQuestion.answer ? 'border-red-500 bg-red-50' : ''
+                  isAnswered && option === selectedOption && option !== currentQuestion.answer ? 'border-red-500 bg-red-50 dark:bg-red-900/20 dark:border-red-700' : ''
                 } ${
                     !isAnswered ? 'cursor-pointer hover:bg-secondary' : 'cursor-not-allowed'
                 }`}

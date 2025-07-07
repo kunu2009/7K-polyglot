@@ -7,9 +7,9 @@ export const dailyTasks = [
         href: "/flashcards",
     },
     {
-        title: "Take a Practice Quiz",
+        title: "Answer Quiz Questions",
         description: "Test your knowledge on grammar and comprehension.",
-        goal: 1,
+        goal: 200,
         href: "/practice",
     },
     {
