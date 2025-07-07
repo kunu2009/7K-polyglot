@@ -2,7 +2,7 @@
 'use client';
 
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -15,27 +15,34 @@ import {
   BookOpenCheck,
   Flame,
   Layers,
-  MessageSquareQuote,
   Mic,
   PencilRuler,
   FilePenLine,
-  Search,
-  ShieldCheck,
-  Cloud,
   Wand2,
+  MessageSquareQuote,
+  RotateCcw,
 } from "lucide-react";
 import { OmIcon } from "@/components/icons";
-import { culturalFacts, textbookChapters } from "@/lib/sanskrit-data";
+import {
+  culturalFacts,
+  textbookChapters,
+  flashcards,
+  practiceQuestions,
+  grammarToolSentence,
+} from "@/lib/sanskrit-data";
+import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-type DashboardWidgetProps = {
+type DashboardLinkWidgetProps = {
   href: string;
   icon: React.ElementType;
   title: string;
   description: string;
-  children?: React.ReactNode;
 };
 
-const DashboardWidget = ({ href, icon: Icon, title, description, children }: DashboardWidgetProps) => (
+const DashboardLinkWidget = ({ href, icon: Icon, title, description }: DashboardLinkWidgetProps) => (
   <Link href={href} className="flex">
     <Card className="w-full bg-card hover:border-primary/50 hover:bg-secondary/50 transition-colors flex flex-col">
       <CardHeader>
@@ -48,10 +55,140 @@ const DashboardWidget = ({ href, icon: Icon, title, description, children }: Das
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="text-muted-foreground">{description}</p>
-        {children}
       </CardContent>
     </Card>
   </Link>
+);
+
+const FlashcardWidget = () => {
+    const [card, setCard] = useState<(typeof flashcards)[0] | null>(null);
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    useEffect(() => {
+        setCard(flashcards[Math.floor(Math.random() * flashcards.length)]);
+    }, []);
+
+    if (!card) return null;
+
+    return (
+        <Card className="w-full bg-card flex flex-col">
+            <CardHeader>
+                <div className="flex items-center gap-4">
+                    <div className="bg-primary/20 p-3 rounded-lg">
+                        <Layers className="h-6 w-6 text-primary"/>
+                    </div>
+                    <CardTitle className="font-headline text-xl">Quick Flashcard</CardTitle>
+                </div>
+            </CardHeader>
+            <CardContent className="flex-grow cursor-pointer" onClick={() => setIsFlipped(!isFlipped)}>
+                <div className="perspective-1000 h-full">
+                    <div className={`relative w-full h-full transform-style-preserve-3d transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}>
+                        <div className="absolute w-full h-full backface-hidden flex items-center justify-center p-4 bg-secondary rounded-lg">
+                            <p className="text-3xl font-bold font-headline text-center">{card.front}</p>
+                        </div>
+                        <div className="absolute w-full h-full backface-hidden rotate-y-180 flex items-center justify-center p-4 bg-accent text-accent-foreground rounded-lg">
+                            <p className="text-2xl font-semibold text-center">{card.back}</p>
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
+
+const QuizWidget = () => {
+    const { toast } = useToast();
+    const [question, setQuestion] = useState<(typeof practiceQuestions)[0] | null>(null);
+    const [isAnswered, setIsAnswered] = useState(false);
+
+    useEffect(() => {
+        setQuestion(practiceQuestions[Math.floor(Math.random() * practiceQuestions.length)]);
+    }, []);
+
+    const handleSelectOption = (option: string) => {
+        if (isAnswered || !question) return;
+        setIsAnswered(true);
+        if (option === question.answer) {
+            toast({ title: "Correct!" });
+        } else {
+            toast({ title: "Incorrect!", description: `The right answer is: ${question.answer}`, variant: "destructive" });
+        }
+    };
+    
+    if (!question) return null;
+
+    return (
+        <Card className="w-full bg-card flex flex-col">
+            <CardHeader>
+                <div className="flex items-center gap-4">
+                    <div className="bg-primary/20 p-3 rounded-lg">
+                        <PencilRuler className="h-6 w-6 text-primary"/>
+                    </div>
+                    <CardTitle className="font-headline text-xl">Practice Question</CardTitle>
+                </div>
+                 <CardDescription className="pt-2 text-base">{question.question}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+                <RadioGroup onValueChange={handleSelectOption} disabled={isAnswered}>
+                    {question.options.map((option, index) => (
+                        <Label key={index} className={`flex items-center space-x-2 p-3 rounded-md border transition-colors ${!isAnswered ? 'cursor-pointer hover:bg-secondary' : 'cursor-not-allowed'}`}>
+                           <RadioGroupItem value={option} id={`q-widget-${index}`} />
+                           <span>{option}</span>
+                        </Label>
+                    ))}
+                </RadioGroup>
+            </CardContent>
+        </Card>
+    );
+};
+
+const GrammarToolWidget = () => (
+    <Card className="w-full bg-card flex flex-col">
+        <CardHeader>
+            <div className="flex items-center gap-4">
+                <div className="bg-primary/20 p-3 rounded-lg">
+                    <Wand2 className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="font-headline text-xl">Grammar Tool</CardTitle>
+            </div>
+            <CardDescription className="pt-2">Tap a word to see its grammar.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex-grow">
+            <div className="p-4 border rounded-lg bg-secondary">
+                <p className="text-2xl text-center font-headline tracking-wider">
+                    {grammarToolSentence.words.map((wordData, index) => (
+                        <Popover key={index}>
+                            <PopoverTrigger asChild>
+                                <span className={`cursor-pointer hover:underline decoration-primary decoration-2 underline-offset-4 mx-1 ${wordData.color}`}>
+                                    {wordData.word}
+                                </span>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                                <div className="grid gap-4">
+                                    <div className="space-y-2">
+                                        <h4 className="font-medium leading-none font-headline">{wordData.word}</h4>
+                                        <p className="text-sm text-muted-foreground">Meaning: "{wordData.info.meaning}"</p>
+                                    </div>
+                                    <div className="grid gap-2">
+                                        {Object.entries(wordData.info).map(([key, value]) => {
+                                            if (key === 'meaning') return null;
+                                            const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                                            return (
+                                                <div key={key} className="grid grid-cols-3 items-center gap-4">
+                                                    <span className="text-sm font-medium capitalize text-muted-foreground">{formattedKey}</span>
+                                                    <span className="col-span-2 text-sm">{value as string}</span>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+                    ))}
+                </p>
+            </div>
+        </CardContent>
+    </Card>
 );
 
 const SanskritFactWidget = () => {
@@ -109,6 +246,7 @@ const RandomVerseWidget = () => {
     );
 };
 
+
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 animate-fade-in-up">
@@ -128,34 +266,24 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Widget Rows */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <DashboardWidget href="/textbook" icon={BookOpenCheck} title="Chapter Progress" description="Review textbook chapters and verses." />
-        <DashboardWidget href="/pronunciation" icon={Mic} title="Recite Tool" description="Practice your pronunciation with AI." />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <DashboardWidget href="/flashcards" icon={Layers} title="Flashcards" description="Memorize vocabulary with spaced repetition." />
-        <DashboardWidget href="/practice" icon={PencilRuler} title="Daily Quiz" description="Test your knowledge on grammar." />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <DashboardWidget href="/grammar-tool" icon={Wand2} title="Grammar Tool" description="Analyze sentence structures." />
-        <DashboardWidget href="/writing-practice" icon={FilePenLine} title="Writing Drill" description="Practice your essay writing skills." />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Row 1 */}
+        <DashboardLinkWidget href="/textbook" icon={BookOpenCheck} title="Textbook" description="Review chapters and verses." />
+        <DashboardLinkWidget href="/pronunciation" icon={Mic} title="Recite Tool" description="Practice pronunciation with AI." />
+        
+        {/* Row 2 */}
+        <FlashcardWidget />
+        <QuizWidget />
+        
+        {/* Row 3 */}
+        <GrammarToolWidget />
+        <DashboardLinkWidget href="/writing-practice" icon={FilePenLine} title="Writing Drill" description="Practice your essay writing skills." />
+        
+        {/* Row 4 */}
         <SanskritFactWidget />
         <RandomVerseWidget />
       </div>
-      
-      {/* Bottom Action Row */}
-      <Card>
-        <CardContent className="p-4">
-            <div className="flex justify-around items-center">
-                <Button variant="ghost" className="flex-1" disabled><Search className="mr-2"/> Search</Button>
-                <Button variant="ghost" className="flex-1" disabled><ShieldCheck className="mr-2"/> Challenges</Button>
-                <Button variant="ghost" className="flex-1" disabled><Cloud className="mr-2"/> Sync</Button>
-            </div>
-        </CardContent>
-      </Card>
+
     </div>
   );
 }
