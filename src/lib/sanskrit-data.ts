@@ -53,10 +53,10 @@ export const textbookChapters: TextbookChapter[] = [
     type: 'Prose',
     author: 'Chanakya',
     authorIntro: "Chanakya was an ancient Indian teacher, philosopher, economist, jurist and royal advisor. He is traditionally identified as Kauṭilya or Vishnugupta, who authored the ancient Indian political treatise, the Arthashastra.",
-    summary: "This chapter presents a collection of aphorisms (sutras) from Chanakya's Nītīśāstra. Each verse provides timeless wisdom on governance, ethics, and practical life, emphasizing the value of knowledge over power.",
+    summary: "This chapter presents a collection of aphorisms (sutras) from Chanakya's Nītīśāstra. Each verse provides timeless wisdom on governance, ethics, and practical life, emphasizing the value of knowledge.",
     content: [
-      { id: 1, sanskrit: "विद्वत्त्वं च नृपत्वं च नैव तुल्यं कदाचन।", translation: "Learning and kingship are never equal." },
-      { id: 2, sanskrit: "स्वदेशे पूज्यते राजा विद्वान् सर्वत्र पूज्यते॥", translation: "A king is worshipped in his own country, but a learned person is worshipped everywhere." }
+      { id: 1, sanskrit: "विद्वत्त्वं च नृपत्वं च नैव तुल्यं कदाचन। स्वदेशे पूज्यते राजा विद्वान् सर्वत्र पूज्यते॥", translation: "Learning and kingship are never equal. A king is worshipped in his own country, but a learned person is worshipped everywhere." },
+      { id: 2, sanskrit: "कामधेनुगुणा विद्या ह्यकाले फलदायिनी। प्रवासे मातृसदृशी विद्या गुप्तं धनं स्मृतम्॥", translation: "Knowledge has qualities like a wish-fulfilling cow, yielding fruits even at an inopportune time. During travels, it is like a mother. Knowledge is considered a secret treasure." }
     ],
     words: [
       { sanskrit: "विद्वान्", english: "A learned person", etymology: { root: "विद्", meaning: "to know" } },
@@ -64,7 +64,12 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "स्वदेशे", english: "In his own country", etymology: { root: "स्व + दिश्", meaning: "own + country/direction"} },
       { sanskrit: "पूज्यते", english: "Is worshipped / honored" },
       { sanskrit: "सर्वत्र", english: "Everywhere" },
-      { sanskrit: "तुलना", english: "Comparison" },
+      { sanskrit: "कामधेनुः", english: "Wish-fulfilling cow" },
+      { sanskrit: "अकाले", english: "At an inopportune time" },
+      { sanskrit: "फलदायिनी", english: "Giver of fruits" },
+      { sanskrit: "प्रवासे", english: "During travels" },
+      { sanskrit: "मातृसदृशी", english: "Like a mother" },
+      { sanskrit: "गुप्तम् धनम्", english: "Secret treasure" },
     ],
   },
   {
@@ -74,30 +79,36 @@ export const textbookChapters: TextbookChapter[] = [
     type: 'Poetry',
     author: "Kālidāsa",
     authorIntro: "Kālidāsa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language. His plays and poetry are primarily based on Hindu Puranas and philosophy.",
-    summary: "This opening verse from the epic poem Raghuvamsham is an invocation to the deities Shiva and Parvati. Kalidasa seeks their blessing to eloquently unite word and meaning, just as the divine couple is inseparably connected.",
+    summary: "These opening verses from the epic poem Raghuvamsham begin with an invocation to Shiva and Parvati, followed by the poet's humble admission of the great task he is undertaking.",
     content: [
       { 
         id: 1, 
-        sanskrit: "वागर्थाविव संपृक्तौ वागर्थप्रतिपत्तये।", 
-        translation: "For the correct understanding of word and its meaning, I bow to Parvati and Parameshwara...",
+        sanskrit: "वागर्थाविव संपृक्तौ वागर्थप्रतिपत्तये। जगतः पितरौ वन्दे पार्वतीपरमेश्वरौ॥", 
+        translation: "For the correct understanding of word and its meaning, I bow to Parvati and Parameshwara, who are the parents of the world and are inseparably connected like the word and its meaning.",
         metre: "Anuṣṭubh",
         figureOfSpeech: "Upamā (Simile)"
       },
       { 
         id: 2, 
-        sanskrit: "जगतः पितरौ वन्दे पार्वतीपरमेश्वरौ॥", 
-        translation: "...who are the parents of the world and are inseparably connected like the word and its meaning.",
+        sanskrit: "क्व सूर्यप्रभवो वंशः क्व चाल्पविषया मतिः। तितीर्षुर्दुस्तरं मोहादुडुपेनास्मि सागरम्॥", 
+        translation: "Where is the great lineage originating from the Sun, and where is my limited intellect? Out of delusion, I desire to cross the difficult-to-cross ocean with a small raft.",
         metre: "Anuṣṭubh",
-        figureOfSpeech: "Upamā (Simile)"
+        figureOfSpeech: "Nidarśanā (Illustration)"
       }
     ],
     words: [
       { sanskrit: "वागर्थौ", english: "Word and its meaning", etymology: { root: "वाच् + अर्थ", meaning: "Speech + Meaning (Compound)" } },
-      { sanskrit: "इव", english: "Like / As" },
       { sanskrit: "सम्पृक्तौ", english: "Inseparably connected" },
       { sanskrit: "जगतः", english: "Of the world" },
       { sanskrit: "पितरौ", english: "Parents (dual)" },
       { sanskrit: "वन्दे", english: "I bow / salute" },
+      { sanskrit: "सूर्यप्रभवः", english: "Originating from the Sun" },
+      { sanskrit: "वंशः", english: "Lineage / Dynasty" },
+      { sanskrit: "अल्पविषया मतिः", english: "Limited intellect" },
+      { sanskrit: "तितीर्षुः", english: "Desirous of crossing" },
+      { sanskrit: "दुस्तरम्", english: "Difficult to cross" },
+      { sanskrit: "उडुपेन", english: "With a small raft" },
+      { sanskrit: "सागरम्", english: "Ocean" },
     ],
   },
   {
@@ -107,17 +118,25 @@ export const textbookChapters: TextbookChapter[] = [
     type: 'Prose',
     author: 'Vishnusharma',
     authorIntro: "Vishnusharma is the attributed author of the Pañcatantra, an ancient collection of animal fables designed to impart wisdom and principles of statecraft (Nīti) to young princes.",
-    summary: "From the 'Mitrabheda' (The Separation of Friends) book of the Pañcatantra, this section introduces the core themes of political intelligence, courage, and the use of strategy to navigate complex social dynamics.",
+    summary: "From 'Mitrabheda' (The Separation of Friends), this section introduces King Amarashakti, who is worried about his three foolish sons. He seeks a teacher who can impart wisdom to them, leading to the creation of the Pañcatantra.",
     content: [
-        { id: 1, sanskrit: "अस्ति दाक्षिणात्ये जनपदे महिलारोप्यं नाम नगरम्।", translation: "There is in the southern region a city named Mahilaropya." },
+        { id: 1, sanskrit: "अस्ति दाक्षिणात्ये जनपदे महिलारोप्यं नाम नगरम्। तत्र अमरशक्तिर्नाम राजा बभूव।", translation: "There is in the southern region a city named Mahilaropya. There lived a king named Amarashakti." },
+        { id: 2, sanskrit: "तस्य त्रयः पुत्राः बहुशक्तिः, उग्रशक्तिः, अनन्तशक्तिश्चेति परममूर्खाः आसन्।", translation: "He had three sons named Bahushakti, Ugrashakti, and Anantashakti, who were extremely foolish." },
+        { id: 3, sanskrit: "अथ स राजा तान् शास्त्रविमुखान् आलोक्य सचिवान् आहूय प्रोवाच।", translation: "Then that king, seeing them averse to learning, called his ministers and said." },
+        { id: 4, sanskrit: "भोः, ज्ञातमेतद् भवद्भिर्यन्ममैते पुत्राः शास्त्रविमुखाः विवेकरहिताश्च। एतान् पश्यतो मे महदपि राज्यं न सौख्यमावहति।", translation: "Oh, you all know that these sons of mine are averse to scriptures and lack discretion. Seeing them, even a great kingdom does not bring me happiness." }
     ],
     words: [
-      { sanskrit: "मित्रभेदः", english: "Separation of friends" },
-      { sanskrit: "दमनकः", english: "Name of a jackal" },
-      { sanskrit: "पिङ्गलकः", english: "Name of a lion" },
-      { sanskrit: "बुद्धिः", english: "Intellect / Wisdom" },
-      { sanskrit: "पराक्रमः", english: "Valor / Might" },
-      { sanskrit: "नीतिः", english: "Ethics / Policy" },
+      { sanskrit: "जनपदे", english: "In a region/territory" },
+      { sanskrit: "बभूव", english: "Became / Lived (past tense)" },
+      { sanskrit: "परममूर्खाः", english: "Extremely foolish (plural)" },
+      { sanskrit: "शास्त्रविमुखान्", english: "Averse to scriptures" },
+      { sanskrit: "आलोक्य", english: "Having seen" },
+      { sanskrit: "सचिवान्", english: "Ministers (accusative plural)" },
+      { sanskrit: "आहूय", english: "Having called" },
+      { sanskrit: "प्रोवाच", english: "Said (past tense)" },
+      { sanskrit: "विवेकरहिताः", english: "Devoid of discretion" },
+      { sanskrit: "सौख्यम्", english: "Happiness" },
+      { sanskrit: "आवहति", english: "Brings" },
     ],
   },
   {
@@ -127,17 +146,24 @@ export const textbookChapters: TextbookChapter[] = [
     type: 'Poetry',
     author: 'Bhāravi',
     authorIntro: "Bhāravi, a 6th-century poet, is acclaimed for his epic poem Kirātārjunīya. His work is celebrated for its profound thoughts, intricate wordplay, and 'arthagaurava' (depth of meaning).",
-    summary: "This famous verse from Kirātārjunīya advises that speech which is both beneficial (hita) and pleasing (manohāri) is exceedingly rare. It underscores the difficulty of finding a true friend who can offer advice that is both honest and kind.",
+    summary: "In this verse, a spy sent by Yudhishthira reports back about Duryodhana's rule. He prefaces his report by stating that a king should not be deceived by his servants, and that speech which is both true/beneficial and pleasing is very rare.",
     content: [
-        { id: 1, sanskrit: "हितं मनोहारि च दुर्लभं वचः।", translation: "Speech that is both beneficial and pleasing is rare.", metre: "Vanshastra" },
+        { id: 1, sanskrit: "क्रियासु युक्तैर्नृप चारचक्षुषो न वञ्चनीयाः प्रभवोऽनुजीविभिः।", translation: "O King, masters who see through the eyes of their spies should not be deceived by their subordinates with regard to their actions.", metre: "Vanshastra" },
+        { id: 2, sanskrit: "अतोऽर्हसि क्षन्तुमसाधु साधु वा हितं मनोहारि च दुर्लभं वचः॥", translation: "Therefore, you should forgive what I say, whether it is unpleasant or pleasant—because speech that is both beneficial and pleasing is rare.", metre: "Vanshastra" }
     ],
     words: [
-      { sanskrit: "हितं", english: "Beneficial / Good", etymology: { root: "धा", meaning: "to put, place" } },
+      { sanskrit: "क्रियासु", english: "In actions" },
+      { sanskrit: "चारचक्षुषः", english: "Those who see through spies" },
+      { sanskrit: "न वञ्चनीयाः", english: "Should not be deceived" },
+      { sanskrit: "प्रभवः", english: "Masters / Lords" },
+      { sanskrit: "अनुजीविभिः", english: "By subordinates/servants" },
+      { sanskrit: "क्षन्तुम् अर्हसि", english: "You should forgive" },
+      { sanskrit: "असाधु", english: "Unpleasant / Bad" },
+      { sanskrit: "साधु", english: "Pleasant / Good" },
+      { sanskrit: "हितं", english: "Beneficial / Good" },
       { sanskrit: "मनोहारि", english: "Pleasing to the mind" },
-      { sanskrit: "च", english: "And" },
       { sanskrit: "दुर्लभं", english: "Rare / Difficult to obtain" },
       { sanskrit: "वचः", english: "Speech / Word" },
-      { sanskrit: "सखा", english: "Friend" },
     ],
   },
 ];
