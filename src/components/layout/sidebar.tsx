@@ -13,6 +13,7 @@ import {
 import {
     BookText,
     Bot,
+    FilePenLine,
     LayoutGrid,
     Layers,
     Mic,
@@ -33,6 +34,7 @@ const menuItems = [
     { href: '/pronunciation', label: 'Pronunciation AI', icon: Mic },
     { href: '/grammar-tool', label: 'Grammar Tool', icon: Wand2 },
     { href: '/word-builder', label: 'Word Builder', icon: Swords },
+    { href: '/writing-practice', label: 'Writing Practice', icon: FilePenLine },
     { href: '/culture', label: 'Culture', icon: DiyaLampIcon },
 ];
 

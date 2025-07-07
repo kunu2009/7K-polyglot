@@ -605,3 +605,11 @@ export const wordBuilderGame = {
         }
     ]
 };
+
+export const writingTopics = [
+    { title: "मम प्रियः कविः कालिदासः", translation: "My favorite poet, Kālidāsa" },
+    { title: "संस्कृतभाषायाः महत्त्वम्", translation: "The importance of the Sanskrit language" },
+    { title: "परोपकारः", translation: "Helping others (benevolence)" },
+    { title: "विद्यायाः श्रेष्ठत्वम्", translation: "The supremacy of knowledge" },
+    { title: "अस्माकं देशः भारतम्", translation: "Our country, India" },
+];
