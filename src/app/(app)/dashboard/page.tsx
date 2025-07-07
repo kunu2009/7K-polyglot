@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
+  ArrowRight,
   BookText,
   FilePenLine,
   Gift,
@@ -26,6 +27,7 @@ import {
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
 import { useDailyTasks } from "@/context/daily-tasks-context";
+import { flashcards, practiceQuestions, textbookChapters } from "@/lib/sanskrit-data";
 
 const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
     <Link href={href} className="flex">
@@ -59,15 +61,19 @@ const allFeatures = [
 export default function DashboardPage() {
     const { tasks } = useDailyTasks();
     const tasksComplete = useMemo(() => tasks.every(task => task.progress >= task.goal), [tasks]);
+    
+    const firstFlashcard = flashcards[0];
+    const firstQuestion = practiceQuestions[0];
+    const firstChapter = textbookChapters[0];
 
   return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
       <header>
         <h1 className="text-4xl font-headline font-bold">
-          Namaste!
+            नमो नमः!
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Here are your goals for today. Let's make progress!
+            Welcome back! Here's a quick start for your Sanskrit studies.
         </p>
       </header>
 
@@ -99,10 +105,61 @@ export default function DashboardPage() {
         </CardFooter>
       </Card>
       
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="flex flex-col">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2 font-headline">
+                        <Layers className="text-primary"/> Flashcard Quick Review
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow flex items-center justify-center bg-secondary rounded-md p-6">
+                    <p className="text-4xl font-headline text-center">{firstFlashcard.front}</p>
+                </CardContent>
+                <CardFooter className="pt-6">
+                    <Button asChild className="w-full">
+                        <Link href="/flashcards">Start Studying Flashcards <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+
+            <Card className="flex flex-col">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2 font-headline">
+                        <PencilRuler className="text-primary"/> Practice Question
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                    <p className="text-base font-semibold">{firstQuestion.question}</p>
+                </CardContent>
+                <CardFooter className="pt-6">
+                    <Button asChild className="w-full">
+                        <Link href="/practice">Take the Full Quiz <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+
+            <Card className="flex flex-col">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2 font-headline">
+                        <BookText className="text-primary"/> Featured Chapter
+                    </CardTitle>
+                    <CardDescription>{firstChapter.category}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                    <p className="text-sm text-muted-foreground line-clamp-4">{firstChapter.summary}</p>
+                </CardContent>
+                <CardFooter className="pt-6">
+                    <Button asChild className="w-full">
+                        <Link href="/vocabulary">Read Full Chapter <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </div>
+
       <Card>
         <CardHeader>
-            <CardTitle className="font-headline">Explore All Features</CardTitle>
-            <CardDescription>Quick access to all learning modules and tools.</CardDescription>
+            <CardTitle className="font-headline">All Learning Modules</CardTitle>
+            <CardDescription>Explore all features and learning tools available.</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {allFeatures.map(feature => <FeatureCard key={feature.href} {...feature} />)}
