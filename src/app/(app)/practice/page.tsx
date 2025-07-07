@@ -6,48 +6,60 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { practiceQuestions } from '@/lib/sanskrit-data';
-import { CheckCircle, XCircle, RotateCw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useDailyTasks } from '@/context/daily-tasks-context';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function PracticePage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [isAnswered, setIsAnswered] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
+  // Store user's selected answer for each question index
+  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
   const { updateTaskProgress } = useDailyTasks();
 
   const currentQuestion = practiceQuestions[currentQuestionIndex];
+  const selectedOption = answers[currentQuestionIndex];
+  const isAnswered = selectedOption !== undefined;
 
-  const handleCheckAnswer = () => {
-    if (!selectedOption) {
-      toast({
-        title: "Please select an answer",
-        variant: "destructive",
-      });
-      return;
+  const handleSelectOption = (option: string) => {
+    if (isAnswered) return; // Don't allow changing answer
+
+    const newAnswers = { ...answers, [currentQuestionIndex]: option };
+    setAnswers(newAnswers);
+
+    const isCorrect = option === currentQuestion.answer;
+    if (isCorrect) {
+        toast({ title: "Correct!" });
+    } else {
+        toast({ title: "Incorrect!", description: `The correct answer is: ${currentQuestion.answer}`, variant: "destructive" });
     }
 
-    const correct = selectedOption === currentQuestion.answer;
-    setIsCorrect(correct);
-    setIsAnswered(true);
+    if (currentQuestionIndex === practiceQuestions.length - 1 && !quizCompleted) {
+        updateTaskProgress('task-1', 1);
+        setQuizCompleted(true);
+        toast({
+            title: "Quiz Complete!",
+            description: "You've finished the last question.",
+        });
+    }
+  };
+  
+  const handleQuestionChange = (index: number) => {
+    if (index >= 0 && index < practiceQuestions.length) {
+      setCurrentQuestionIndex(index);
+    }
   };
 
-  const handleNextQuestion = () => {
-    setIsAnswered(false);
-    setSelectedOption(null);
-    if (currentQuestionIndex < practiceQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      // Loop back to the beginning for endless practice
-      updateTaskProgress('task-1', 1);
-      setCurrentQuestionIndex(0);
-      toast({
-        title: "Quiz Complete!",
-        description: "You've finished the questions. Starting over.",
-      })
-    }
+  const handleRestart = () => {
+    setCurrentQuestionIndex(0);
+    setAnswers({});
+    setQuizCompleted(false);
+    toast({
+        title: "Quiz Restarted",
+        description: "Your answers have been cleared.",
+    });
   };
 
   return (
@@ -61,13 +73,27 @@ export default function PracticePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Question {currentQuestionIndex + 1} of {practiceQuestions.length}</CardTitle>
+          <div className="flex justify-between items-center">
+            <CardTitle>Question {currentQuestionIndex + 1} of {practiceQuestions.length}</CardTitle>
+            <Select onValueChange={(value) => handleQuestionChange(parseInt(value))} value={currentQuestionIndex.toString()}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Jump to..." />
+              </SelectTrigger>
+              <SelectContent>
+                {practiceQuestions.map((_, index) => (
+                  <SelectItem key={index} value={index.toString()}>
+                    Question {index + 1}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <CardDescription className="text-lg pt-2">{currentQuestion.question}</CardDescription>
         </CardHeader>
         <CardContent>
           <RadioGroup
             value={selectedOption || ''}
-            onValueChange={setSelectedOption}
+            onValueChange={handleSelectOption}
             disabled={isAnswered}
           >
             {currentQuestion.options.map((option, index) => (
@@ -87,24 +113,18 @@ export default function PracticePage() {
             ))}
           </RadioGroup>
         </CardContent>
-        <CardFooter className="flex flex-col items-stretch gap-4">
-          {isAnswered ? (
-            <div className={`p-4 rounded-md flex items-center gap-2 ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-              {isCorrect ? <CheckCircle /> : <XCircle />}
-              <span className="font-bold">{isCorrect ? "Correct!" : `Incorrect. The answer is ${currentQuestion.answer}.`}</span>
+        <CardFooter className="flex-col gap-4">
+            <div className="flex justify-between items-center w-full">
+                <Button variant="outline" onClick={() => handleQuestionChange(currentQuestionIndex - 1)} disabled={currentQuestionIndex === 0}>
+                <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+                </Button>
+                <Button variant="outline" onClick={() => handleQuestionChange(currentQuestionIndex + 1)} disabled={currentQuestionIndex === practiceQuestions.length - 1}>
+                Next <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
             </div>
-          ) : null}
-
-          {isAnswered ? (
-            <Button onClick={handleNextQuestion} size="lg">
-              {currentQuestionIndex < practiceQuestions.length - 1 ? 'Next Question' : 'Restart Quiz'}
-              <RotateCw className="ml-2 h-4 w-4" />
+            <Button onClick={handleRestart} variant="secondary" className="w-full">
+              <RotateCw className="mr-2 h-4 w-4" /> Restart Quiz
             </Button>
-          ) : (
-            <Button onClick={handleCheckAnswer} size="lg">
-              Check Answer
-            </Button>
-          )}
         </CardFooter>
       </Card>
     </div>

@@ -715,6 +715,471 @@ export const practiceQuestions = [
     options: ["The boy cries", "The boy eats", "The boy laughs", "The boy runs"],
     answer: "The boy laughs",
   },
+  {
+    question: "What does the root 'पठ्' (paṭh) mean?",
+    options: ["To go", "To see", "To read", "To be"],
+    answer: "To read"
+  },
+  {
+    question: "What is the dual form of 'naraḥ' (नरः - man)?",
+    options: ["narāḥ", "narau", "naram", "nareṇa"],
+    answer: "narau"
+  },
+  {
+    question: "Which of these is the locative case ending for a masculine '-a' stem noun in the singular?",
+    options: ["-ena", "-āya", "-asya", "-e"],
+    answer: "-e"
+  },
+  {
+    question: "The word 'punaḥ' (पुनः) means:",
+    options: ["Now", "Again", "Always", "Never"],
+    answer: "Again"
+  },
+  {
+    question: "What is the imperative (command) form, 2nd person singular, of 'gam' (गम् - to go)?",
+    options: ["gacchet", "agacchat", "gaccha", "gamiṣyati"],
+    answer: "gaccha"
+  },
+  {
+    question: "Which tense is indicated by the 'lṛṭ lakāra' (लृट् लकार)?",
+    options: ["Present", "Past", "Future", "Imperative"],
+    answer: "Future"
+  },
+  {
+    question: "The word 'śīghram' (शीघ्रम्) is an antonym of:",
+    options: ["mandaṁ", "tatra", "adya", "api"],
+    answer: "mandaṁ"
+  },
+  {
+    question: "Which case would be used for 'by the hand' (instrument)?",
+    options: ["Dative", "Ablative", "Genitive", "Instrumental"],
+    answer: "Instrumental"
+  },
+  {
+    question: "The word 'yadi... tarhi' (यदि... तर्हि) is a pair that means:",
+    options: ["Here... there", "When... then", "If... then", "Either... or"],
+    answer: "If... then"
+  },
+  {
+    question: "What is the meaning of 'jñānam' (ज्ञानम्)?",
+    options: ["Power", "Wealth", "Knowledge", "Action"],
+    answer: "Knowledge"
+  },
+  {
+    question: "Which of these is a 'saṁdhi' (sandhi)?",
+    options: ["rāmaputraḥ", "rāmeṇa", "rāme'pi", "rāmasya"],
+    answer: "rāme'pi"
+  },
+  {
+    question: "The suffix '-tum' (तुम्) is used to form the:",
+    options: ["Gerund", "Infinitive", "Past Participle", "Present Participle"],
+    answer: "Infinitive"
+  },
+  {
+    question: "What is the meaning of 'kṣamā' (क्षमा)?",
+    options: ["Anger", "Patience", "Forgiveness", "Pride"],
+    answer: "Forgiveness"
+  },
+  {
+    question: "'Yathā... tathā' (यथा... तथा) means:",
+    options: ["As... so", "Where... there", "What... that", "If... then"],
+    answer: "As... so"
+  },
+  {
+    question: "Which word means 'light' (as in illumination)?",
+    options: ["andhakāraḥ", "prakāśaḥ", "jaladaḥ", "pavanaḥ"],
+    answer: "prakāśaḥ"
+  },
+  {
+    question: "What does the suffix '-vat' (-वत्) indicate?",
+    options: ["Possession ('having')", "A comparative degree", "A superlative degree", "A place"],
+    answer: "Possession ('having')"
+  },
+  {
+    question: "Which one means 'cloud'?",
+    options: ["sāgaraḥ", "parvataḥ", "meghaḥ", "ākāśaḥ"],
+    answer: "meghaḥ"
+  },
+  {
+    question: "The word 'hāsyaṁ' (हास्यम्) means:",
+    options: ["Crying", "Laughter", "Singing", "Thinking"],
+    answer: "Laughter"
+  },
+  {
+    question: "'Vayam' (वयम्) is the nominative plural of which pronoun?",
+    options: ["aham (I)", "tvam (you)", "saḥ (he)", "tat (it)"],
+    answer: "aham (I)"
+  },
+  {
+    question: "What is the future tense, 3rd person singular, of 'paṭh' (पठ् - to read)?",
+    options: ["apaṭhat", "paṭhati", "paṭhiṣyati", "paṭhatu"],
+    answer: "paṭhiṣyati"
+  },
+  {
+    question: "Which of these words is a numeral?",
+    options: ["vāk", "viṁśati", "vāyu", "vidyā"],
+    answer: "viṁśati"
+  },
+  {
+    question: "The word 'śraddhā' (श्रद्धा) means:",
+    options: ["Doubt", "Faith", "Fear", "Knowledge"],
+    answer: "Faith"
+  },
+  {
+    question: "Which case is also known as 'prathamā vibhakti' (प्रथमा विभक्ति)?",
+    options: ["Accusative", "Nominative", "Genitive", "Locative"],
+    answer: "Nominative"
+  },
+  {
+    question: "The root 'dā' (दा) means:",
+    options: ["To go", "To do", "To give", "To stand"],
+    answer: "To give"
+  },
+  {
+    question: "What is a 'nadī' (नदी)?",
+    options: ["Mountain", "Ocean", "River", "Lake"],
+    answer: "River"
+  },
+  {
+    question: "The word 'tava' (तव) means:",
+    options: ["My", "His", "Her", "Your (singular)"],
+    answer: "Your (singular)"
+  },
+  {
+    question: "Which part of speech is 'api' (अपि)?",
+    options: ["Noun", "Verb", "Adjective", "Indeclinable (avyaya)"],
+    answer: "Indeclinable (avyaya)"
+  },
+  {
+    question: "What is 'heart' in Sanskrit?",
+    options: ["mastakam", "hṛdayam", "pādaḥ", "hastaḥ"],
+    answer: "hṛdayam"
+  },
+  {
+    question: "The phrase 'śubhaṁ bhavatu' (शुभं भवतु) is a:",
+    options: ["Question", "Statement", "Command", "Blessing"],
+    answer: "Blessing"
+  },
+  {
+    question: "What does 'prātaḥ' (प्रातः) mean?",
+    options: ["Evening", "Afternoon", "Night", "Morning"],
+    answer: "Morning"
+  },
+  {
+    question: "The root 'jñā' (ज्ञा) relates to:",
+    options: ["Eating", "Knowing", "Sleeping", "Running"],
+    answer: "Knowing"
+  },
+  {
+    question: "What is the meaning of 'buddhiḥ' (बुद्धिः)?",
+    options: ["Mind", "Intellect", "Ego", "Soul"],
+    answer: "Intellect"
+  },
+  {
+    question: "Which word means 'tree'?",
+    options: ["vṛkṣaḥ", "giriḥ", "latā", "puṣpam"],
+    answer: "vṛkṣaḥ"
+  },
+  {
+    question: "The passive voice is called:",
+    options: ["Kartari prayoga", "Karmaṇi prayoga", "Bhāve prayoga", "Ktvā prayoga"],
+    answer: "Karmaṇi prayoga"
+  },
+  {
+    question: "Which case is used to show possession (e.g., 'Rama's')?",
+    options: ["Ablative", "Dative", "Genitive", "Vocative"],
+    answer: "Genitive"
+  },
+  {
+    question: "'Mā' (मा) is used to express:",
+    options: ["A question", "A prohibition (don't)", "A confirmation", "A possibility"],
+    answer: "A prohibition (don't)"
+  },
+  {
+    question: "The word 'śiśuḥ' (शिशुः) means:",
+    options: ["Old man", "Young woman", "Infant/Baby", "Adolescent"],
+    answer: "Infant/Baby"
+  },
+  {
+    question: "Which of these is a quality (guṇa)?",
+    options: ["sattva", "rāga", "dveṣa", "moha"],
+    answer: "sattva"
+  },
+  {
+    question: "What does the root 'bhū' (भू) mean?",
+    options: ["To do", "To go", "To be/become", "To eat"],
+    answer: "To be/become"
+  },
+  {
+    question: "The word 'vākyam' (वाक्यम्) means:",
+    options: ["Letter", "Word", "Sentence", "Paragraph"],
+    answer: "Sentence"
+  },
+  {
+    question: "Which number is 'sapta' (सप्त)?",
+    options: ["Five", "Six", "Seven", "Eight"],
+    answer: "Seven"
+  },
+  {
+    question: "The word 'phalam' (फलम्) can mean 'fruit' or:",
+    options: ["Reason", "Result", "Beginning", "End"],
+    answer: "Result"
+  },
+  {
+    question: "What is the meaning of 'eva' (एव)?",
+    options: ["Also", "And", "Only/Indeed", "But"],
+    answer: "Only/Indeed"
+  },
+  {
+    question: "The term 'avyaya' (अव्यय) refers to words that are:",
+    options: ["Verbs", "Nouns", "Indeclinable", "Adjectives"],
+    answer: "Indeclinable"
+  },
+  {
+    question: "What is a 'kaviḥ' (कविः)?",
+    options: ["Scientist", "Warrior", "Poet", "Merchant"],
+    answer: "Poet"
+  },
+  {
+    question: "Which word means 'fear'?",
+    options: ["bhayam", "harṣaḥ", "śokaḥ", "krodhaḥ"],
+    answer: "bhayam"
+  },
+  {
+    question: "The suffix '-tā' (-ता) is used to form:",
+    options: ["Plural nouns", "Abstract nouns (e.g., 'goodness')", "Verbs", "Adverbs"],
+    answer: "Abstract nouns (e.g., 'goodness')"
+  },
+  {
+    question: "Which word means 'always'?",
+    options: ["kadācit", "na kadāpi", "sarvadā", "adya"],
+    answer: "sarvadā"
+  },
+  {
+    question: "The word 'pustakam' (पुस्तकम्) is in which gender?",
+    options: ["Masculine", "Feminine", "Neuter", "Common"],
+    answer: "Neuter"
+  },
+  {
+    question: "What is 'prāṇaḥ' (प्राणः)?",
+    options: ["Body", "Mind", "Life-breath", "Speech"],
+    answer: "Life-breath"
+  },
+  {
+    question: "'Adhaḥ' (अधः) means:",
+    options: ["Up", "Down", "Inside", "Outside"],
+    answer: "Down"
+  },
+  {
+    question: "'Upari' (उपरि) means:",
+    options: ["Below", "Above", "Near", "Far"],
+    answer: "Above"
+  },
+  {
+    question: "Which case is 'rāmebhyaḥ' (रामेभ्यः)?",
+    options: ["Genitive Plural", "Dative/Ablative Plural", "Locative Plural", "Instrumental Plural"],
+    answer: "Dative/Ablative Plural"
+  },
+  {
+    question: "What does 'pṛcchati' (पृच्छति) mean?",
+    options: ["He gives", "He takes", "He asks", "He tells"],
+    answer: "He asks"
+  },
+  {
+    question: "The word 'svapnaḥ' (स्वप्नः) means:",
+    options: ["Reality", "Illusion", "Dream", "Thought"],
+    answer: "Dream"
+  },
+  {
+    question: "Which term means 'compound word'?",
+    options: ["sandhi", "samāsa", "vibhakti", "dhātu"],
+    answer: "samāsa"
+  },
+  {
+    question: "What is a 'śiṣyaḥ' (शिष्यः)?",
+    options: ["Teacher", "Disciple/Student", "Master", "Sage"],
+    answer: "Disciple/Student"
+  },
+  {
+    question: "The word 'kṣīram' (क्षीरम्) means:",
+    options: ["Water", "Milk", "Ghee", "Curd"],
+    answer: "Milk"
+  },
+  {
+    question: "Which of these means 'without'?",
+    options: ["saha", "vinā", "pari", "anu"],
+    answer: "vinā"
+  },
+  {
+    question: "The number 'śatam' (शतम्) is:",
+    options: ["Ten", "One hundred", "One thousand", "One million"],
+    answer: "One hundred"
+  },
+  {
+    question: "What does the root 'śru' (श्रु) mean?",
+    options: ["To see", "To touch", "To hear", "To think"],
+    answer: "To hear"
+  },
+  {
+    question: "The word 'dhvaniḥ' (ध्वनिः) means:",
+    options: ["Light", "Silence", "Sound", "Smell"],
+    answer: "Sound"
+  },
+  {
+    question: "Which word means 'beautiful' (for a feminine noun)?",
+    options: ["sundaraḥ", "sundaram", "sundarī", "sundare"],
+    answer: "sundarī"
+  },
+  {
+    question: "'Cintayati' (चिन्तयति) means:",
+    options: ["He laughs", "He cries", "He thinks", "He sleeps"],
+    answer: "He thinks"
+  },
+  {
+    question: "What is 'dhanam' (धनम्)?",
+    options: ["Knowledge", "Power", "Wealth", "Health"],
+    answer: "Wealth"
+  },
+  {
+    question: "The word 'śatruḥ' (शत्रुः) means:",
+    options: ["Friend", "Enemy", "Relative", "Neighbor"],
+    answer: "Enemy"
+  },
+  {
+    question: "What is the meaning of 'mṛtyuḥ' (मृत्युः)?",
+    options: ["Birth", "Life", "Death", "Old age"],
+    answer: "Death"
+  },
+  {
+    question: "Which of the following is an emotion?",
+    options: ["krodhaḥ", "kāryaṁ", "kālaḥ", "karaṇaṁ"],
+    answer: "krodhaḥ"
+  },
+  {
+    question: "What does the root 'vas' (वस्) mean?",
+    options: ["To speak", "To live/dwell", "To carry", "To wander"],
+    answer: "To live/dwell"
+  },
+  {
+    question: "The word 'prakṛtiḥ' (प्रकृतिः) means:",
+    options: ["Culture", "Nature", "Future", "History"],
+    answer: "Nature"
+  },
+  {
+    question: "Which word means 'strength' or 'power'?",
+    options: ["śāntiḥ", "bhaktiḥ", "śaktiḥ", "muktiḥ"],
+    answer: "śaktiḥ"
+  },
+  {
+    question: "The word 'bālaḥ' (बालः) is in which number?",
+    options: ["Singular", "Dual", "Plural", "No number"],
+    answer: "Singular"
+  },
+  {
+    question: "'Kimartham' (किमर्थम्) is used to ask:",
+    options: ["How?", "When?", "Where?", "Why?"],
+    answer: "Why?"
+  },
+  {
+    question: "What is the meaning of 'sukham' (सुखम्)?",
+    options: ["Pain", "Pleasure", "Sorrow", "Happiness"],
+    answer: "Happiness"
+  },
+  {
+    question: "The word 'parvataḥ' (पर्वतः) means:",
+    options: ["Forest", "Mountain", "Cave", "Valley"],
+    answer: "Mountain"
+  },
+  {
+    question: "Which word means 'all' or 'everything'?",
+    options: ["eka", "sarva", "ubhaya", "anya"],
+    answer: "sarva"
+  },
+  {
+    question: "The word 'jananī' (जननी) is a synonym for:",
+    options: ["pitā", "bhrātā", "mātā", "bhaginī"],
+    answer: "mātā"
+  },
+  {
+    question: "What is the root of 'paśyati' (पश्यति - he sees)?",
+    options: ["paś", "dṛś", "darś", "īkṣ"],
+    answer: "dṛś"
+  },
+  {
+    question: "The word 'karma' (कर्म) literally means:",
+    options: ["Duty", "Action", "Destiny", "Result"],
+    answer: "Action"
+  },
+  {
+    question: "Which word means 'head'?",
+    options: ["śiraḥ", "grīvā", "udaraṁ", "vaktraṁ"],
+    answer: "śiraḥ"
+  },
+  {
+    question: "The locative case is used to indicate:",
+    options: ["Origin ('from')", "Instrument ('by')", "Location ('in/on')", "Possession ('of')"],
+    answer: "Location ('in/on')"
+  },
+  {
+    question: "'Tatra' (तत्र) is an adverb of:",
+    options: ["Time", "Place", "Manner", "Reason"],
+    answer: "Place"
+  },
+  {
+    question: "Which of these means 'also' or 'too'?",
+    options: ["ca", "eva", "api", "iti"],
+    answer: "api"
+  },
+  {
+    question: "The number 'daśa' (दश) is:",
+    options: ["8", "9", "10", "11"],
+    answer: "10"
+  },
+  {
+    question: "What does 'tiṣṭhati' (तिष्ठति) mean?",
+    options: ["He sits", "He stands", "He walks", "He runs"],
+    answer: "He stands"
+  },
+  {
+    question: "The word 'vidyā' (विद्या) means:",
+    options: ["Wealth", "Health", "Knowledge/Learning", "Power"],
+    answer: "Knowledge/Learning"
+  },
+  {
+    question: "The word 'śarīram' (शरीरम्) means:",
+    options: ["Mind", "Intellect", "Soul", "Body"],
+    answer: "Body"
+  },
+  {
+    question: "What is the meaning of 'dugdham' (दुग्धम्)?",
+    options: ["Honey", "Water", "Milk", "Ghee"],
+    answer: "Milk"
+  },
+  {
+    question: "'Prati' (प्रति) is a preposition meaning:",
+    options: ["From", "Towards", "Without", "Above"],
+    answer: "Towards"
+  },
+  {
+    question: "Which word means 'speech' or 'voice'?",
+    options: ["vāk", "manaḥ", "karma", "dharmaḥ"],
+    answer: "vāk"
+  },
+  {
+    question: "The phrase 'kṛpayā punar vadatu' (कृपया पुनर् वदतु) means:",
+    options: ["Please go away", "Please speak loudly", "Please say it again", "Please write it down"],
+    answer: "Please say it again"
+  },
+  {
+    question: "What is the superlative form of 'śubha' (good)?",
+    options: ["śubhatara", "śubhatama", "śubhīyān", "śreṣṭha"],
+    answer: "śubhatama"
+  },
+  {
+    question: "The word 'gṛham' (गृहम्) is in which case in the sentence 'rāmaḥ gṛhaṁ gacchati'?",
+    options: ["Nominative", "Accusative", "Instrumental", "Dative"],
+    answer: "Accusative"
+  }
 ];
 
 export const flashcards = [
