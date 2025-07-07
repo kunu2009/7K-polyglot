@@ -21,7 +21,7 @@ export default function GrammarToolPage() {
                         Interactive Sentence
                     </CardTitle>
                     <CardDescription>
-                        This tool helps you see how words function in a sentence.
+                        This tool helps you see how words function in a sentence, based on textbook examples.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -43,12 +43,18 @@ export default function GrammarToolPage() {
                                                 </p>
                                             </div>
                                             <div className="grid gap-2">
-                                                {Object.entries(wordData.info).map(([key, value]) => key !== 'meaning' && (
-                                                    <div key={key} className="grid grid-cols-3 items-center gap-4">
-                                                        <span className="text-sm font-medium capitalize text-muted-foreground">{key}</span>
-                                                        <span className="col-span-2 text-sm">{value}</span>
-                                                    </div>
-                                                ))}
+                                                {Object.entries(wordData.info).map(([key, value]) => {
+                                                    if (key === 'meaning') return null;
+                                                    
+                                                    const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+
+                                                    return (
+                                                        <div key={key} className="grid grid-cols-3 items-center gap-4">
+                                                            <span className="text-sm font-medium capitalize text-muted-foreground">{formattedKey}</span>
+                                                            <span className="col-span-2 text-sm">{value as string}</span>
+                                                        </div>
+                                                    )
+                                                })}
                                             </div>
                                         </div>
                                     </PopoverContent>
@@ -60,9 +66,10 @@ export default function GrammarToolPage() {
                         <Info className="h-5 w-5 mt-1 flex-shrink-0" />
                         <div>
                             <h3 className="font-bold font-headline">How it works</h3>
-                            <p className="text-sm">Color-coding is used to help you identify word types at a glance: 
-                                <span className="font-semibold text-blue-600"> Nouns</span>, 
-                                <span className="font-semibold text-red-600"> Verbs</span>, and more.
+                            <p className="text-sm">Color-coding helps identify word types: 
+                                <span className="font-semibold text-blue-600"> Nouns/Pronouns</span>, 
+                                <span className="font-semibold text-red-600"> Verbs</span>, and 
+                                <span className="font-semibold text-purple-600"> Adjectives/Indeclinables</span>.
                             </p>
                         </div>
                     </div>

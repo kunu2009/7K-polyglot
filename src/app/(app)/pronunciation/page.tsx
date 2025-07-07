@@ -23,7 +23,7 @@ export default function PronunciationPage() {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [feedback, setFeedback] = useState<PronunciationFeedbackOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [textToSpeak, setTextToSpeak] = useState('नमस्ते');
+  const [textToSpeak, setTextToSpeak] = useState('विद्या ददाति विनयम्।');
   const [permissionError, setPermissionError] = useState(false);
   const { updateTaskProgress } = useDailyTasks();
 
@@ -116,12 +116,12 @@ export default function PronunciationPage() {
             Pronunciation Practice
           </CardTitle>
           <CardDescription>
-            Speak the Sanskrit word or phrase below and get instant feedback from our AI coach.
+            Speak the Sanskrit phrase below and get instant feedback from our AI coach.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-center p-6 bg-secondary rounded-lg">
-            <p className="text-sm text-muted-foreground mb-2">Word to speak:</p>
+            <p className="text-sm text-muted-foreground mb-2">Phrase to speak:</p>
             <p className="text-4xl font-headline font-semibold">{textToSpeak}</p>
           </div>
 
