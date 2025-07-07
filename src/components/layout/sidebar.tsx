@@ -19,6 +19,7 @@ import {
     Mic,
     PencilRuler,
     Scaling,
+    Sparkles,
     Swords,
     Wand2,
 } from 'lucide-react';
@@ -35,6 +36,7 @@ const menuItems = [
     { href: '/grammar-tool', label: 'Grammar Tool', icon: Wand2 },
     { href: '/word-builder', label: 'Word Builder', icon: Swords },
     { href: '/writing-practice', label: 'Writing Practice', icon: FilePenLine },
+    { href: '/name-generator', label: 'Name Generator', icon: Sparkles },
     { href: '/culture', label: 'Culture', icon: DiyaLampIcon },
 ];
 

@@ -1,32 +1,37 @@
 'use client';
 
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
+  ArrowRight,
   BookText,
   FilePenLine,
   Layers,
   Mic,
   PencilRuler,
+  RotateCcw,
   Scaling,
+  Sparkles,
   Swords,
   Wand2,
-  CheckCircle2,
-  RefreshCcw,
-  Trophy,
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
-import { Progress } from "@/components/ui/progress";
-import { useDailyTasks } from "@/context/daily-tasks-context";
+import { practiceQuestions, flashcards, textbookChapters } from "@/lib/sanskrit-data";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+
+type Flashcard = typeof flashcards[0];
 
 const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
     <Link href={href} className="flex">
@@ -52,75 +57,147 @@ const allFeatures = [
     { href: '/flashcards', icon: Layers, title: 'Flashcards', description: 'Learn vocabulary with spaced repetition.' },
     { href: '/pronunciation', icon: Mic, title: 'Pronunciation AI', description: 'Get feedback on your spoken Sanskrit.' },
     { href: '/grammar-tool', icon: Wand2, title: 'Grammar Tool', description: 'Get grammatical breakdowns of sentences.' },
-    { href: '/word-builder', icon: Swords, title: 'Word Builder', description: 'Form words from roots in a fun game.', badge: 'New' },
+    { href: '/word-builder', icon: Swords, title: 'Word Builder', description: 'Form words from roots in a fun game.' },
     { href: '/writing-practice', icon: FilePenLine, title: 'Writing Practice', description: 'Practice writing essays on key topics.' },
+    { href: '/name-generator', icon: Sparkles, title: 'Name Generator', description: 'Create a fun Sanskrit name.', badge: 'New' },
     { href: '/culture', icon: DiyaLampIcon, title: 'Cultural Insights', description: 'Discover the rich history behind Sanskrit.' },
 ];
 
-export default function DashboardPage() {
-    const { tasks, resetTasks } = useDailyTasks();
-    const allTasksCompleted = tasks.every(task => task.progress >= task.goal);
+function FlashcardWidget() {
+    const [randomCard, setRandomCard] = useState<Flashcard | null>(null);
+    const [isFlipped, setIsFlipped] = useState(false);
 
-  return (
+    useEffect(() => {
+        setRandomCard(flashcards[Math.floor(Math.random() * flashcards.length)]);
+    }, []);
+
+    if (!randomCard) return <Card className="flex items-center justify-center min-h-[200px]"><p>Loading...</p></Card>;
+    
+    return (
+        <div className="perspective-1000 h-full">
+            <div
+            className={`relative w-full h-full transform-style-preserve-3d transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}
+            onClick={() => setIsFlipped(!isFlipped)}
+            >
+                <div className="absolute w-full h-full backface-hidden">
+                    <Card className="w-full h-full flex flex-col cursor-pointer bg-card hover:shadow-lg transition-shadow">
+                        <CardHeader>
+                            <CardTitle className="font-headline text-lg">Flashcard</CardTitle>
+                            <CardDescription>Click to flip</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow flex items-center justify-center">
+                            <p className="text-4xl font-bold font-headline text-center">
+                                {randomCard.front}
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="absolute w-full h-full backface-hidden rotate-y-180">
+                    <Card className="w-full h-full flex flex-col cursor-pointer bg-accent text-accent-foreground hover:shadow-lg transition-shadow">
+                        <CardHeader>
+                            <CardTitle className="font-headline text-lg">Meaning</CardTitle>
+                            <CardDescription>Click to flip back</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow flex items-center justify-center">
+                            <p className="text-3xl font-semibold text-center">
+                                {randomCard.back}
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+      </div>
+    );
+}
+
+function PracticeQuestionWidget() {
+    const { toast } = useToast();
+    const [question, setQuestion] = useState(practiceQuestions[0]);
+    const [selectedOption, setSelectedOption] = useState<string | undefined>();
+    const isAnswered = selectedOption !== undefined;
+
+    const handleSelectOption = (option: string) => {
+        if (isAnswered) return;
+        setSelectedOption(option);
+        const isCorrect = option === question.answer;
+        toast({
+            title: isCorrect ? "Correct!" : "Incorrect!",
+            description: isCorrect ? "Great job!" : `The correct answer is: ${question.answer}`,
+            variant: isCorrect ? "default" : "destructive",
+        });
+    };
+
+    return (
+        <Card className="h-full">
+            <CardHeader>
+                <CardTitle className="font-headline text-lg">Quick Question</CardTitle>
+                <CardDescription className="text-sm line-clamp-2">{question.question}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <RadioGroup value={selectedOption} onValueChange={handleSelectOption} disabled={isAnswered}>
+                    {question.options.map((option, index) => (
+                    <Label
+                        key={index}
+                        className={cn(
+                            "flex items-center space-x-2 p-3 rounded-md border transition-colors text-sm",
+                            isAnswered && option === question.answer ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : '',
+                            isAnswered && option === selectedOption && option !== question.answer ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : '',
+                            !isAnswered && "cursor-pointer hover:bg-secondary"
+                        )}
+                    >
+                        <RadioGroupItem value={option} id={`widget-option-${index}`} />
+                        <span>{option}</span>
+                    </Label>
+                    ))}
+                </RadioGroup>
+            </CardContent>
+        </Card>
+    );
+}
+
+function FeaturedChapterWidget() {
+    const chapter = useMemo(() => textbookChapters[0], []);
+    return (
+        <Card className="h-full flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline text-lg">Featured Chapter</CardTitle>
+                <CardDescription className="font-semibold">{chapter.category}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+                <p className="text-sm text-muted-foreground line-clamp-4">{chapter.summary}</p>
+            </CardContent>
+            <CardFooter>
+                <Link href="/textbook" className="w-full">
+                    <Button variant="secondary" className="w-full">
+                        Start Reading <ArrowRight className="ml-2"/>
+                    </Button>
+                </Link>
+            </CardFooter>
+        </Card>
+    )
+}
+
+export default function DashboardPage() {
+    return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
       <header>
         <h1 className="text-4xl font-headline font-bold">
             नमो नमः!
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-            Welcome back! Here are your goals for today.
+            Welcome back! Let's start your learning session.
         </p>
       </header>
       
       <Card>
-        <CardHeader className="flex-row items-center justify-between">
-          <div>
-            <CardTitle className="font-headline text-2xl flex items-center gap-2">
-              <Trophy className="text-primary"/> Today's Goals
-            </CardTitle>
-            <CardDescription>Complete these tasks to stay on track.</CardDescription>
-          </div>
-          <Button variant="outline" size="sm" onClick={resetTasks}>
-            <RefreshCcw className="mr-2 h-4 w-4"/> Reset
-          </Button>
+        <CardHeader>
+          <CardTitle className="font-headline">Quick Start</CardTitle>
+          <CardDescription>Jump right into an activity.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-            {allTasksCompleted && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3 text-green-800 animate-fade-in-up dark:bg-green-900/30 dark:border-green-800 dark:text-green-300">
-                    <CheckCircle2 className="h-6 w-6"/>
-                    <div>
-                        <h3 className="font-bold">All goals completed!</h3>
-                        <p className="text-sm">उत्तमम्! You're all set for today. Come back tomorrow for new goals.</p>
-                    </div>
-                </div>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {tasks.map((task) => {
-                    const isCompleted = task.progress >= task.goal;
-                    return (
-                        <Link key={task.id} href={task.href} className="flex">
-                            <Card className={cn(
-                                "w-full transition-colors", 
-                                isCompleted 
-                                ? "bg-green-50/50 border-green-200 dark:bg-green-900/20 dark:border-green-800"
-                                : "hover:bg-secondary/50"
-                            )}>
-                                <CardHeader>
-                                    <div className="flex justify-between items-start">
-                                        <CardTitle className="text-base font-semibold">{task.title}</CardTitle>
-                                        {isCompleted && <CheckCircle2 className="h-5 w-5 text-green-600"/>}
-                                    </div>
-                                    <CardDescription className="text-sm">{task.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <Progress value={(task.progress / task.goal) * 100} className="h-2" />
-                                    <p className="text-xs text-muted-foreground mt-2 text-right">{task.progress} / {task.goal}</p>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    )
-                })}
-            </div>
+        <CardContent className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[350px]">
+          <div className="lg:col-span-1"><FlashcardWidget /></div>
+          <div className="lg:col-span-1"><PracticeQuestionWidget/></div>
+          <div className="lg:col-span-1"><FeaturedChapterWidget/></div>
         </CardContent>
       </Card>
 
@@ -129,7 +206,7 @@ export default function DashboardPage() {
             <CardTitle className="font-headline">All Learning Modules</CardTitle>
             <CardDescription>Explore all features and learning tools available.</CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {allFeatures.map(feature => <FeatureCard key={feature.href} {...feature} />)}
         </CardContent>
       </Card>

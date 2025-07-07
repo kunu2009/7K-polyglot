@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { textbookChapters } from "@/lib/sanskrit-data";
 import type { TextbookChapter } from "@/lib/sanskrit-data";
-import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle, Sparkles, BookHeart, BookKey, Library } from "lucide-react";
+import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle, Sparkles, BookHeart, Library, MessageSquareQuote, CheckCircle2 } from "lucide-react";
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import {
   Dialog,
@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   Accordion,
@@ -23,7 +24,142 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { contextualHelp, type ContextualHelpOutput } from '@/ai/flows/contextual-help';
+import { verseExplanationFeedback, type VerseExplanationFeedbackOutput } from '@/ai/flows/verse-explanation-feedback';
 import { useToast } from '@/hooks/use-toast';
+import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
+import { Label } from '@/components/ui/label';
+
+
+type Verse = TextbookChapter['content'][0];
+
+// Dialog for the "Explain this Verse" feature
+function TeachBackDialog({
+  verse,
+  open,
+  onOpenChange,
+}: {
+  verse: Verse | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { toast } = useToast();
+  const [explanation, setExplanation] = useState('');
+  const [feedback, setFeedback] = useState<VerseExplanationFeedbackOutput | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Reset state when dialog is closed or verse changes
+  React.useEffect(() => {
+    if (!open) {
+      setTimeout(() => {
+        setExplanation('');
+        setFeedback(null);
+        setIsLoading(false);
+      }, 200);
+    }
+  }, [open]);
+
+  if (!verse) return null;
+
+  const handleGetFeedback = async () => {
+    if (explanation.trim().length < 10) {
+      toast({
+        variant: 'destructive',
+        title: 'Explanation too short',
+        description: 'Please write a more detailed explanation to get useful feedback.',
+      });
+      return;
+    }
+    setIsLoading(true);
+    setFeedback(null);
+    try {
+      const result = await verseExplanationFeedback({
+        verse: `Sanskrit: ${verse.sanskrit}\nTranslation: ${verse.translation}`,
+        userExplanation: explanation,
+      });
+      setFeedback(result);
+    } catch (error) {
+      console.error("Failed to get explanation feedback:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Could not get feedback. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 font-headline text-2xl">
+            <MessageSquareQuote className="text-primary" />
+            Explain This Verse
+          </DialogTitle>
+          <DialogDescription>
+            Read the verse below, then explain it in your own words. This helps reinforce your understanding.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="my-4 space-y-4 max-h-[60vh] overflow-y-auto p-1">
+          <Card className="bg-secondary/50">
+            <CardContent className="p-4">
+              <p className="text-xl font-headline font-semibold mb-2">{verse.sanskrit}</p>
+              <p className="text-sm text-muted-foreground italic">"{verse.translation}"</p>
+            </CardContent>
+          </Card>
+          
+          <Textarea
+            placeholder="Now, explain what this verse means to a friend..."
+            className="min-h-[150px] text-base"
+            value={explanation}
+            onChange={(e) => setExplanation(e.target.value)}
+            disabled={isLoading || !!feedback}
+          />
+          
+          {isLoading && (
+            <div className="flex items-center justify-center space-y-2 flex-col text-center">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="font-semibold">Analyzing your explanation...</p>
+            </div>
+          )}
+
+          {feedback && !isLoading && (
+            <Card className="animate-fade-in-up bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-green-800 dark:text-green-300">
+                    <CheckCircle2 /> AI Feedback
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                      <Label htmlFor="coverage-score" className="text-sm font-medium">Concept Coverage</Label>
+                      <div className="flex items-center gap-3">
+                        <Progress value={feedback.coverageScore} id="coverage-score" className="h-2"/>
+                        <span className="font-bold text-sm text-green-800 dark:text-green-300">{feedback.coverageScore}%</span>
+                      </div>
+                  </div>
+                  <p className="text-base whitespace-pre-wrap">{feedback.feedback}</p>
+                </CardContent>
+            </Card>
+          )}
+
+        </div>
+        <DialogFooter>
+          {!feedback ? (
+            <Button onClick={handleGetFeedback} disabled={isLoading} size="lg">
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Get Feedback
+            </Button>
+          ) : (
+            <Button onClick={() => onOpenChange(false)} variant="secondary" size="lg">Close</Button>
+          )}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 
 // The full view for a single selected chapter
@@ -38,6 +174,14 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
   const [helpContent, setHelpContent] = useState<ContextualHelpOutput | null>(null);
   const [isHelpLoading, setIsHelpLoading] = useState(false);
   const longPressTimer = useRef<NodeJS.Timeout>();
+
+  const [isTeachBackOpen, setIsTeachBackOpen] = useState(false);
+  const [selectedVerseForTeachBack, setSelectedVerseForTeachBack] = useState<Verse | null>(null);
+
+  const handleOpenTeachBack = (verse: Verse) => {
+    setSelectedVerseForTeachBack(verse);
+    setIsTeachBackOpen(true);
+  };
 
   const triggerAiHelp = async () => {
     const text = window.getSelection()?.toString().trim();
@@ -169,18 +313,29 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
                     >
                       {item.sanskrit}
                     </p>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handlePlayVerse(item)}
-                      disabled={loadingId !== null && loadingId !== item.id}
-                      className="text-muted-foreground flex-shrink-0"
-                      aria-label="Listen to verse"
-                    >
-                      {loadingId === item.id && <Loader2 className="h-5 w-5 animate-spin" />}
-                      {playingId === item.id && loadingId !== item.id && <StopCircle className="h-5 w-5 text-primary" />}
-                      {playingId !== item.id && loadingId !== item.id && <Volume2 className="h-5 w-5" />}
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handlePlayVerse(item)}
+                        disabled={loadingId !== null && loadingId !== item.id}
+                        className="text-muted-foreground"
+                        aria-label="Listen to verse"
+                      >
+                        {loadingId === item.id && <Loader2 className="h-5 w-5 animate-spin" />}
+                        {playingId === item.id && loadingId !== item.id && <StopCircle className="h-5 w-5 text-primary" />}
+                        {playingId !== item.id && loadingId !== item.id && <Volume2 className="h-5 w-5" />}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleOpenTeachBack(item)}
+                        className="text-muted-foreground"
+                        aria-label="Explain this verse"
+                      >
+                         <MessageSquareQuote className="h-5 w-5"/>
+                      </Button>
+                    </div>
                   </div>
                   <p className="text-muted-foreground italic">"{item.translation}"</p>
                   {item.metre && (
@@ -271,7 +426,7 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
                 </AccordionItem>
                 <AccordionItem value="meanings">
                     <AccordionTrigger className="text-lg font-headline">
-                        <BookKey className="mr-2"/> Alternative Meanings
+                        <MessageSquareQuote className="mr-2"/> Alternative Meanings
                     </AccordionTrigger>
                     <AccordionContent className="text-base leading-relaxed whitespace-pre-wrap">{helpContent.meanings}</AccordionContent>
                 </AccordionItem>
@@ -288,6 +443,12 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
             </div>
         </DialogContent>
       </Dialog>
+      
+      <TeachBackDialog 
+        open={isTeachBackOpen} 
+        onOpenChange={setIsTeachBackOpen} 
+        verse={selectedVerseForTeachBack} 
+      />
     </div>
   )
 }
