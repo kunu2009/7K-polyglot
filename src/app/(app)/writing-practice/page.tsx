@@ -14,7 +14,7 @@ export default function WritingPracticePage() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="text-4xl font-headline font-bold flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-headline font-bold flex items-center gap-3">
           <FilePenLine className="h-10 w-10 text-primary"/>
           Writing Practice (लेखनकौशलम्)
         </h1>
@@ -54,7 +54,7 @@ export default function WritingPracticePage() {
                 onChange={(e) => setText(e.target.value)}
               />
             </CardContent>
-            <CardFooter className="flex justify-between items-center">
+            <CardFooter className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-2">
               <span className="text-sm text-muted-foreground">Word Count: {wordCount}</span>
                <Button disabled>Submit for AI Feedback (Coming Soon)</Button>
             </CardFooter>
