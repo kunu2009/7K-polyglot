@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Samskriti',
+  title: '7K polyglot',
   description: 'A focused language learning app to teach Sanskrit.',
 };
 

@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <header className="flex items-center justify-between border-b p-2 sticky top-0 bg-background/95 backdrop-blur-sm z-10 h-16">
             <div className="flex items-center gap-2">
               <SidebarTrigger className="md:hidden" />
-              <h1 className="font-headline text-lg font-semibold md:hidden">Samskriti</h1>
+              <h1 className="font-headline text-lg font-semibold md:hidden">7K polyglot</h1>
             </div>
             <div className="ml-auto">
               <ThemeToggle />

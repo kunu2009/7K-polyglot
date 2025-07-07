@@ -49,7 +49,7 @@ export function AppSidebar() {
             <SidebarHeader className="h-16 flex items-center justify-between p-2">
                 <div className="flex items-center gap-2 [&_span]:opacity-100 group-data-[collapsible=icon]:[&_span]:opacity-0 transition-opacity duration-200">
                     <Logo className="w-8 h-8 text-primary" />
-                    <span className="font-headline text-2xl font-bold">Samskriti</span>
+                    <span className="font-headline text-2xl font-bold">7K polyglot</span>
                 </div>
                 <div className="hidden md:block">
                   <SidebarTrigger />

@@ -91,7 +91,7 @@ export default function DashboardPage() {
           <Card>
             <CardHeader>
                 <CardTitle>Explore Tools</CardTitle>
-                <CardDescription>Discover all the features Samskriti has to offer.</CardDescription>
+                <CardDescription>Discover all the features 7K polyglot has to offer.</CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FeatureCard
