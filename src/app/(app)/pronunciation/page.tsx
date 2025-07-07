@@ -177,7 +177,7 @@ export default function PronunciationPage() {
               <CardHeader>
                 <CardTitle className="font-headline text-xl flex items-center gap-2 text-green-800 dark:text-green-300">
                     <Languages /> AI Feedback
-                </Title>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-base whitespace-pre-wrap">{feedback.feedback}</p>

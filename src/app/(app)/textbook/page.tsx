@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -49,7 +49,7 @@ function TeachBackDialog({
   const [isLoading, setIsLoading] = useState(false);
 
   // Reset state when dialog is closed or verse changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) {
       setTimeout(() => {
         setExplanation('');
