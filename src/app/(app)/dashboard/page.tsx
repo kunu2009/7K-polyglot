@@ -48,7 +48,7 @@ const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: st
 );
 
 const allFeatures = [
-    { href: '/vocabulary', icon: BookText, title: 'Textbook', description: 'Interactive chapters from the HSC syllabus.' },
+    { href: '/textbook', icon: BookText, title: 'Textbook', description: 'Interactive chapters from the HSC syllabus.' },
     { href: '/grammar', icon: Scaling, title: 'Grammar Lessons', description: 'Detailed explanations of core grammar concepts.' },
     { href: '/practice', icon: PencilRuler, title: 'Practice Quiz', description: 'Test your knowledge with MCQ questions.' },
     { href: '/flashcards', icon: Layers, title: 'Flashcards', description: 'Learn vocabulary with spaced repetition.' },
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                 </CardContent>
                 <CardFooter className="pt-6">
                     <Button asChild className="w-full">
-                        <Link href="/vocabulary">Read Full Chapter <ArrowRight className="ml-2"/></Link>
+                        <Link href="/textbook">Read Full Chapter <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </CardFooter>
             </Card>
