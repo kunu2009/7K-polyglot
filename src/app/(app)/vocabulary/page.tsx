@@ -1,16 +1,56 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { textbookChapters } from "@/lib/sanskrit-data";
 import type { TextbookChapter } from "@/lib/sanskrit-data";
-import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare } from "lucide-react";
+import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle } from "lucide-react";
+import { textToSpeech } from '@/ai/flows/text-to-speech';
 
 // The full view for a single selected chapter
 function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBack: () => void }) {
+  const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [playingId, setPlayingId] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handlePlayVerse = async (verse: {id: number, sanskrit: string}) => {
+    // If another verse is playing, stop it
+    if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.onended = null;
+        audioRef.current = null;
+    }
+    
+    // If the clicked verse is already playing, stop it
+    if (playingId === verse.id) {
+        setPlayingId(null);
+        return;
+    }
+    
+    setLoadingId(verse.id);
+    setPlayingId(null);
+
+    try {
+        const response = await textToSpeech(verse.sanskrit);
+        audioRef.current = new Audio(response.media);
+        
+        audioRef.current.onended = () => {
+            setPlayingId(null);
+        };
+
+        await audioRef.current.play();
+        setPlayingId(verse.id);
+    } catch (error) {
+        console.error("Failed to generate audio:", error);
+        // Optionally, show a toast message here
+    } finally {
+        setLoadingId(null);
+    }
+  };
+
   return (
     <div className="animate-fade-in-up">
       <Button onClick={onBack} variant="outline" className="mb-6">
@@ -56,13 +96,27 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
               <FileText className="text-primary h-6 w-6" />
               Verse by Verse Analysis
             </CardTitle>
-            <CardDescription>An interactive breakdown of each line.</CardDescription>
+            <CardDescription>An interactive breakdown of each line. Click the speaker icon to listen.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {chapter.content.map((item, index) => (
               <div key={item.id}>
                 <div className="p-4 border rounded-lg bg-secondary/50">
-                  <p className="text-2xl font-headline font-semibold mb-3">{item.sanskrit}</p>
+                  <div className="flex justify-between items-start gap-4">
+                    <p className="text-2xl font-headline font-semibold mb-3 flex-grow">{item.sanskrit}</p>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handlePlayVerse(item)}
+                      disabled={loadingId !== null && loadingId !== item.id}
+                      className="text-muted-foreground flex-shrink-0"
+                      aria-label="Listen to verse"
+                    >
+                      {loadingId === item.id && <Loader2 className="h-5 w-5 animate-spin" />}
+                      {playingId === item.id && loadingId !== item.id && <StopCircle className="h-5 w-5 text-primary" />}
+                      {playingId !== item.id && loadingId !== item.id && <Volume2 className="h-5 w-5" />}
+                    </Button>
+                  </div>
                   <p className="text-muted-foreground italic">"{item.translation}"</p>
                   {item.metre && (
                     <div className="mt-2 text-sm">
