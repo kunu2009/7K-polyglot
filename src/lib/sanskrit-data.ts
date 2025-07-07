@@ -70,43 +70,43 @@ export const vocabularyCategories = [
 export const grammarLessons = [
   {
     title: "सन्धिः (Sandhi): Detailed Vowel & Consonant Rules",
-    content: "Review of Dirgha, Guṇa, Vṛddhi, and Yaṇ Sandhi. Introduction to consonant sandhis like Ścutva, Ṣṭutva, Jaśtva, and Anusvāra, which are crucial for analyzing textbook passages.",
+    content: "Sandhi is the euphonic combination of sounds at the junction of two words. In the HSC syllabus, a key focus is on Vowel (Svara) and Consonant (Vyañjana) Sandhi. Vowel Sandhis include: 1. Dīrgha (elongation): अ/आ + अ/आ → आ (e.g., देव + आलयः = देवालयः). 2. Guṇa (quality change): अ/आ + इ/ई → ए (e.g., गण + ईशः = गणेशः). 3. Vṛddhi (increase): अ/आ + ए/ऐ → ऐ (e.g., तथा + एव = तथैव). 4. Yaṇ (semivowel change): इ/ई/उ/ऊ/ऋ + dissimilar vowel → य्/व्/र् (e.g., इति + आदि = इत्यादि). Consonant Sandhis like Ścutva, Ṣṭutva, Jaśtva (e.g., वाक् + ईशः = वागीशः), and Anusvāra are also crucial for analyzing textbook passages.",
   },
   {
     title: "समासः (Samāsa): Compound Words",
-    content: "Introduction to the four main types of compounds: Avyayībhāva (indeclinable), Tatpuruṣa (determinative), Bahuvrīhi (possessive), and Dvandva (copulative). Examples are drawn from HSC textbook verses.",
+    content: "Samāsa is the process of combining two or more words into a single compound word, which helps in making the language concise. The four main types are: 1. Avyayībhāva (indeclinable), where the first word is an indeclinable and dominates (e.g., यथाशक्ति - according to ability). 2. Tatpuruṣa (determinative), where the second word is dominant and the first word is in a case relationship with it (e.g., राजपुरुषः - king's man). Karmadhāraya and Dvigu are subtypes. 3. Bahuvrīhi (possessive), where the compound word refers to a different person or object that possesses the quality (e.g., पीताम्बरः - one who has yellow garments, i.e., Vishnu). 4. Dvandva (copulative), where all components are of equal importance (e.g., रामलक्ष्मणौ - Rama and Lakshmana).",
   },
   {
     title: "कारकम् (Kāraka): Noun-Verb Relations",
-    content: "Deep dive into the six kārakas (agent, object, instrument, recipient, source, location) and their corresponding vibhaktis. Understanding kārakas is key to accurate translation.",
+    content: "Kāraka describes the relationship between a noun (or pronoun) and the verb in a sentence. It determines the noun's function. There are six kārakas, each corresponding to a specific case (Vibhakti), except for Genitive and Vocative. 1. Kartā (Agent - Nominative/1st Vibhakti): The doer of the action. 2. Karma (Object - Accusative/2nd Vibhakti): What the agent acts upon. 3. Karaṇa (Instrument - Instrumental/3rd Vibhakti): The means by which the action is done. 4. Sampradāna (Recipient - Dative/4th Vibhakti): The one for whom the action is done. 5. Apādāna (Source - Ablative/5th Vibhakti): The point of separation or origin. 6. Adhikaraṇa (Location - Locative/7th Vibhakti): The place or time of the action.",
   },
   {
     title: "लकारः (Lakāra): Tenses and Moods",
-    content: "Comprehensive study of all 10 lakāras, with a focus on the five most common in classical texts: Laṭ (present), Laṅ (past imperfect), Lṛṭ (future), Loṭ (imperative), and Vidhiliṅ (optative).",
+    content: "Sanskrit has 10 lakāras (tenses and moods) to express different timeframes and intentions. For the HSC syllabus, five are most important: 1. Laṭ-Lakāra (Present Tense): Describes an action happening now (e.g., गच्छति - he goes). 2. Laṅ-Lakāra (Past Imperfect Tense): Describes a past action (e.g., अगच्छत् - he went). 3. Lṛṭ-Lakāra (Future Tense): Describes a future action (e.g., गमिष्यति - he will go). 4. Loṭ-Lakāra (Imperative Mood): Used for commands, requests, or blessings (e.g., गच्छतु - let him go). 5. Vidhiliṅ-Lakāra (Potential/Optative Mood): Expresses possibility, advice, or duty ('should', 'would', 'might') (e.g., गच्छेत् - he should go).",
   },
   {
     title: "कृदन्तः (Kṛdanta): Verbal Derivatives",
-    content: "Study of primary suffixes (kṛt) added to verb roots to form nouns and adjectives. Focus on common suffixes like -ktvā (gerund), -tumun (infinitive), -śatṛ/-śānac (present participles), and -kta/-ktavatu (past participles).",
+    content: "Kṛdantas are words formed by adding primary suffixes (kṛt pratyayas) to verb roots (dhātus). They function as nouns, adjectives, or indeclinables. Important types for the syllabus are: 1. Ktvānta/Lyabanta (Gerunds): Show a prior action by the same subject (-tvā, -ya). E.g., गत्वा (having gone). 2. Tumunnanta (Infinitives): Show the purpose of an action (-tum). E.g., गन्तुम् (to go). 3. Śatṛ/Śānac (Present Participles): Describe an ongoing action, like '-ing' in English. E.g., गच्छन् (going). 4. Kta/Ktavatu (Past Participles): Describe a completed action. Kta is used in passive/impersonal voice (e.g., गतः - gone), while Ktavatu is used in active voice (e.g., गतवान् - he went).",
   },
   {
     title: "तद्धितः (Taddhita): Secondary Derivatives",
-    content: "Study of secondary suffixes (taddhita) added to nominal stems to form new nouns and adjectives. Examples include suffixes indicating possession (-matup), lineage (-aṇ), and abstract quality (-tva/-tā).",
+    content: "Taddhitas are words formed by adding secondary suffixes (taddhita pratyayas) to nominal stems (nouns, adjectives). They create new nouns or adjectives with a modified meaning. Common examples include: 1. Matup/Vatup: Indicates possession ('having'). E.g., बुद्धि + मतुप् → बुद्धिमान् (one having intellect). 2. Tva/Tā: Forms abstract nouns ('-ness', '-hood'). E.g., गुरु + त्व → गुरुत्वम् (heaviness, importance). 3. Aṇ/ya/ṣyañ: Often indicates lineage or relation ('descended from' or 'related to'). E.g., मनु + अण् → मानवः (human, descended from Manu).",
   },
   {
     title: "वाच्यपरिवर्तनम् (Vācya Parivartanam): Change of Voice",
-    content: "Mastering the transformation between Kartari Vācya (active voice), Karmaṇi Vācya (passive voice), and Bhāve Vācya (impersonal voice). This is a common question in HSC exams.",
+    content: "This involves changing the voice of a sentence, a common question in exams. The three voices are: 1. Kartari Vācya (Active): The subject (kartā) is in the 1st vibhakti, the object (karma) is in the 2nd, and the verb agrees with the subject. E.g., रामः ग्रन्थं पठति। 2. Karmaṇi Vācya (Passive): The subject is in the 3rd vibhakti, the object is in the 1st, and the verb (in ātmanepada form) agrees with the object. E.g., रामेण ग्रन्थः पठ्यते। 3. Bhāve Vācya (Impersonal): Used with intransitive verbs. The subject is in the 3rd vibhakti and the verb is always in the 3rd person singular, neuter. E.g., तेन हस्यते।",
   },
   {
     title: "छन्दः (Chandas): Metre in Poetry",
-    content: "Introduction to common Sanskrit metres like Anuṣṭubh, Upajāti, and Vasantatilakā. Students learn to scan verses (लघु-गुरु) from the textbook's poetry sections.",
+    content: "Chandas refers to the metrical structure of verses in Sanskrit poetry. Each metre has a specific pattern of light (laghu, U) and heavy (guru, —) syllables per line (pāda). A syllable is guru if it has a long vowel (आ, ई, ऊ, ऋृ), or if its vowel is followed by an anusvāra, visarga, or a conjunct consonant. Otherwise, it is laghu. Common metres in the textbook are Anuṣṭubh (8 syllables per pāda), Upajāti (11 syllables), and Vasantatilakā (14 syllables). Identifying the metre involves scanning the verse and matching the pattern.",
   },
   {
     title: "अव्ययम् (Avyayam): Indeclinables",
-    content: "A comprehensive list of common indeclinables found in the textbook, including conjunctions (च, वा), adverbs of time (अद्य, श्वः), and place (अत्र, तत्र), and particles (इव, एव).",
+    content: "Avyayas are words that do not change their form based on gender, number, or case. They are crucial for sentence structure. They can be classified as: 1. Conjunctions: च (and), वा (or), यदि...तर्हि (if...then), यदा...तदा (when...then). 2. Adverbs of Time: अद्य (today), श्वः (tomorrow), ह्यः (yesterday), सर्वदा (always). 3. Adverbs of Place: अत्र (here), तत्र (there), सर्वत्र (everywhere), कुत्र (where?). 4. Particles: एव (only, indeed), अपि (also), इव (like, as), मा (prohibitive 'don't'). Understanding their usage is key to correct translation.",
   },
   {
     title: "विशेषण-विशेष्य-भावः (Adjective-Noun Agreement)",
-    content: "Reinforcing the rule that adjectives (viśeṣaṇa) must agree with the noun they qualify (viśeṣya) in gender, number, and case. Abundant examples from the text are provided.",
+    content: "A fundamental rule in Sanskrit is that an adjective (viśeṣaṇa) must agree with the noun it qualifies (viśeṣya). This agreement must be in all three aspects: Liṅga (Gender), Vacana (Number), and Vibhakti (Case). For example, to say 'a good boy', you would say 'शोभनः बालकः'. For 'a good girl', it becomes 'शोभना बालिका', and for 'a good fruit', it is 'शोभनं फलम्'. This rule applies even if the words have different endings, as their gender, number, and case must match.",
   },
 ];
 
@@ -148,7 +148,7 @@ export const practiceQuestions = [
   { question: "The Anuṣṭubh metre has how many syllables per quarter (pāda)?", options: ["11", "12", "8", "14"], answer: "8" },
   { question: "In 'हितं मनोहारि च', the word 'च' means:", options: ["But", "Or", "If", "And"], answer: "And" },
   { question: "What is the opposite (viparyaya) of 'हितम्'?", options: ["अहितम्", "सुहितम्", "नहितम्", "विहितम्"], answer: "अहितम्" },
-  { question: "The root of 'गच्छति' is:", options: ["गच्छ्", "गम्", "ग", "गत्"], answer: "गम्" },
+  { question: "The root of 'gacchati' (गच्छति) is:", options: ["गच्छ्", "गम्", "ग", "गत्"], answer: "गम्" },
   { question: "Which is the correct dual form for 'sakhā' (friend, masculine)?", options: ["सखौ", "सखायौ", "सखे", "सखिनौ"], answer: "सखायौ" },
   { question: "The case used for the direct object of an action is:", options: ["Nominative", "Accusative", "Instrumental", "Genitive"], answer: "Accusative" },
   { question: "The 'Laṅ Lakāra' denotes which tense?", options: ["Present", "Future", "Past", "Conditional"], answer: "Past" },
@@ -170,7 +170,7 @@ export const practiceQuestions = [
   { question: "The word 'bhūpaḥ' (भूपः) is a synonym for:", options: ["Sage", "Poet", "King", "God"], answer: "King" },
   { question: "The sandhi in 'tathāpi' (तथा + अपि) is:", options: ["Guṇa", "Dīrgha", "Vṛddhi", "Yaṇ"], answer: "Dīrgha" },
   { question: "'Bahuvrīhi' samāsa usually refers to:", options: ["A collection", "An indeclinable", "A person/thing possessing the quality", "A list of items"], answer: "A person/thing possessing the quality" },
-  { question: "The verb 'syāt' (स्यात्) is in which mood?", options: ["Imperative (Loṭ)", "Past (Laṅ)", "Future (Lṛṭ)", "Optative (Vidhiliṅ)"], answer: "Optative (Vidhiliḥ)" },
+  { question: "The verb 'syāt' (स्यात्) is in which mood?", options: ["Imperative (Loṭ)", "Past (Laṅ)", "Future (Lṛṭ)", "Optative (Vidhiliṅ)"], answer: "Optative (Vidhiliṅ)" },
   { question: "The root 'dṛś' (दृश्) means:", options: ["To do", "To give", "To see", "To hear"], answer: "To see" },
   { question: "Which of these words is feminine?", options: ["नदी", "वारि", "मधु", "जगत्"], answer: "नदी" },
   { question: "The word 'putreṇa' (पुत्रेण) is in which case?", options: ["Nominative", "Dative", "Ablative", "Instrumental"], answer: "Instrumental" },
