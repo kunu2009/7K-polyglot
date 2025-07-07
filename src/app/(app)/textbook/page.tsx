@@ -7,14 +7,73 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { textbookChapters } from "@/lib/sanskrit-data";
 import type { TextbookChapter } from "@/lib/sanskrit-data";
-import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle } from "lucide-react";
+import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle, Sparkles, BookHeart, BookKey, Library } from "lucide-react";
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { contextualHelp, type ContextualHelpOutput } from '@/ai/flows/contextual-help';
+import { useToast } from '@/hooks/use-toast';
+
 
 // The full view for a single selected chapter
 function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBack: () => void }) {
   const [loadingId, setLoadingId] = useState<number | null>(null);
   const [playingId, setPlayingId] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const { toast } = useToast();
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [selectedText, setSelectedText] = useState('');
+  const [helpContent, setHelpContent] = useState<ContextualHelpOutput | null>(null);
+  const [isHelpLoading, setIsHelpLoading] = useState(false);
+  const longPressTimer = useRef<NodeJS.Timeout>();
+
+  const triggerAiHelp = async () => {
+    const text = window.getSelection()?.toString().trim();
+    if (text && text.length > 1) {
+        setSelectedText(text);
+        setIsHelpOpen(true);
+        setIsHelpLoading(true);
+        setHelpContent(null);
+        try {
+            const result = await contextualHelp({ text });
+            setHelpContent(result);
+        } catch (error) {
+            console.error("Failed to get AI help:", error);
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Could not fetch AI assistance. Please try again.",
+            });
+            setIsHelpOpen(false); // Close dialog on error
+        } finally {
+            setIsHelpLoading(false);
+        }
+    }
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    longPressTimer.current = setTimeout(() => {
+        triggerAiHelp();
+    }, 700);
+  };
+
+  const handlePointerUp = () => {
+    clearTimeout(longPressTimer.current);
+  };
 
   const handlePlayVerse = async (verse: {id: number, sanskrit: string}) => {
     // If another verse is playing, stop it
@@ -96,14 +155,20 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
               <FileText className="text-primary h-6 w-6" />
               Verse by Verse Analysis
             </CardTitle>
-            <CardDescription>An interactive breakdown of each line. Click the speaker icon to listen.</CardDescription>
+            <CardDescription>Long-press any word or line to get AI-powered contextual help.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {chapter.content.map((item, index) => (
               <div key={item.id}>
                 <div className="p-4 border rounded-lg bg-secondary/50">
                   <div className="flex justify-between items-start gap-4">
-                    <p className="text-2xl font-headline font-semibold mb-3 flex-grow break-all">{item.sanskrit}</p>
+                    <p 
+                      onPointerDown={handlePointerDown}
+                      onPointerUp={handlePointerUp}
+                      className="text-2xl font-headline font-semibold mb-3 flex-grow break-words"
+                    >
+                      {item.sanskrit}
+                    </p>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -177,6 +242,52 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
           </CardContent>
         </Card>
       </div>
+
+      <Dialog open={isHelpOpen} onOpenChange={setIsHelpOpen}>
+        <DialogContent className="sm:max-w-xl">
+            <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 font-headline text-2xl">
+                <Sparkles className="text-primary" />
+                AI Contextual Help
+            </DialogTitle>
+            <DialogDescription>
+                AI analysis for your selected text: "<span className="font-bold text-primary">{selectedText}</span>"
+            </DialogDescription>
+            </DialogHeader>
+            <div className="py-4 max-h-[60vh] overflow-y-auto">
+            {isHelpLoading ? (
+                <div className="flex flex-col items-center justify-center space-y-3 text-center">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="font-semibold">Analyzing text...</p>
+                <p className="text-sm text-muted-foreground">Please wait a moment.</p>
+                </div>
+            ) : helpContent ? (
+                <Accordion type="multiple" defaultValue={['grammar', 'meanings', 'context']} className="w-full">
+                <AccordionItem value="grammar">
+                    <AccordionTrigger className="text-lg font-headline">
+                        <BookHeart className="mr-2"/> Grammar Breakdown
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed whitespace-pre-wrap">{helpContent.grammar}</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="meanings">
+                    <AccordionTrigger className="text-lg font-headline">
+                        <BookKey className="mr-2"/> Alternative Meanings
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed whitespace-pre-wrap">{helpContent.meanings}</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="context">
+                    <AccordionTrigger className="text-lg font-headline">
+                        <Library className="mr-2"/> Cultural Context
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed whitespace-pre-wrap">{helpContent.culturalContext}</AccordionContent>
+                </AccordionItem>
+                </Accordion>
+            ) : (
+                <div className="text-center text-muted-foreground">No analysis available.</div>
+            )}
+            </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
