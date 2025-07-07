@@ -45,7 +45,7 @@ export default function WritingPracticePage() {
             <CardHeader>
               <CardTitle>Your Essay</CardTitle>
               <CardDescription>Compose your essay in the space below. The word count is updated automatically.</CardDescription>
-            </Header>
+            </CardHeader>
             <CardContent>
               <Textarea 
                 placeholder="अत्र लिखन्तु..."
