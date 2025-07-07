@@ -1,3 +1,4 @@
+
 export const dailyTasks = [
     {
         title: "Learn 5 New Words",
