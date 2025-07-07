@@ -14,7 +14,6 @@ import {
 import { pronunciationFeedback, PronunciationFeedbackOutput } from '@/ai/flows/pronunciation-feedback';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useDailyTasks } from '@/context/daily-tasks-context';
 
 export default function PronunciationPage() {
   const { toast } = useToast();
@@ -25,7 +24,6 @@ export default function PronunciationPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [textToSpeak, setTextToSpeak] = useState('विद्या ददाति विनयम्।');
   const [permissionError, setPermissionError] = useState(false);
-  const { updateTaskProgress } = useDailyTasks();
 
   const handleStartRecording = async () => {
     setPermissionError(false);
@@ -94,7 +92,6 @@ export default function PronunciationPage() {
       const audioDataUri = await blobToDataURI(audioBlob);
       const result = await pronunciationFeedback({ audioDataUri, text: textToSpeak });
       setFeedback(result);
-      updateTaskProgress('task-2', 1);
     } catch (error) {
       console.error('Error getting feedback:', error);
       toast({
