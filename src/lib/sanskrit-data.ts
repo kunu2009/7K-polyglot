@@ -1,4 +1,3 @@
-
 export const dailyTasks = [
     {
         title: "Learn 5 New Words",
@@ -20,20 +19,77 @@ export const dailyTasks = [
     }
 ];
 
-export const vocabularyCategories = [
+export interface TextbookChapter {
+    id: number;
+    category: string;
+    slug: string;
+    type: 'Prose' | 'Poetry';
+    author: string;
+    authorIntro: string;
+    summary: string;
+    content: {
+        id: number;
+        sanskrit: string;
+        translation: string;
+        metre?: string;
+        figureOfSpeech?: string;
+    }[];
+    words: {
+        sanskrit: string;
+        english: string;
+        etymology?: {
+            root: string;
+            meaning: string;
+        };
+    }[];
+}
+
+export const textbookChapters: TextbookChapter[] = [
   {
+    id: 1,
     category: "गद्यम् 1: चाणक्यनीतिः",
+    slug: 'gadyam-1-chanakyaniti',
+    type: 'Prose',
+    author: 'Chanakya',
+    authorIntro: "Chanakya was an ancient Indian teacher, philosopher, economist, jurist and royal advisor. He is traditionally identified as Kauṭilya or Vishnugupta, who authored the ancient Indian political treatise, the Arthashastra.",
+    summary: "This chapter presents a collection of aphorisms (sutras) from Chanakya's Nītīśāstra. Each verse provides timeless wisdom on governance, ethics, and practical life, emphasizing the value of knowledge over power.",
+    content: [
+      { id: 1, sanskrit: "विद्वत्त्वं च नृपत्वं च नैव तुल्यं कदाचन।", translation: "Learning and kingship are never equal." },
+      { id: 2, sanskrit: "स्वदेशे पूज्यते राजा विद्वान् सर्वत्र पूज्यते॥", translation: "A king is worshipped in his own country, but a learned person is worshipped everywhere." }
+    ],
     words: [
       { sanskrit: "विद्वान्", english: "A learned person", etymology: { root: "विद्", meaning: "to know" } },
       { sanskrit: "नृपः", english: "A king" },
-      { sanskrit: "स्वदेशे", english: "In his own country", etymology: { root: "स्व", meaning: "own", root2: "दिश्", meaning: "country/direction"} },
+      { sanskrit: "स्वदेशे", english: "In his own country", etymology: { root: "स्व + दिश्", meaning: "own + country/direction"} },
       { sanskrit: "पूज्यते", english: "Is worshipped / honored" },
       { sanskrit: "सर्वत्र", english: "Everywhere" },
       { sanskrit: "तुलना", english: "Comparison" },
     ],
   },
   {
+    id: 2,
     category: "पद्यम् 1: रघुवंशम्",
+    slug: 'padyam-1-raghuvamsham',
+    type: 'Poetry',
+    author: "Kālidāsa",
+    authorIntro: "Kālidāsa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language. His plays and poetry are primarily based on Hindu Puranas and philosophy.",
+    summary: "This opening verse from the epic poem Raghuvamsham is an invocation to the deities Shiva and Parvati. Kalidasa seeks their blessing to eloquently unite word and meaning, just as the divine couple is inseparably connected.",
+    content: [
+      { 
+        id: 1, 
+        sanskrit: "वागर्थाविव संपृक्तौ वागर्थप्रतिपत्तये।", 
+        translation: "For the correct understanding of word and its meaning, I bow to Parvati and Parameshwara...",
+        metre: "Anuṣṭubh",
+        figureOfSpeech: "Upamā (Simile)"
+      },
+      { 
+        id: 2, 
+        sanskrit: "जगतः पितरौ वन्दे पार्वतीपरमेश्वरौ॥", 
+        translation: "...who are the parents of the world and are inseparably connected like the word and its meaning.",
+        metre: "Anuṣṭubh",
+        figureOfSpeech: "Upamā (Simile)"
+      }
+    ],
     words: [
       { sanskrit: "वागर्थौ", english: "Word and its meaning", etymology: { root: "वाच् + अर्थ", meaning: "Speech + Meaning (Compound)" } },
       { sanskrit: "इव", english: "Like / As" },
@@ -44,7 +100,16 @@ export const vocabularyCategories = [
     ],
   },
   {
+    id: 3,
     category: "गद्यम् 2: पञ्चतन्त्रम्",
+    slug: 'gadyam-2-panchatantra',
+    type: 'Prose',
+    author: 'Vishnusharma',
+    authorIntro: "Vishnusharma is the attributed author of the Pañcatantra, an ancient collection of animal fables designed to impart wisdom and principles of statecraft (Nīti) to young princes.",
+    summary: "From the 'Mitrabheda' (The Separation of Friends) book of the Pañcatantra, this section introduces the core themes of political intelligence, courage, and the use of strategy to navigate complex social dynamics.",
+    content: [
+        { id: 1, sanskrit: "अस्ति दाक्षिणात्ये जनपदे महिलारोप्यं नाम नगरम्।", translation: "There is in the southern region a city named Mahilaropya." },
+    ],
     words: [
       { sanskrit: "मित्रभेदः", english: "Separation of friends" },
       { sanskrit: "दमनकः", english: "Name of a jackal" },
@@ -55,7 +120,16 @@ export const vocabularyCategories = [
     ],
   },
   {
+    id: 4,
     category: "पद्यम् 2: किरातार्जुनीयम्",
+    slug: 'padyam-2-kiratarjuniyam',
+    type: 'Poetry',
+    author: 'Bhāravi',
+    authorIntro: "Bhāravi, a 6th-century poet, is acclaimed for his epic poem Kirātārjunīya. His work is celebrated for its profound thoughts, intricate wordplay, and 'arthagaurava' (depth of meaning).",
+    summary: "This famous verse from Kirātārjunīya advises that speech which is both beneficial (hita) and pleasing (manohāri) is exceedingly rare. It underscores the difficulty of finding a true friend who can offer advice that is both honest and kind.",
+    content: [
+        { id: 1, sanskrit: "हितं मनोहारि च दुर्लभं वचः।", translation: "Speech that is both beneficial and pleasing is rare.", metre: "Vanshastra" },
+    ],
     words: [
       { sanskrit: "हितं", english: "Beneficial / Good", etymology: { root: "धा", meaning: "to put, place" } },
       { sanskrit: "मनोहारि", english: "Pleasing to the mind" },
@@ -153,7 +227,7 @@ export const practiceQuestions = [
   { question: "The case used for the direct object of an action is:", options: ["Nominative", "Accusative", "Instrumental", "Genitive"], answer: "Accusative" },
   { question: "The 'Laṅ Lakāra' denotes which tense?", options: ["Present", "Future", "Past", "Conditional"], answer: "Past" },
   { question: "In 'gantavyam' (गन्तव्यम्), the suffix '-tavya' indicates:", options: ["Past action", "Obligation ('should be gone to')", "Continuous action", "Purpose"], answer: "Obligation ('should be gone to')" },
-  { question: "The compound 'rāja-puruṣaḥ' (राजपुरुषः) means 'king's servant'. This is an example of:", options: ["Dvandva", "Bahuvrīhi", "Tatpuruṣa", "Avyayībhāva"], answer: "Tatpuruṣa" },
+  { question: "'Rāja-puruṣaḥ' (राजपुरुषः) means 'king's servant'. This is an example of:", options: ["Dvandva", "Bahuvrīhi", "Tatpuruṣa", "Avyayībhāva"], answer: "Tatpuruṣa" },
   { question: "What is the passive form of 'pibati' (पिबति)?", options: ["पिब्यते", "पीयते", "पायते", "पिबते"], answer: "पीयते" },
   { question: "The indeclinable 'adya' (अद्य) means:", options: ["Yesterday", "Tomorrow", "Today", "Always"], answer: "Today" },
   { question: "Which word means 'moon'?", options: ["सूर्यः", "अग्निः", "चन्द्रः", "तारा"], answer: "चन्द्रः" },

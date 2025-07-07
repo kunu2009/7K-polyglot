@@ -26,7 +26,7 @@ import { SidebarTrigger } from '../ui/sidebar';
 
 const menuItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutGrid },
-    { href: '/vocabulary', label: 'Vocabulary', icon: BookText },
+    { href: '/vocabulary', label: 'Textbook', icon: BookText },
     { href: '/grammar', label: 'Grammar', icon: Scaling },
     { href: '/practice', label: 'Practice', icon: PencilRuler },
     { href: '/flashcards', label: 'Flashcards', icon: Layers },
