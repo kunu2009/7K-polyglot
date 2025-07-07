@@ -2,21 +2,18 @@ export const dailyTasks = [
     {
         title: "Learn 5 New Words",
         description: "Expand your vocabulary.",
-        progress: 2,
         goal: 5,
-        href: "/vocabulary",
+        href: "/flashcards",
     },
     {
         title: "Take 1 Quiz",
         description: "Test your knowledge.",
-        progress: 0,
         goal: 1,
         href: "/practice",
     },
     {
         title: "Practice Pronunciation",
         description: "Master one phrase.",
-        progress: 1,
         goal: 1,
         href: "/pronunciation",
     }

@@ -25,7 +25,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
-import { dailyTasks } from "@/lib/sanskrit-data";
+import { useDailyTasks } from "@/context/daily-tasks-context";
 
 const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
     <Link href={href} className="flex">
@@ -45,7 +45,8 @@ const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: st
 );
 
 export default function DashboardPage() {
-    const tasksComplete = useMemo(() => dailyTasks.every(task => task.progress >= task.goal), []);
+    const { tasks } = useDailyTasks();
+    const tasksComplete = useMemo(() => tasks.every(task => task.progress >= task.goal), [tasks]);
 
   return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
@@ -68,14 +69,14 @@ export default function DashboardPage() {
               <CardDescription>Complete all three tasks to unlock your daily chest.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {dailyTasks.map((task, index) => (
-                 <Link href={task.href} key={index}>
+              {tasks.map((task) => (
+                 <Link href={task.href} key={task.id}>
                     <div className="p-4 rounded-lg border hover:bg-secondary/50 transition-colors cursor-pointer">
                         <div className="flex justify-between items-center mb-1">
                             <span className="font-semibold">{task.title}</span>
                             <span className="text-sm font-medium text-primary">{task.progress} / {task.goal}</span>
                         </div>
-                        <Progress value={(task.progress / task.goal) * 100} />
+                        <Progress value={task.goal > 0 ? (task.progress / task.goal) * 100 : 0} />
                     </div>
                 </Link>
               ))}

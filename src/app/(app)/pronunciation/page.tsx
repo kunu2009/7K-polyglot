@@ -14,6 +14,7 @@ import {
 import { pronunciationFeedback, PronunciationFeedbackOutput } from '@/ai/flows/pronunciation-feedback';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useDailyTasks } from '@/context/daily-tasks-context';
 
 export default function PronunciationPage() {
   const { toast } = useToast();
@@ -24,6 +25,7 @@ export default function PronunciationPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [textToSpeak, setTextToSpeak] = useState('नमस्ते');
   const [permissionError, setPermissionError] = useState(false);
+  const { updateTaskProgress } = useDailyTasks();
 
   const handleStartRecording = async () => {
     setPermissionError(false);
@@ -92,6 +94,7 @@ export default function PronunciationPage() {
       const audioDataUri = await blobToDataURI(audioBlob);
       const result = await pronunciationFeedback({ audioDataUri, text: textToSpeak });
       setFeedback(result);
+      updateTaskProgress('task-2', 1);
     } catch (error) {
       console.error('Error getting feedback:', error);
       toast({
@@ -173,7 +176,7 @@ export default function PronunciationPage() {
               <CardHeader>
                 <CardTitle className="font-headline text-xl flex items-center gap-2 text-green-800 dark:text-green-300">
                     <Languages /> AI Feedback
-                </CardTitle>
+                </Title>
               </CardHeader>
               <CardContent>
                 <p className="text-base whitespace-pre-wrap">{feedback.feedback}</p>

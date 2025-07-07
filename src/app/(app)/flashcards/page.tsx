@@ -1,15 +1,17 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { flashcards } from '@/lib/sanskrit-data';
 import { RotateCcw, ThumbsUp, ThumbsDown, Check } from 'lucide-react';
+import { useDailyTasks } from '@/context/daily-tasks-context';
 
 export default function FlashcardsPage() {
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [shuffledCards, setShuffledCards] = useState(() => [...flashcards].sort(() => Math.random() - 0.5));
+  const [shuffledCards] = useState(() => [...flashcards].sort(() => Math.random() - 0.5));
+  const { updateTaskProgress } = useDailyTasks();
 
   const currentCard = shuffledCards[cardIndex];
 
@@ -19,7 +21,8 @@ export default function FlashcardsPage() {
 
   const handleNext = (feedback: 'good' | 'easy' | 'hard') => {
     // In a real SRS, this would schedule the next review.
-    // Here, we just move to the next card.
+    // Here, we just move to the next card and update progress.
+    updateTaskProgress('task-0', 1);
     setIsFlipped(false);
     setTimeout(() => {
         setCardIndex((prevIndex) => (prevIndex + 1) % shuffledCards.length);

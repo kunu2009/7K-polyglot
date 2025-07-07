@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { practiceQuestions } from '@/lib/sanskrit-data';
 import { CheckCircle, XCircle, RotateCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useDailyTasks } from '@/context/daily-tasks-context';
 
 export default function PracticePage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -15,6 +16,7 @@ export default function PracticePage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const { toast } = useToast();
+  const { updateTaskProgress } = useDailyTasks();
 
   const currentQuestion = practiceQuestions[currentQuestionIndex];
 
@@ -39,6 +41,7 @@ export default function PracticePage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       // Loop back to the beginning for endless practice
+      updateTaskProgress('task-1', 1);
       setCurrentQuestionIndex(0);
       toast({
         title: "Quiz Complete!",
