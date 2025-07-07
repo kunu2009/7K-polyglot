@@ -103,7 +103,7 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
               <div key={item.id}>
                 <div className="p-4 border rounded-lg bg-secondary/50">
                   <div className="flex justify-between items-start gap-4">
-                    <p className="text-2xl font-headline font-semibold mb-3 flex-grow">{item.sanskrit}</p>
+                    <p className="text-2xl font-headline font-semibold mb-3 flex-grow break-words">{item.sanskrit}</p>
                     <Button
                       variant="ghost"
                       size="icon"
