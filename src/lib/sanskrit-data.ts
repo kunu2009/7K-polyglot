@@ -734,3 +734,36 @@ export const writingTopics = [
     { title: "विद्यायाः श्रेष्ठत्वम्", translation: "The supremacy of knowledge" },
     { title: "अस्माकं देशः भारतम्", translation: "Our country, India" },
 ];
+
+export const mindMapData = [
+  {
+    title: 'Verb Conjugation Map: √गम् (to go) - Present Tense (लट्-लकारः)',
+    root: '√गम् (गच्छ्)',
+    sections: [
+      {
+        title: 'उत्तमपुरुषः (First Person)',
+        persons: [
+          { number: 'एकवचनम्', form: 'गच्छामि' },
+          { number: 'द्विवचनम्', form: 'गच्छावः' },
+          { number: 'बहुवचनम्', form: 'गच्छामः' },
+        ],
+      },
+      {
+        title: 'मध्यमपुरुषः (Second Person)',
+        persons: [
+          { number: 'एकवचनम्', form: 'गच्छसि' },
+          { number: 'द्विवचनम्', form: 'गच्छथः' },
+          { number: 'बहुवचनम्', form: 'गच्छथ' },
+        ],
+      },
+      {
+        title: 'प्रथमपुरुषः (Third Person)',
+        persons: [
+          { number: 'एकवचनम्', form: 'गच्छति' },
+          { number: 'द्विवचनम्', form: 'गच्छतः' },
+          { number: 'बहुवचनम्', form: 'गच्छन्ति' },
+        ],
+      },
+    ]
+  }
+];

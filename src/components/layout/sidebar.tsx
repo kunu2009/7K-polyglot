@@ -14,6 +14,7 @@ import {
     BookText,
     Bot,
     FilePenLine,
+    GitFork,
     LayoutGrid,
     Layers,
     Mic,
@@ -36,6 +37,7 @@ const menuItems = [
     { href: '/grammar-tool', label: 'Grammar Tool', icon: Wand2 },
     { href: '/word-builder', label: 'Word Builder', icon: Swords },
     { href: '/writing-practice', label: 'Writing Practice', icon: FilePenLine },
+    { href: '/mind-maps', label: 'Mind Maps', icon: GitFork },
     { href: '/name-generator', label: 'Name Generator', icon: Sparkles },
     { href: '/culture', label: 'Culture', icon: DiyaLampIcon },
 ];
