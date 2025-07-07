@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
@@ -27,6 +28,9 @@ export default function PronunciationPage() {
 
   const handleStartRecording = async () => {
     setPermissionError(false);
+    setAudioBlob(null);
+    setFeedback(null);
+    
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -38,14 +42,16 @@ export default function PronunciationPage() {
         };
 
         mediaRecorderRef.current.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-          setAudioBlob(audioBlob);
+          const newAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          setAudioBlob(newAudioBlob);
+          // Stop all tracks on the stream to release the microphone
+           if (mediaRecorderRef.current) {
+                mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+           }
         };
 
         mediaRecorderRef.current.start();
         setIsRecording(true);
-        setAudioBlob(null);
-        setFeedback(null);
       } catch (err) {
         console.error('Error accessing microphone:', err);
         setPermissionError(true);
@@ -59,10 +65,8 @@ export default function PronunciationPage() {
   };
 
   const handleStopRecording = () => {
-    if (mediaRecorderRef.current) {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
       mediaRecorderRef.current.stop();
-      // Stop all tracks on the stream to release the microphone
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
       setIsRecording(false);
     }
   };
@@ -143,7 +147,7 @@ export default function PronunciationPage() {
               </Button>
             )}
             
-            <Button onClick={handleGetFeedback} size="lg" disabled={!audioBlob || isLoading}>
+            <Button onClick={handleGetFeedback} size="lg" disabled={!audioBlob || isLoading || isRecording}>
               {isLoading ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               ) : (

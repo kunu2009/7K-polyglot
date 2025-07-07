@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { practiceQuestions } from '@/lib/sanskrit-data';
 import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useDailyTasks } from '@/context/daily-tasks-context';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function PracticePage() {
@@ -17,7 +16,6 @@ export default function PracticePage() {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
-  const { updateTaskProgress } = useDailyTasks();
 
   const currentQuestion = practiceQuestions[currentQuestionIndex];
   const selectedOption = answers[currentQuestionIndex];
@@ -37,7 +35,6 @@ export default function PracticePage() {
     }
 
     if (Object.keys(newAnswers).length === practiceQuestions.length && !quizCompleted) {
-        updateTaskProgress('task-1', 1);
         setQuizCompleted(true);
         toast({
             title: "Quiz Complete!",

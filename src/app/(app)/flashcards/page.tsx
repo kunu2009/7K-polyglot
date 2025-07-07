@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { flashcards } from '@/lib/sanskrit-data';
 import { RotateCcw, ThumbsUp, ThumbsDown, Check, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
-import { useDailyTasks } from '@/context/daily-tasks-context';
 
 type Flashcard = typeof flashcards[0];
 
@@ -13,7 +12,6 @@ export default function FlashcardsPage() {
   const [shuffledCards, setShuffledCards] = useState<Flashcard[]>([]);
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const { updateTaskProgress } = useDailyTasks();
   
   const shuffleCards = useCallback(() => {
     const shuffled = [...flashcards].sort(() => Math.random() - 0.5);
@@ -44,7 +42,6 @@ export default function FlashcardsPage() {
   };
 
   const handleFeedback = (feedback: 'good' | 'easy' | 'hard') => {
-    updateTaskProgress('task-0', 1);
     if (cardIndex < shuffledCards.length -1) {
       changeCard('next');
     }
