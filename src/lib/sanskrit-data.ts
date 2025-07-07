@@ -53,13 +53,15 @@ export const textbookChapters: TextbookChapter[] = [
     type: 'Prose',
     author: 'Chanakya',
     authorIntro: "Chanakya (c. 375–283 BCE), also known as Kauṭilya or Vishnugupta, was a preeminent ancient Indian teacher, philosopher, economist, and royal advisor. He served as the chief advisor to both Emperor Chandragupta and his son Bindusara. His magnum opus, the Arthashastra, is a classical treatise on statecraft and economic policy. The Chanakya Niti is a collection of his insightful aphorisms on ethics, governance, and practical life, which remain relevant even today.",
-    summary: "This chapter, 'The Supremacy of Knowledge', compiles several key verses from Chanakya's Nītīśāstra. These aphorisms powerfully argue that knowledge (Vidyā) is the most supreme form of wealth. Chanakya contrasts the power of a scholar with that of a king, illustrates how knowledge protects and provides for an individual in all circumstances, and asserts that beauty and youth are meaningless without it. The verses serve as timeless reminders of the enduring value of education.",
+    summary: "This chapter, 'The Supremacy of Knowledge', compiles several key verses from Chanakya's Nītīśāstra. These aphorisms powerfully argue that knowledge (Vidyā) is the most supreme form of wealth. Chanakya illustrates how knowledge protects and provides for an individual in all circumstances, asserts that beauty and youth are meaningless without it, and even compares it to a wish-fulfilling cow. The verses serve as timeless reminders of the enduring value of education.",
     content: [
       { id: 1, sanskrit: "विद्वत्त्वं च नृपत्वं च नैव तुल्यं कदाचन। स्वदेशे पूज्यते राजा विद्वान् सर्वत्र पूज्यते॥", translation: "Learning and kingship are never equal. A king is worshipped in his own country, but a learned person is worshipped everywhere." },
       { id: 2, sanskrit: "कामधेनुगुणा विद्या ह्यकाले फलदायिनी। प्रवासे मातृसदृशी विद्या गुप्तं धनं स्मृतम्॥", translation: "Knowledge has qualities like a wish-fulfilling cow, yielding fruits even at an inopportune time. During travels, it is like a mother. Knowledge is considered a secret treasure." },
       { id: 3, sanskrit: "रूपयौवनसम्पन्ना विशालकुलसम्भवाः। विद्याहीना न शोभन्ते निर्गन्धा इव किंशुकाः॥", translation: "Those endowed with beauty and youth, born in a great family, do not shine if they are devoid of knowledge, just like the odorless Kimshuka flowers.", figureOfSpeech: "Upamā (Simile)" },
       { id: 4, sanskrit: "माता शत्रुः पिता वैरी येन बालो न पाठितः। न शोभते सभामध्ये हंसमध्ये बको यथा॥", translation: "A mother is an enemy and a father is a foe, by whom a child is not educated. Such a child does not adorn an assembly, just as a crane does not among swans.", figureOfSpeech: "Upamā (Simile)" },
-      { id: 5, sanskrit: "विदेशेषु धनं विद्या व्यसनेषु धनं मतिः। परलोके धनं धर्मः शीलं सर्वत्र वै धनम्॥", translation: "In foreign lands, knowledge is wealth. In times of adversity, intellect is wealth. In the next world, righteousness (Dharma) is wealth. But good character (Shīla) is wealth everywhere." }
+      { id: 5, sanskrit: "विदेशेषु धनं विद्या व्यसनेषु धनं मतिः। परलोके धनं धर्मः शीलं सर्वत्र वै धनम्॥", translation: "In foreign lands, knowledge is wealth. In times of adversity, intellect is wealth. In the next world, righteousness (Dharma) is wealth. But good character (Shīla) is wealth everywhere." },
+      { id: 6, sanskrit: "न चौरहार्यं न च राजहार्यं न भ्रातृभाज्यं न च भारकारि। व्यये कृते वर्धत एव नित्यं विद्याधनं सर्वधनप्रधानम्॥", translation: "It cannot be stolen by thieves, nor taken by kings, nor divided among brothers, nor is it burdensome. The more it is spent, the more it grows. The wealth of knowledge is indeed the foremost of all wealths." },
+      { id: 7, sanskrit: "अलसस्य कुतो विद्या अविद्यस्य कुतो धनम्। अधनस्य कुतो मित्रम् अमित्रस्य कुतः सुखम्॥", translation: "For a lazy person, where is knowledge? For an uneducated person, where is wealth? For a poor person, where is a friend? For a friendless person, where is happiness?" }
     ],
     words: [
       { sanskrit: "विद्वान्", english: "A learned person", etymology: { root: "विद्", meaning: "to know" } },
@@ -93,6 +95,20 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "परलोके", english: "In the next world" },
       { sanskrit: "धर्मः", english: "Righteousness/Duty" },
       { sanskrit: "शीलम्", english: "Good character/Conduct" },
+      { sanskrit: "चौरहार्यं", english: "Can be stolen by a thief" },
+      { sanskrit: "राजहार्यं", english: "Can be taken by a king" },
+      { sanskrit: "भ्रातृभाज्यं", english: "Can be divided by brothers" },
+      { sanskrit: "भारकारि", english: "Burdensome" },
+      { sanskrit: "व्यये कृते", english: "When spent/used" },
+      { sanskrit: "वर्धते", english: "It grows/increases" },
+      { sanskrit: "नित्यं", english: "Always/Eternally" },
+      { sanskrit: "सर्वधनप्रधानम्", english: "Foremost of all wealths" },
+      { sanskrit: "अलसस्य", english: "Of a lazy person" },
+      { sanskrit: "कुतः", english: "From where? / How?" },
+      { sanskrit: "अविद्यस्य", english: "Of an uneducated person" },
+      { sanskrit: "अधनस्य", english: "Of a poor person" },
+      { sanskrit: "अमित्रस्य", english: "Of a friendless person" },
+      { sanskrit: "सुखम्", english: "Happiness" },
     ],
   },
   {
@@ -101,8 +117,8 @@ export const textbookChapters: TextbookChapter[] = [
     slug: 'padyam-1-raghuvamsham',
     type: 'Poetry',
     author: "Kālidāsa",
-    authorIntro: "Kālidāsa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language. His plays and poetry are primarily based on Hindu Puranas and philosophy.",
-    summary: "These opening verses from the epic poem Raghuvamsham begin with an invocation to Shiva and Parvati, followed by the poet's humble admission of the great task he is undertaking.",
+    authorIntro: "Kālidāsa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language. His plays and poetry are primarily based on Hindu Puranas and philosophy. Raghuvamsham is one of his two epic poems.",
+    summary: "These opening verses from the epic poem Raghuvamsham showcase Kālidāsa's genius. He begins with an invocation to Shiva and Parvati, humbly states the great task he is undertaking, and then describes the noble qualities of the kings of the Raghu dynasty, setting the stage for the epic narrative.",
     content: [
       { 
         id: 1, 
@@ -117,6 +133,12 @@ export const textbookChapters: TextbookChapter[] = [
         translation: "Where is the great lineage originating from the Sun, and where is my limited intellect? Out of delusion, I desire to cross the difficult-to-cross ocean with a small raft.",
         metre: "Anuṣṭubh",
         figureOfSpeech: "Nidarśanā (Illustration)"
+      },
+      {
+        id: 3,
+        sanskrit: "त्यागाय संभृतार्थानां सत्याय मितभाषिणाम्। यशसे विजिगीषूणां प्रजायै गृहमेधिनाम्॥",
+        translation: "(I shall narrate about the kings of Raghu dynasty) who collected wealth for the sake of giving away, who were temperate in speech for the sake of truth, who desired victory for the sake of fame, and who were householders for the sake of progeny.",
+        metre: "Anuṣṭubh"
       }
     ],
     words: [
@@ -132,6 +154,14 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "दुस्तरम्", english: "Difficult to cross" },
       { sanskrit: "उडुपेन", english: "With a small raft" },
       { sanskrit: "सागरम्", english: "Ocean" },
+      { sanskrit: "त्यागाय", english: "For giving / charity" },
+      { sanskrit: "संभृतार्थानाम्", english: "Of those who have collected wealth" },
+      { sanskrit: "सत्याय", english: "For truth" },
+      { sanskrit: "मितभाषिणाम्", english: "Of those who speak moderately" },
+      { sanskrit: "यशसे", english: "For fame" },
+      { sanskrit: "विजिगीषूणाम्", english: "Of those who desire victory" },
+      { sanskrit: "प्रजायै", english: "For progeny" },
+      { sanskrit: "गृहमेधिनाम्", english: "Of householders" },
     ],
   },
   {
@@ -140,13 +170,14 @@ export const textbookChapters: TextbookChapter[] = [
     slug: 'gadyam-2-panchatantra',
     type: 'Prose',
     author: 'Vishnusharma',
-    authorIntro: "Vishnusharma is the attributed author of the Pañcatantra, an ancient collection of animal fables designed to impart wisdom and principles of statecraft (Nīti) to young princes.",
-    summary: "From 'Mitrabheda' (The Separation of Friends), this section introduces King Amarashakti, who is worried about his three foolish sons. He seeks a teacher who can impart wisdom to them, leading to the creation of the Pañcatantra.",
+    authorIntro: "Vishnusharma is the attributed author of the Pañcatantra, an ancient collection of animal fables designed to impart wisdom and principles of statecraft (Nīti) to young princes. The stories are arranged within a frame story, where Vishnusharma narrates them to the foolish sons of a king.",
+    summary: "From 'Mitrabheda' (The Separation of Friends), this section introduces King Amarashakti of Mahilaropya. Worried about his three foolish and uneducated sons, the king calls his ministers to find a solution. He expresses his despair, noting that even a great kingdom brings no joy when one's heirs are undisciplined. This sets the stage for the introduction of the wise teacher, Vishnusharma.",
     content: [
         { id: 1, sanskrit: "अस्ति दाक्षिणात्ये जनपदे महिलारोप्यं नाम नगरम्। तत्र अमरशक्तिर्नाम राजा बभूव।", translation: "There is in the southern region a city named Mahilaropya. There lived a king named Amarashakti." },
         { id: 2, sanskrit: "तस्य त्रयः पुत्राः बहुशक्तिः, उग्रशक्तिः, अनन्तशक्तिश्चेति परममूर्खाः आसन्।", translation: "He had three sons named Bahushakti, Ugrashakti, and Anantashakti, who were extremely foolish." },
         { id: 3, sanskrit: "अथ स राजा तान् शास्त्रविमुखान् आलोक्य सचिवान् आहूय प्रोवाच।", translation: "Then that king, seeing them averse to learning, called his ministers and said." },
-        { id: 4, sanskrit: "भोः, ज्ञातमेतद् भवद्भिर्यन्ममैते पुत्राः शास्त्रविमुखाः विवेकरहिताश्च। एतान् पश्यतो मे महदपि राज्यं न सौख्यमावहति।", translation: "Oh, you all know that these sons of mine are averse to scriptures and lack discretion. Seeing them, even a great kingdom does not bring me happiness." }
+        { id: 4, sanskrit: "भोः, ज्ञातमेतद् भवद्भिर्यन्ममैते पुत्राः शास्त्रविमुखाः विवेकरहिताश्च। एतान् पश्यतो मे महदपि राज्यं न सौख्यमावहति।", translation: "Oh, you all know that these sons of mine are averse to scriptures and lack discretion. Seeing them, even a great kingdom does not bring me happiness." },
+        { id: 5, sanskrit: "उक्तं च - अजातमृतमूर्खेभ्यो मृताजातौ सुतौ वरम्। यतस्तौ स्वल्पदुःखाय यावज्जीवं जडो दहेत्॥", translation: "And it is said - Of the unborn, the dead, and the foolish, the dead and the unborn sons are better. For they cause sorrow only for a short while, but a foolish one burns (us) for as long as he lives." }
     ],
     words: [
       { sanskrit: "जनपदे", english: "In a region/territory" },
@@ -160,6 +191,13 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "विवेकरहिताः", english: "Devoid of discretion" },
       { sanskrit: "सौख्यम्", english: "Happiness" },
       { sanskrit: "आवहति", english: "Brings" },
+      { sanskrit: "अजात", english: "Unborn" },
+      { sanskrit: "मृत", english: "Dead" },
+      { sanskrit: "वरम्", english: "Better" },
+      { sanskrit: "स्वल्पदुःखाय", english: "For a little sorrow" },
+      { sanskrit: "यावज्जीवं", english: "For as long as one lives" },
+      { sanskrit: "जडः", english: "A foolish/dull person" },
+      { sanskrit: "दहेत्", english: "Would burn" },
     ],
   },
   {
@@ -168,11 +206,11 @@ export const textbookChapters: TextbookChapter[] = [
     slug: 'padyam-2-kiratarjuniyam',
     type: 'Poetry',
     author: 'Bhāravi',
-    authorIntro: "Bhāravi, a 6th-century poet, is acclaimed for his epic poem Kirātārjunīya. His work is celebrated for its profound thoughts, intricate wordplay, and 'arthagaurava' (depth of meaning).",
-    summary: "In this verse, a spy sent by Yudhishthira reports back about Duryodhana's rule. He prefaces his report by stating that a king should not be deceived by his servants, and that speech which is both true/beneficial and pleasing is very rare.",
+    authorIntro: "Bhāravi, a 6th-century poet, is acclaimed for his epic poem Kirātārjunīya. His work is celebrated for its profound thoughts, intricate wordplay, and 'arthagaurava' (depth of meaning). The epic describes the period of the Pandavas' exile and Arjuna's quest to obtain divine weapons.",
+    summary: "In these verses, a spy (vanecara) sent by Yudhishthira reports back about Duryodhana's rule in Hastinapura. He prefaces his report by stating that a king should not be deceived, asks for forgiveness for any unpleasant truths he might speak, and then proceeds to describe how Duryodhana, through righteous governance, is trying to win over the kingdom and overcome the Pandavas' legacy through his good policies, not by deceit.",
     content: [
-        { id: 1, sanskrit: "क्रियासु युक्तैर्नृप चारचक्षुषो न वञ्चनीयाः प्रभवोऽनुजीविभिः।", translation: "O King, masters who see through the eyes of their spies should not be deceived by their subordinates with regard to their actions.", metre: "Vanshastra" },
-        { id: 2, sanskrit: "अतोऽर्हसि क्षन्तुमसाधु साधु वा हितं मनोहारि च दुर्लभं वचः॥", translation: "Therefore, you should forgive what I say, whether it is unpleasant or pleasant—because speech that is both beneficial and pleasing is rare.", metre: "Vanshastra" }
+        { id: 1, sanskrit: "क्रियासु युक्तैर्नृप चारचक्षुषो न वञ्चनीयाः प्रभवोऽनुजीविभिः। अतोऽर्हसि क्षन्तुमसाधु साधु वा हितं मनोहारि च दुर्लभं वचः॥", translation: "O King, masters who see through the eyes of their spies should not be deceived by their subordinates regarding their actions. Therefore, you should forgive what I say, whether it is unpleasant or pleasant—because speech that is both beneficial and pleasing is rare.", metre: "Vanshastra" },
+        { id: 2, sanskrit: "स किंसखा साधु न शास्ति योऽधिपं हितान्न यः संश‍ृणुते स किंप्रभुः। सदानुकूलेषु हि कुर्वते रतिं नृपेष्वमात्येषु च सर्वसंपदः॥", translation: "He is a bad friend who does not advise his master correctly, and he is a bad master who does not listen to those who wish him well. Indeed, all fortunes flourish for kings and ministers who are mutually well-disposed.", metre: "Vanshastra" }
     ],
     words: [
       { sanskrit: "क्रियासु", english: "In actions" },
@@ -187,6 +225,89 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "मनोहारि", english: "Pleasing to the mind" },
       { sanskrit: "दुर्लभं", english: "Rare / Difficult to obtain" },
       { sanskrit: "वचः", english: "Speech / Word" },
+      { sanskrit: "किंसखा", english: "A bad friend" },
+      { sanskrit: "न शास्ति", english: "Does not advise/instruct" },
+      { sanskrit: "अधिपम्", english: "The master/king" },
+      { sanskrit: "न संश‍ृणुते", english: "Does not listen" },
+      { sanskrit: "किंप्रभुः", english: "A bad master" },
+      { sanskrit: "सदानुकूलेषु", english: "In those who are always favorable" },
+      { sanskrit: "कुर्वते रतिम्", english: "Take delight in / reside" },
+      { sanskrit: "अमात्येषु", english: "In ministers" },
+      { sanskrit: "सर्वसंपदः", english: "All fortunes/prosperities" },
+    ],
+  },
+  {
+    id: 5,
+    category: "गद्यम् 3: शुकनासोपदेशः",
+    slug: 'gadyam-3-shukanasopadesha',
+    type: 'Prose',
+    author: 'Bāṇabhaṭṭa',
+    authorIntro: "Bāṇabhaṭṭa was a 7th-century Sanskrit prose writer and poet of India. He was the Asthana Kavi in the court of King Harsha Vardhana. His principal works include a biography of Harsha, the Harshacharita, and one of the world's earliest novels, the Kādambarī. His style is known for its long, complex sentences and rich descriptions.",
+    summary: "This excerpt is from the Kādambarī. The wise and elderly minister, Śukanāsa, gives profound advice to Prince Candrāpīḍa just before his coronation. Śukanāsa warns the prince about the unique dangers that come with innate power, youth, and beauty, describing them as a source of great calamity if not handled with wisdom and self-control. The advice is a masterpiece of political and ethical counsel.",
+    content: [
+      { id: 1, sanskrit: "विदितवेदितव्यस्याधीतसर्वशास्त्रस्य ते नाल्पमप्युपदेष्टव्यमस्ति।", translation: "For you, who has known all that is to be known and studied all the scriptures, there is not even a little that needs to be advised." },
+      { id: 2, sanskrit: "केवलम् च निसर्गत एवाभानुभेद्यमरत्नालोकच्छेद्यमप्रदीपप्रभापनेयं अतिगहनं तमो यौवनप्रभवम्।", translation: "And yet, this darkness born of youth is by its very nature impenetrable by the sun, cannot be pierced by the light of jewels, cannot be dispelled by the radiance of a lamp, and is exceedingly profound." },
+      { id: 3, sanskrit: "गर्भेश्वरत्वमभिनवयौवनत्वमप्रतिमरूपत्वममानुषशक्तित्वं चेति महतीयं खल्वनर्थपरम्परा।", translation: "Sovereignty from birth, budding youth, incomparable beauty, and superhuman power - this is indeed a great series of calamities." }
+    ],
+    words: [
+      { sanskrit: "विदितवेदितव्यस्य", english: "Of one who has known what is to be known" },
+      { sanskrit: "अधीतसर्वशास्त्रस्य", english: "Of one who has studied all scriptures" },
+      { sanskrit: "उपदेष्टव्यम्", english: "What needs to be advised" },
+      { sanskrit: "निसर्गतः", english: "By nature" },
+      { sanskrit: "अभानुभेद्यम्", english: "Impenetrable by the sun" },
+      { sanskrit: "अतिगहनम्", english: "Exceedingly deep/profound" },
+      { sanskrit: "तमः", english: "Darkness" },
+      { sanskrit: "यौवनप्रभवम्", english: "Originating from youth" },
+      { sanskrit: "गर्भेश्वरत्वम्", english: "Sovereignty from birth (lit. from the womb)" },
+      { sanskrit: "अभिनवयौवनत्वम्", english: "State of new/budding youth" },
+      { sanskrit: "अप्रतिमरूपत्वम्", english: "State of having incomparable beauty" },
+      { sanskrit: "अमानुषशक्तित्वम्", english: "State of having superhuman power" },
+      { sanskrit: "खलु", english: "Indeed" },
+      { sanskrit: "अनर्थपरम्परा", english: "A series of calamities" },
+    ],
+  },
+  {
+    id: 6,
+    category: "पद्यम् 3: श्रीमद्भगवद्गीता",
+    slug: 'padyam-3-bhagavad-gita',
+    type: 'Poetry',
+    author: 'Vyāsa (Traditionally)',
+    authorIntro: "Vyāsa is the revered sage traditionally credited with composing the epic Mahābhārata. The Bhagavad Gītā, a 700-verse scripture, is a part of this epic (Bhishma Parva) and is one of the most important religious and philosophical texts in Hinduism.",
+    summary: "In the midst of the Kurukshetra battlefield, Arjuna is filled with despair at the thought of fighting his own kin. Lord Krishna imparts timeless wisdom to him, starting with the fundamental nature of the soul (Ātman). These verses from the second chapter explain that the soul is eternal, indestructible, and merely changes bodies like a person changes clothes.",
+    content: [
+      { 
+        id: 1, 
+        sanskrit: "नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः। न चैनं क्लेदयन्त्यापो न शोषयति मारुतः॥", 
+        translation: "Weapons do not cut this (soul), fire does not burn it, water does not wet it, and wind does not dry it.",
+        metre: "Anuṣṭubh",
+      },
+      { 
+        id: 2, 
+        sanskrit: "वासांसि जीर्णानि यथा विहाय नवानि गृह्णाति नरोऽपराणि। तथा शरीराणि विहाय जीर्णान्यन्यानि संयाति नवानि देही॥", 
+        translation: "Just as a person casts off worn-out garments and puts on new ones, so does the embodied soul cast off worn-out bodies and enter into others that are new.",
+        metre: "Anuṣṭubh",
+        figureOfSpeech: "Upamā (Simile)"
+      }
+    ],
+    words: [
+      { sanskrit: "एनम्", english: "This (referring to the soul)" },
+      { sanskrit: "छिन्दन्ति", english: "They cut" },
+      { sanskrit: "शस्त्राणि", english: "Weapons" },
+      { sanskrit: "दहति", english: "It burns" },
+      { sanskrit: "पावकः", english: "Fire" },
+      { sanskrit: "क्लेदयन्ति", english: "They wet/moisten" },
+      { sanskrit: "आपः", english: "Waters" },
+      { sanskrit: "शोषयति", english: "It dries" },
+      { sanskrit: "मारुतः", english: "Wind" },
+      { sanskrit: "वासांसि", english: "Garments/Clothes" },
+      { sanskrit: "जीर्णानि", english: "Worn-out/Old" },
+      { sanskrit: "विहाय", english: "Having abandoned/cast off" },
+      { sanskrit: "नवानि", english: "New ones" },
+      { sanskrit: "गृह्णाति", english: "Takes/Accepts" },
+      { sanskrit: "नरः", english: "A person/man" },
+      { sanskrit: "अपराणि", english: "Others" },
+      { sanskrit: "देही", english: "The embodied soul" },
+      { sanskrit: "संयाति", english: "Enters into" },
     ],
   },
 ];
