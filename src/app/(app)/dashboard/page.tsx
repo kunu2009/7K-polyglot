@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,23 +11,24 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import {
   ArrowRight,
   BookText,
   FilePenLine,
-  Gift,
   Layers,
   Mic,
   PencilRuler,
   Scaling,
   Swords,
-  Target,
   Wand2,
 } from "lucide-react";
 import { DiyaLampIcon } from "@/components/icons";
-import { useDailyTasks } from "@/context/daily-tasks-context";
 import { flashcards, practiceQuestions, textbookChapters } from "@/lib/sanskrit-data";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+
 
 const FeatureCard = ({ href, icon: Icon, title, description, badge }: { href: string; icon: React.ElementType; title: string; description: string; badge?: string }) => (
     <Link href={href} className="flex">
@@ -59,12 +60,27 @@ const allFeatures = [
 ];
 
 export default function DashboardPage() {
-    const { tasks } = useDailyTasks();
-    const tasksComplete = useMemo(() => tasks.every(task => task.progress >= task.goal), [tasks]);
-    
+    const { toast } = useToast();
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+
     const firstFlashcard = flashcards[0];
     const firstQuestion = practiceQuestions[0];
     const firstChapter = textbookChapters[0];
+    
+    const isAnswered = selectedAnswer !== null;
+
+    const handleSelectOption = (option: string) => {
+        if (isAnswered) return;
+
+        setSelectedAnswer(option);
+        const isCorrect = option === firstQuestion.answer;
+        if (isCorrect) {
+            toast({ title: "Correct!" });
+        } else {
+            toast({ title: "Incorrect!", description: `The correct answer is: ${firstQuestion.answer}`, variant: "destructive" });
+        }
+    };
 
   return (
     <div className="flex flex-col gap-8 animate-fade-in-up">
@@ -76,34 +92,6 @@ export default function DashboardPage() {
             Welcome back! Here's a quick start for your Sanskrit studies.
         </p>
       </header>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 font-headline">
-              <Target className="text-primary"/> Daily Goals
-          </CardTitle>
-          <CardDescription>Complete all three tasks to unlock your daily chest.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {tasks.map((task) => (
-             <Link href={task.href} key={task.id}>
-                <div className="p-4 rounded-lg border hover:bg-secondary/50 transition-colors cursor-pointer">
-                    <div className="flex justify-between items-center mb-1">
-                        <span className="font-semibold">{task.title}</span>
-                        <span className="text-sm font-medium text-primary">{task.progress} / {task.goal}</span>
-                    </div>
-                    <Progress value={task.goal > 0 ? (task.progress / task.goal) * 100 : 0} />
-                </div>
-            </Link>
-          ))}
-        </CardContent>
-         <CardFooter>
-             <Button className="w-full" disabled={!tasksComplete}>
-                <Gift className="mr-2"/>
-                {tasksComplete ? "Claim Daily Chest" : "Complete All Tasks to Unlock"}
-            </Button>
-        </CardFooter>
-      </Card>
       
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="flex flex-col">
@@ -112,12 +100,23 @@ export default function DashboardPage() {
                         <Layers className="text-primary"/> Flashcard Quick Review
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow flex items-center justify-center bg-secondary rounded-md p-6">
-                    <p className="text-4xl font-headline text-center">{firstFlashcard.front}</p>
+                <CardContent className="flex-grow flex items-center justify-center rounded-md p-6 perspective-1000">
+                     <div
+                        className={`relative w-full h-full transform-style-preserve-3d transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}
+                        onClick={() => setIsFlipped(!isFlipped)}
+                        style={{minHeight: '100px'}}
+                    >
+                        <div className="absolute w-full h-full backface-hidden flex items-center justify-center bg-secondary rounded-lg cursor-pointer">
+                             <p className="text-4xl font-headline text-center">{firstFlashcard.front}</p>
+                        </div>
+                        <div className="absolute w-full h-full backface-hidden rotate-y-180 flex items-center justify-center bg-accent text-accent-foreground rounded-lg cursor-pointer">
+                             <p className="text-3xl font-semibold text-center">{firstFlashcard.back}</p>
+                        </div>
+                    </div>
                 </CardContent>
                 <CardFooter className="pt-6">
                     <Button asChild className="w-full">
-                        <Link href="/flashcards">Start Studying Flashcards <ArrowRight className="ml-2"/></Link>
+                        <Link href="/flashcards">Study Full Deck <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </CardFooter>
             </Card>
@@ -128,8 +127,27 @@ export default function DashboardPage() {
                         <PencilRuler className="text-primary"/> Practice Question
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow">
+                <CardContent className="flex-grow space-y-4">
                     <p className="text-base font-semibold">{firstQuestion.question}</p>
+                    <RadioGroup
+                        value={selectedAnswer || ''}
+                        onValueChange={handleSelectOption}
+                        disabled={isAnswered}
+                    >
+                        {firstQuestion.options.map((option, index) => (
+                        <Label
+                            key={index}
+                            className={cn('flex items-center space-x-2 p-3 rounded-md border transition-colors',
+                            isAnswered && option === firstQuestion.answer ? 'border-green-500 bg-green-50' : '',
+                            isAnswered && option === selectedAnswer && option !== firstQuestion.answer ? 'border-red-500 bg-red-50' : '',
+                            !isAnswered ? 'cursor-pointer hover:bg-secondary' : 'cursor-not-allowed'
+                            )}
+                        >
+                            <RadioGroupItem value={option} id={`q-option-${index}`} />
+                            <span>{option}</span>
+                        </Label>
+                        ))}
+                    </RadioGroup>
                 </CardContent>
                 <CardFooter className="pt-6">
                     <Button asChild className="w-full">
