@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: sanskrit-learning-app
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GOOGLE_API_KEY
+        fromDatabase:
+          name: google-api-key
+          property: connectionString
+    plan: starter # $7/month - 512MB RAM, 0.5 CPU
+    region: oregon # US West for good performance
+    healthCheckPath: /
+    autoDeploy: true
+    domains:
+      - sanskrit-learn.onrender.com
+    scaling:
+      minInstances: 1
+      maxInstances: 2
+    disk:
+      name: app-data
+      mountPath: /data
+      sizeGB: 1
+
+databases:
+  - name: google-api-key
+    databaseName: secrets
+    user: app
+    plan: free # Free tier for storing secrets
