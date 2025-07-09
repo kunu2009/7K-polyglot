@@ -1,4 +1,5 @@
 
+
 export const dailyTasks = [
     {
         title: "Learn 5 New Words",
@@ -308,6 +309,53 @@ export const textbookChapters: TextbookChapter[] = [
       { sanskrit: "अपराणि", english: "Others" },
       { sanskrit: "देही", english: "The embodied soul" },
       { sanskrit: "संयाति", english: "Enters into" },
+    ],
+  },
+  {
+    id: 7,
+    category: "नाट्यम् 1: मध्यमव्यायोगः (अंशः)",
+    slug: 'natyam-1-madhyamavyayogah',
+    type: 'Prose',
+    author: 'Bhāsa',
+    authorIntro: "Bhāsa is one of the earliest and most celebrated Indian playwrights in Sanskrit, predating Kālidāsa. His works were lost for centuries and rediscovered in the early 20th century. His play 'Madhyamavyāyoga' is a one-act play (Vyāyoga) known for its dramatic tension and emotional depth, drawing its plot from the Mahābhārata.",
+    summary: "This excerpt from the play 'Madhyamavyāyoga' depicts the dramatic first meeting between the Pāṇḍava prince Bhīma and his son, the rākṣasa Ghaṭotkaca. Unaware of their relationship, Ghaṭotkaca, on his mother Hiḍimbā's command, stops a Brahmin and his family, demanding one of their three sons as a meal. As the family deliberates, Bhīma, the 'middle one' (madhyama), intervenes and offers himself. The ensuing dialogue reveals their true identities in a powerful climax.",
+    content: [
+      {
+        id: 1,
+        sanskrit: "घटोत्कचः - भो भो ब्राह्मणाः, तिष्ठत। मम जननी समाज्ञापयति - 'पुत्र, मम पारणार्थं कमपि मानुषं गृहीत्वा शीघ्रमागच्छ' इति।",
+        translation: "Ghatotkacha: Oh, oh Brahmins, stop! My mother has commanded me - 'Son, for my breakfast, capture some human and come quickly'."
+      },
+      {
+        id: 2,
+        sanskrit: "वृद्धः - हा हन्त! राक्षसेन गृहीताः स्मः। भोः, मां तावद् गृहाण। मया शरीरमेतत् चिरं पालितम्।",
+        translation: "Old man: Alas! We have been caught by a Rakshasa. Hey, take me then. I have nourished this body for a long time."
+      },
+      {
+        id: 3,
+        sanskrit: "भीमसेनः - (प्रविश्य) भोः पुरुष, मुच्यतामयं ब्राह्मणः। यदि तव मात्रा पुरुषेण प्रयोजनम्, तर्हि मामेव गृहाण।",
+        translation: "Bhimasena: (Entering) Oh man, let this Brahmin go. If your mother has need of a man, then take me."
+      },
+      {
+        id: 4,
+        sanskrit: "घटोत्कचः - भवान् कः? भीमसेनः - यः कोऽपि भवामि। त्वं तु कस्य पुत्रः? घटोत्कचः - अहं हिडिम्बायाः पुत्रः, भीमसेनस्यौरसः।",
+        translation: "Ghatotkacha: Who are you? Bhimasena: I am whoever I am. But whose son are you? Ghatotkacha: I am Hidimba's son, the legitimate son of Bhimasena."
+      }
+    ],
+    words: [
+      { sanskrit: "घटोत्कचः", english: "Ghatotkacha" },
+      { sanskrit: "जननी", english: "Mother" },
+      { sanskrit: "समाज्ञापयति", english: "Commands" },
+      { sanskrit: "पारणार्थम्", english: "For breaking a fast (breakfast)" },
+      { sanskrit: "मानुषम्", english: "A human" },
+      { sanskrit: "गृहीत्वा", english: "Having caught/taken", etymology: { root: "ग्रह्", meaning: "to seize" } },
+      { sanskrit: "शीघ्रम्", english: "Quickly" },
+      { sanskrit: "वृद्धः", english: "Old man (Brahmin)" },
+      { sanskrit: "हा हन्त", english: "Alas!" },
+      { sanskrit: "गृहाण", english: "Take (Imperative)" },
+      { sanskrit: "चिरम्", english: "For a long time" },
+      { sanskrit: "प्रयोजनम्", english: "Need / Purpose" },
+      { sanskrit: "मुच्यताम्", english: "Let him be released (Passive Imperative)" },
+      { sanskrit: "औरसः", english: "Legitimate son (born of the chest)" }
     ],
   },
 ];
@@ -767,3 +815,4 @@ export const mindMapData = [
     ]
   }
 ];
+
