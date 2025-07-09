@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { textbookChapters } from "@/lib/sanskrit-data";
 import type { TextbookChapter } from "@/lib/sanskrit-data";
 import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle, Sparkles, BookHeart, Library, MessageSquareQuote, CheckCircle2 } from "lucide-react";
-import { textToSpeech } from '@/ai/flows/text-to-speech';
 import {
   Dialog,
   DialogContent,
@@ -23,8 +22,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { contextualHelp, type ContextualHelpOutput } from '@/ai/flows/contextual-help';
-import { verseExplanationFeedback, type VerseExplanationFeedbackOutput } from '@/ai/flows/verse-explanation-feedback';
+import { 
+  textToSpeech, 
+  contextualHelp, 
+  verseExplanationFeedback,
+  type ContextualHelpOutput,
+  type VerseExplanationFeedbackOutput 
+} from '@/lib/ai-helpers';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
@@ -73,10 +77,10 @@ function TeachBackDialog({
     setIsLoading(true);
     setFeedback(null);
     try {
-      const result = await verseExplanationFeedback({
-        verse: `Sanskrit: ${verse.sanskrit}\nTranslation: ${verse.translation}`,
-        userExplanation: explanation,
-      });
+      const result = await verseExplanationFeedback(
+        `Sanskrit: ${verse.sanskrit}\nTranslation: ${verse.translation}`,
+        explanation
+      );
       setFeedback(result);
     } catch (error) {
       console.error("Failed to get explanation feedback:", error);
@@ -191,7 +195,7 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
         setIsHelpLoading(true);
         setHelpContent(null);
         try {
-            const result = await contextualHelp({ text });
+            const result = await contextualHelp(text);
             setHelpContent(result);
         } catch (error) {
             console.error("Failed to get AI help:", error);
@@ -238,7 +242,11 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
 
     try {
         const response = await textToSpeech(verse.sanskrit);
-        audioRef.current = new Audio(response.media);
+        if (response.audio) {
+          audioRef.current = new Audio(response.audio);
+        } else {
+          throw new Error('No audio data received');
+        }
         
         audioRef.current.onended = () => {
             setPlayingId(null);

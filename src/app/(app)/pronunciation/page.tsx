@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { pronunciationFeedback, PronunciationFeedbackOutput } from '@/ai/flows/pronunciation-feedback';
+import { pronunciationFeedback, type PronunciationFeedbackOutput } from '@/lib/ai-helpers';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -94,7 +94,7 @@ export default function PronunciationPage() {
     setFeedback(null);
     try {
       const audioDataUri = await blobToDataURI(audioBlob);
-      const result = await pronunciationFeedback({ audioDataUri, text: textToSpeak });
+      const result = await pronunciationFeedback(audioDataUri, textToSpeak);
       setFeedback(result);
     } catch (error) {
       console.error('Error getting feedback:', error);
@@ -180,7 +180,20 @@ export default function PronunciationPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base whitespace-pre-wrap">{feedback.feedback}</p>
+                <p className="text-base whitespace-pre-wrap">{feedback.overallFeedback}</p>
+                <div className="mt-4 space-y-2">
+                  <p className="font-semibold">Accuracy: {feedback.accuracy}%</p>
+                  {feedback.improvements.length > 0 && (
+                    <div>
+                      <p className="font-semibold">Suggestions:</p>
+                      <ul className="list-disc list-inside text-sm">
+                                                 {feedback.improvements.map((improvement: string, index: number) => (
+                           <li key={index}>{improvement}</li>
+                         ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           )}

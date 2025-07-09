@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles, Loader2, Wand2 } from 'lucide-react';
-import { generateSanskritName, type GenerateSanskritNameOutput } from '@/ai/flows/name-generator';
+import { generateSanskritName, type GenerateSanskritNameOutput } from '@/lib/ai-helpers';
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
@@ -43,7 +43,7 @@ export default function NameGeneratorPage() {
     setIsLoading(true);
     setGeneratedNames(null);
     try {
-      const result = await generateSanskritName(values);
+      const result = await generateSanskritName();
       setGeneratedNames(result);
     } catch (error) {
       console.error('Error generating names:', error);
@@ -132,22 +132,18 @@ export default function NameGeneratorPage() {
       
       {generatedNames && (
         <div className="mt-8 animate-fade-in-up">
-            <h2 className="text-2xl font-headline font-bold text-center mb-4">Your Name Suggestions</h2>
-            <div className="space-y-4">
-            {generatedNames.names.map((name, index) => (
-                <Card key={index} className="bg-secondary/50">
-                <CardHeader>
-                    <CardTitle className="flex items-baseline gap-4">
-                        <span className="text-3xl font-headline text-primary">{name.sanskritName}</span>
-                        <span className="text-lg text-muted-foreground font-mono">{name.transliteration}</span>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground">{name.meaning}</p>
-                </CardContent>
-                </Card>
-            ))}
-            </div>
+            <h2 className="text-2xl font-headline font-bold text-center mb-4">Your Sanskrit Name</h2>
+            <Card className="bg-secondary/50">
+              <CardHeader>
+                <CardTitle className="flex items-baseline gap-4">
+                  <span className="text-3xl font-headline text-primary">{generatedNames.name}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground"><strong>Meaning:</strong> {generatedNames.meaning}</p>
+                <p className="text-sm text-muted-foreground mt-2"><strong>Origin:</strong> {generatedNames.origin}</p>
+              </CardContent>
+            </Card>
         </div>
       )}
     </div>
