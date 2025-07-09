@@ -3,9 +3,25 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "functions": {
-    "src/app/api/genkit/[...flow]/route.ts": {
-      "memory": 3008,
-      "maxDuration": 60
+    "src/app/api/ai/pronunciation-feedback/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "src/app/api/ai/text-to-speech/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "src/app/api/ai/contextual-help/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "src/app/api/ai/verse-explanation/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "src/app/api/ai/name-generator/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
     }
   }
 }

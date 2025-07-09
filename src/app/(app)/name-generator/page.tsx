@@ -17,7 +17,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles, Loader2, Wand2 } from 'lucide-react';
-import { generateSanskritName, type GenerateSanskritNameOutput } from '@/ai/flows/name-generator';
+// Types for the API response
+interface GenerateSanskritNameOutput {
+  names: Array<{
+    sanskritName: string;
+    transliteration: string;
+    meaning: string;
+  }>;
+  success: boolean;
+}
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
@@ -43,8 +51,34 @@ export default function NameGeneratorPage() {
     setIsLoading(true);
     setGeneratedNames(null);
     try {
-      const result = await generateSanskritName(values);
-      setGeneratedNames(result);
+      const response = await fetch('/api/ai/name-generator', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          meaning: values.traits,
+          gender: 'neutral'
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to generate names');
+      }
+      
+      const result = await response.json();
+      
+      // Transform the API response to match the expected format
+      const transformedResult: GenerateSanskritNameOutput = {
+        names: result.names.map((name: string) => ({
+          sanskritName: name.split(' (')[0],
+          transliteration: name.split(' (')[0],
+          meaning: name.split(' (')[1]?.replace(')', '') || 'Beautiful name'
+        })),
+        success: result.success
+      };
+      
+      setGeneratedNames(transformedResult);
     } catch (error) {
       console.error('Error generating names:', error);
       toast({

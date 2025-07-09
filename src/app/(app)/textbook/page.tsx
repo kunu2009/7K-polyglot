@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { textbookChapters } from "@/lib/sanskrit-data";
 import type { TextbookChapter } from "@/lib/sanskrit-data";
 import { ArrowLeft, BookCheck, BookText, FileText, Info, Share2, UserSquare, Volume2, Loader2, StopCircle, Sparkles, BookHeart, Library, MessageSquareQuote, CheckCircle2 } from "lucide-react";
-import { textToSpeech } from '@/ai/flows/text-to-speech';
 import {
   Dialog,
   DialogContent,
@@ -23,8 +22,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { contextualHelp, type ContextualHelpOutput } from '@/ai/flows/contextual-help';
-import { verseExplanationFeedback, type VerseExplanationFeedbackOutput } from '@/ai/flows/verse-explanation-feedback';
+
+// Types for API responses
+interface ContextualHelpOutput {
+  help: string;
+  grammar: string;
+  meanings: string;
+  culturalContext: string;
+  success: boolean;
+}
+
+interface VerseExplanationFeedbackOutput {
+  feedback: string;
+  coverageScore: number;
+  success: boolean;
+}
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
@@ -73,10 +85,22 @@ function TeachBackDialog({
     setIsLoading(true);
     setFeedback(null);
     try {
-      const result = await verseExplanationFeedback({
-        verse: `Sanskrit: ${verse.sanskrit}\nTranslation: ${verse.translation}`,
-        userExplanation: explanation,
+      const response = await fetch('/api/ai/verse-explanation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          verse: `Sanskrit: ${verse.sanskrit}\nTranslation: ${verse.translation}`,
+          feedback: explanation,
+        }),
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to get feedback');
+      }
+      
+      const result = await response.json();
       setFeedback(result);
     } catch (error) {
       console.error("Failed to get explanation feedback:", error);
@@ -191,7 +215,22 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
         setIsHelpLoading(true);
         setHelpContent(null);
         try {
-            const result = await contextualHelp({ text });
+            const response = await fetch('/api/ai/contextual-help', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                context: 'Sanskrit learning',
+                question: text,
+              }),
+            });
+            
+            if (!response.ok) {
+              throw new Error('Failed to get help');
+            }
+            
+            const result = await response.json();
             setHelpContent(result);
         } catch (error) {
             console.error("Failed to get AI help:", error);
@@ -237,8 +276,23 @@ function ChapterDetailView({ chapter, onBack }: { chapter: TextbookChapter; onBa
     setPlayingId(null);
 
     try {
-        const response = await textToSpeech(verse.sanskrit);
-        audioRef.current = new Audio(response.media);
+        const apiResponse = await fetch('/api/ai/text-to-speech', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            text: verse.sanskrit,
+            language: 'sanskrit'
+          }),
+        });
+        
+        if (!apiResponse.ok) {
+          throw new Error('Failed to generate audio');
+        }
+        
+        const response = await apiResponse.json();
+        audioRef.current = new Audio(response.audioUrl);
         
         audioRef.current.onended = () => {
             setPlayingId(null);

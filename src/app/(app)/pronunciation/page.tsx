@@ -12,7 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { pronunciationFeedback, PronunciationFeedbackOutput } from '@/ai/flows/pronunciation-feedback';
+// Types for the API response
+interface PronunciationFeedbackOutput {
+  feedback: string;
+  success: boolean;
+}
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -94,7 +98,19 @@ export default function PronunciationPage() {
     setFeedback(null);
     try {
       const audioDataUri = await blobToDataURI(audioBlob);
-      const result = await pronunciationFeedback({ audioDataUri, text: textToSpeak });
+      const response = await fetch('/api/ai/pronunciation-feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ audioDataUri, text: textToSpeak }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to get feedback');
+      }
+      
+      const result = await response.json();
       setFeedback(result);
     } catch (error) {
       console.error('Error getting feedback:', error);
