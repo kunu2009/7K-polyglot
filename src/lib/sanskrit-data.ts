@@ -22,36 +22,6 @@ export interface SyllabusSection {
 
 export const newSyllabus: SyllabusSection[] = [
   {
-    title: "प्रथममण्डलम्",
-    title_en: "Section 1: Introductory Section",
-    content: [
-      {
-        id: "vyavaharik-suchana",
-        title: "व्यावहारिक-सूचनाः",
-        title_en: "Practical Instructions",
-        description: "Common Sanskrit phrases used in daily life, especially in a classroom context.",
-        items: [
-          { sanskrit: "सुप्रभातम् / शुभरात्रिः", translation: "Good morning / Good night" },
-          { sanskrit: "धन्यवादः / स्वागतम्", translation: "Thank you / Welcome" },
-          { sanskrit: "कृपया उपविशतु / उत्तिष्ठतु", translation: "Please sit down / stand up" },
-          { sanskrit: "कथम् अस्ति? / सम्यक् अस्मि", translation: "How are you? / I am well" },
-        ],
-      },
-      {
-        id: "vyavaharik-shabdasangrah",
-        title: "व्यावहारिकशब्दसंग्रहः",
-        title_en: "Practical Vocabulary",
-        description: "A collection of frequently used words categorized by context.",
-        items: [
-            { sanskrit: "परिवारः (Family): माता, पिता, भ्राता, भगिनी" },
-            { sanskrit: "शरीराङ्गाणि (Body Parts): शिरः, हस्तः, पादः, नेत्रम्" },
-            { sanskrit: "वस्तूनि (Objects): पुस्तकम्, लेखनी, गृहम्, आसनम्" },
-            { sanskrit: "क्रियाः (Actions): पठति, लिखति, गच्छति, खादति" },
-        ]
-      }
-    ]
-  },
-  {
     title: "द्वितीयमण्डलम्",
     title_en: "Section 2: Poetry Section",
     content: [
@@ -98,136 +68,12 @@ export const newSyllabus: SyllabusSection[] = [
                 explanation: "A satirical verse emphasizing the importance of appearance. The ocean gives his precious daughter Lakshmi to the well-dressed Vishnu but gives poison to the unclothed Shiva, judging them solely by their attire."
             }
         ]
-      },
-      {
-        id: "usastrijata-devarsih",
-        title: "उषस्त्रिजता देवर्षिः",
-        title_en: "Rishi Ushastrijata",
-        description: "A Vedic hymn describing the wisdom and devotion of the ancient seer.",
-        items: [
-            { sanskrit: "भद्रं कर्णेभिः शृणुयाम देवाः। भद्रं पश्येमाक्षभिर्यजत्राः॥", translation: "O Gods, may we hear with our ears what is auspicious. O worthy ones, may we see with our eyes what is auspicious." }
-        ]
-      },
-      {
-        id: "yace-vinayakam-mudam",
-        title: "याचे विनायकं मुदा",
-        title_en: "I Joyfully Pray to Ganesha",
-        description: "A devotional poem to Lord Ganesha seeking wisdom and blessings.",
-        items: [
-            { sanskrit: "वक्रतुण्ड महाकाय सूर्यकोटिसमप्रभ। निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥", translation: "O one with the twisted trunk and a massive body, whose splendor is equal to a million suns. O God, please make all my endeavors free of obstacles, always." }
-        ]
-      },
-      {
-        id: "hasupanktih",
-        title: "हसुपंक्तिः",
-        title_en: "Humorous Verses",
-        description: "Light and witty Sanskrit shlokas meant to bring smiles while teaching subtle truths.",
-        items: [
-            { sanskrit: "वैद्यराज नमस्तुभ्यं यमराजसहोदर। यमस्तु हरति प्राणान् वैद्यः प्राणान् धनानि च॥", translation: "Salutations to you, O king of physicians, the brother of Yama (the God of Death). Yama only takes life, but the physician takes both life and wealth!" }
-        ]
       }
-    ]
-  },
-  {
-    title: "तृतीयमण्डलम्",
-    title_en: "Section 3: Prose Section",
-    content: [
-      {
-        id: "sravanasamvadah",
-        title: "श्रावणसंवादः",
-        title_en: "Conversation in Shravan",
-        description: "A dialogue about rituals in the holy month of Shravan."
-      },
-      {
-        id: "pracinakale-prathamam",
-        title: "प्राचीनकाले प्रथमम्",
-        title_en: "Leadership in Ancient Times",
-        description: "Insights into governance in ancient India."
-      },
-      {
-        id: "rajakartavyani",
-        title: "प्रजापालायार्थं राजकर्तव्यानि",
-        title_en: "Royal Duties for People’s Welfare",
-        description: "Describes a king’s duties toward his citizens."
-      }
-    ]
-  },
-  {
-    title: "चतुर्थमण्डलम्",
-    title_en: "Section 4: Intro to Sanskrit Lit.",
-    content: [
-      {
-        id: "bharatiyavidya",
-        title: "भारतीयविद्या",
-        title_en: "Indian Knowledge Systems",
-        description: "Overview of traditional sciences like Ayurveda, Yoga, and grammar."
-      },
-      {
-        id: "natyavisesah",
-        title: "नाट्यविशेषः",
-        title_en: "Special Aspects of Drama",
-        description: "Introduces Sanskrit drama theory, characters, and aesthetics (rasa)."
-      }
-    ]
-  },
-   {
-    title: "पञ्चममण्डलम्",
-    title_en: "Section 5: Drama",
-    content: [
-        {
-            id: "bhimaghatotkachayoh",
-            title: "भीमघटोत्कचयोः संवादः",
-            title_en: "Dialogue of Bhima and Ghatotkacha",
-            description: "A dramatic scene from Bhāsa's 'Madhyamavyāyoga'."
-        },
-        {
-            id: "duryodhanasya-manasthiti",
-            title: "दुर्योधनस्य मनःस्थिति",
-            title_en: "Duryodhana’s Mindset",
-            description: "Shows the psychological conflict of Duryodhana."
-        }
-    ]
-  },
-  {
-    title: "षष्ठमण्डलम्",
-    title_en: "Section 6: Writing Skills",
-    content: [
-      {
-        id: "nibandhalekhanam",
-        title: "निबन्धलेखनम्",
-        title_en: "Essay Writing",
-        description: "Guidelines and examples for composing essays in Sanskrit."
-      },
-      {
-        id: "vrttalekhanam",
-        title: "वृत्तालेखनम्",
-        title_en: "Report Writing",
-        description: "How to write reports on events in Sanskrit."
-      }
-    ]
-  },
-  {
-    title: "सप्तममण्डलम्",
-    title_en: "Section 7: Appendix",
-    content: [
-      { id: "samasa", title: "समासः", title_en: "Compounds", description: "Explanation of compound words with examples." },
-      { id: "krdanta", title: "कृदन्ताः", title_en: "Kṛdanta Forms", description: "Participial forms of verbs used in Sanskrit." },
-      { id: "taddhitanta", title: "तद्धितान्ताः", title_en: "Taddhita Forms", description: "Suffix-derived words for classification." },
-      { id: "amarakosha", title: "अमरकोशः", title_en: "Amarakosha", description: "Collection of Sanskrit synonyms." },
-      { id: "suchananusaram-parivartanam", title: "सूचनानुसारं परिवर्तनम्", title_en: "Grammatical Transformations", description: "Exercises involving changing voice, tense, etc." },
     ]
   }
 ];
 
 export const practiceQuestions = [
-  // व्यावहारिक-सूचना
-  { chapterId: "vyavaharik-suchana", question: "How do you say 'Thank you' in Sanskrit?", options: ["कृपया", "स्वागतम्", "धन्यवादः", "अस्तु"], answer: "धन्यवादः" },
-  { chapterId: "vyavaharik-suchana", question: "What does 'कृपया उपविशतु' mean?", options: ["Please come here", "Please sit down", "Please go there", "Please read"], answer: "Please sit down" },
-  
-  // व्यावहारिकशब्दसंग्रहः
-  { chapterId: "vyavaharik-shabdasangrah", question: "The word 'भ्राता' refers to whom?", options: ["Father", "Son", "Brother", "Friend"], answer: "Brother" },
-  { chapterId: "vyavaharik-shabdasangrah", question: "Which word means 'to read'?", options: ["लिखति", "पठति", "गच्छति", "खादति"], answer: "पठति" },
-
   // क्षणं मनोविनोदनम्
   { chapterId: "ksanam-manovinodanam", question: "In the weddings of camels (उष्ट्राणां विवाहेषु), who sings the songs?", options: ["Horses (अश्वाः)", "Elephants (गजाः)", "Donkeys (गर्दभाः)", "Crows (काकाः)"], answer: "Donkeys (गर्दभाः)" },
   { chapterId: "ksanam-manovinodanam", question: "What do the camels and donkeys praise in each other?", options: ["Their strength and speed", "Their beauty and voice", "Their wealth and status", "Their wisdom and knowledge"], answer: "Their beauty and voice" },
@@ -238,23 +84,9 @@ export const practiceQuestions = [
   { chapterId: "ksanam-manovinodanam", question: "In verse 5, which word is used as a pun for 'a couple' and also a type of compound?", options: ["बहुव्रीहिः", "द्विगुः", "द्वन्द्वः", "अव्ययीभावः"], answer: "द्वन्द्वः" },
   { chapterId: "ksanam-manovinodanam", question: "In verse 7, who does the ocean give poison to?", options: ["Vishnu", "Brahma", "Indra", "Shiva"], answer: "Shiva" },
   { chapterId: "ksanam-manovinodanam", question: "What is the reason the ocean gives poison to Shiva?", options: ["Because he was thirsty", "Because he was poorly dressed (Digambara)", "Because he asked for it", "Because the ocean disliked him"], answer: "Because he was poorly dressed (Digambara)" },
-
-  // Other Sections (placeholders)
-  { chapterId: "yace-vinayakam-mudam", question: "The verse 'वक्रतुण्ड महाकाय' is a prayer to which deity?", options: ["Shiva", "Vishnu", "Ganesha", "Brahma"], answer: "Ganesha" },
-  { chapterId: "rajakartavyani", question: "What is the primary duty of a king mentioned as 'प्रजापालनम्'?", options: ["Conquering lands", "Building palaces", "Protecting citizens", "Performing rituals"], answer: "Protecting citizens" },
-  { chapterId: "natyavisesah", question: "The aesthetic sentiment or emotion evoked in the audience of a Sanskrit drama is called:", options: ["Nandi", "Rasa", "Nayaka", "Vidushaka"], answer: "Rasa" },
-  { chapterId: "samasa", question: "The grammatical concept of 'Samāsa' refers to:", options: ["Verb conjugation", "Compound words", "Sentence structure", "Pronouns"], answer: "Compound words" },
 ];
 
 export const flashcards = [
-  // व्यावहारिक-सूचना
-  { id: 1, chapterId: "vyavaharik-suchana", front: "सुप्रभातम्", back: "Good morning" },
-  { id: 2, chapterId: "vyavaharik-suchana", front: "कथम् अस्ति?", back: "How are you?" },
-
-  // व्यावहारिकशब्दसंग्रहः
-  { id: 3, chapterId: "vyavaharik-shabdasangrah", front: "भगिनी", back: "Sister" },
-  { id: 4, chapterId: "vyavaharik-shabdasangrah", front: "गृहम्", back: "House" },
-
   // क्षणं मनोविनोदनम्
   { id: 5, chapterId: "ksanam-manovinodanam", front: "उष्ट्रः", back: "Camel" },
   { id: 6, chapterId: "ksanam-manovinodanam", front: "गर्दभः", back: "Donkey" },
@@ -280,13 +112,6 @@ export const flashcards = [
   { id: 26, chapterId: "ksanam-manovinodanam", front: "दिगम्बरम्", back: "Clothed in the sky / naked (an epithet of Shiva)" },
   { id: 27, chapterId: "ksanam-manovinodanam", front: "वीक्ष्य", back: "Having seen" },
   { id: 28, chapterId: "ksanam-manovinodanam", front: "समुद्रः", back: "Ocean" },
-
-
-  // Other sections (placeholders)
-  { id: 29, chapterId: "yace-vinayakam-mudam", front: "निर्विघ्नम्", back: "Without obstacles" },
-  { id: 30, chapterId: "rajakartavyani", front: "प्रजा", back: "Citizens / Subjects" },
-  { id: 31, chapterId: "natyavisesah", front: "रसः", back: "Aesthetic sentiment in drama" },
-  { id: 32, chapterId: "samasa", front: "समासः", back: "Compound Word" },
 ];
 
 export const culturalFacts = [
@@ -399,5 +224,3 @@ export const mindMapData = [
     ],
   },
 ];
-
-    
