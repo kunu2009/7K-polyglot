@@ -35,8 +35,6 @@ export const newSyllabus: SyllabusSection[] = [
           { sanskrit: "धन्यवादः / स्वागतम्", translation: "Thank you / Welcome" },
           { sanskrit: "कृपया उपविशतु / उत्तिष्ठतु", translation: "Please sit down / stand up" },
           { sanskrit: "कथम् अस्ति? / सम्यक् अस्मि", translation: "How are you? / I am well" },
-          { sanskrit: "चिन्ता मास्तु", translation: "Don't worry" },
-          { sanskrit: "पुनः मिलामः", translation: "Let's meet again" },
         ],
       },
       {
@@ -45,10 +43,10 @@ export const newSyllabus: SyllabusSection[] = [
         title_en: "Practical Vocabulary",
         description: "A collection of frequently used words categorized by context.",
         items: [
-            { sanskrit: "परिवारः", translation: "Family (माता, पिता, भ्राता, भगिनी)" },
-            { sanskrit: "शरीराङ्गाणि", translation: "Body Parts (शिरः, हस्तः, पादः, नेत्रम्)" },
-            { sanskrit: "वस्तूनि", translation: "Objects (पुस्तकम्, लेखनी, गृहम्, आसनम्)" },
-            { sanskrit: "क्रियाः", translation: "Actions (पठति, लिखति, गच्छति, खादति)" },
+            { sanskrit: "परिवारः (Family): माता, पिता, भ्राता, भगिनी" },
+            { sanskrit: "शरीराङ्गाणि (Body Parts): शिरः, हस्तः, पादः, नेत्रम्" },
+            { sanskrit: "वस्तूनि (Objects): पुस्तकम्, लेखनी, गृहम्, आसनम्" },
+            { sanskrit: "क्रियाः (Actions): पठति, लिखति, गच्छति, खादति" },
         ]
       }
     ]
@@ -58,12 +56,32 @@ export const newSyllabus: SyllabusSection[] = [
     title_en: "Section 2: Poetry Section",
     content: [
       {
-        id: "ksanam-manojnam",
-        title: "क्षणं मनोज्ञम्",
-        title_en: "A Pleasant Moment",
-        description: "A poetic reflection on how a single beautiful moment can bring joy and peace.",
+        id: "ksanam-manovinodanam",
+        title: "क्षणं मनोविनोदनम्",
+        title_en: "A Moment of Entertainment",
+        description: "Humorous verses (Subhāṣitas) that entertain through satire and wordplay.",
+        details: "भूमिका: सुभाषितं नाम सुष्ठु भाषितम्। परं न केवलं सुष्ठु भाषितम् अपि तु विनोदनमपि सुभाषितेषु विद्यते। विनोदनं नाम मनोरञ्जनम्। प्राचीने वाङ्मये विकीर्णानि विनोदनप्रधानानि सुभाषितानि अत्र सङ्गृहीतानि। एतानि सुभाषितानि विभिन्नप्रकारैः हास्यं जनयन्ति। कुत्रचित् परिहासः, कुत्रचित् उपहासः। श्लेषस्य तथा सूचितार्थस्य योजनापि क्रियते। (Introduction: A 'Subhāṣita' means a well-spoken verse. But Subhāṣitas not only contain good sayings but also entertainment. Entertainment means amusement. In ancient literature, scattered verses with a focus on entertainment have been collected here. These Subhāṣitas generate laughter in various ways. Sometimes there is jest, sometimes satire. The use of puns and implied meanings is also done.)",
         items: [
-            { sanskrit: "क्षणं वित्तं क्षणं चित्तं, क्षणं जीवितमावयोः। यमस्य करुणा नास्ति, धर्म एव सहायकृत्॥", translation: "Wealth is momentary, the mind is momentary, and our lives are momentary. The God of Death has no compassion; only Dharma (righteousness) is the true helper." }
+            { 
+              sanskrit: "उष्ट्राणां च विवाहेषु गीतं गायन्ति गर्दभाः।\nपरस्परं प्रशंसन्ति “अहो रूपम्!” “अहो ध्वनिः!”॥१॥", 
+              translation: "In the weddings of camels, donkeys sing songs. They praise each other, “Oh, what a beautiful form!” “Oh, what a beautiful voice!”",
+              explanation: "This is a satirical verse highlighting how mediocre individuals praise each other's equally mediocre talents in their own circles, oblivious to their actual quality."
+            },
+            {
+              sanskrit: "तृणाल्लघुतरस्तूलस्तूलादपि च याचकः।\nवायुना किं न नीतोऽसौ मामयं प्रार्थयेदिति॥२॥",
+              translation: "Lighter than grass is cotton, and even lighter than cotton is a beggar. Why is he not carried away by the wind? Because he thinks, 'This fellow might ask something from me!'",
+              explanation: "A humorous take on the extreme lightness and perceived worthlessness of a beggar, suggesting even the wind avoids him for fear of being asked for something."
+            },
+            {
+              sanskrit: "भो दारिद्र्य नमस्तुभ्यं सिद्धोऽहं त्वत्प्रसादतः।\nपश्याम्यहं जगत्सर्वं न मां पश्यति कश्चन॥३॥",
+              translation: "Oh Poverty, salutations to you! By your grace, I have become a 'siddha' (an accomplished one). I see the whole world, but no one sees me.",
+              explanation: "This verse uses a pun on the word 'siddha', which means both a perfected being and an invisible one. The speaker sarcastically 'thanks' poverty for making him so insignificant that he has become invisible to everyone."
+            },
+            {
+              sanskrit: "अद्यापि दुर्निवारं स्तुतिकन्या वहति कौमारम्।\nसद्भ्यो न रोचते साऽसन्तोऽप्यस्यै न रोचन्ते॥४॥",
+              translation: "To this day, the maiden named 'Flattery' (Stuti-kanyā), who is hard to stop, remains a virgin. She is not liked by the good people, and the wicked people are not liked by her.",
+              explanation: "This is a clever personification of flattery. It says that good/wise people dislike being flattered, and flattery itself (being a 'noble' maiden in this analogy) doesn't like the wicked. Thus, it remains 'unmarried' or unused in ideal situations."
+            }
         ]
       },
       {
@@ -103,22 +121,19 @@ export const newSyllabus: SyllabusSection[] = [
         id: "sravanasamvadah",
         title: "श्रावणसंवादः",
         title_en: "Conversation in Shravan",
-        description: "A dialogue between characters about rituals in the holy month of Shravan.",
-        details: "This chapter presents a dialogue where two friends discuss the significance of the Shravan month, its festivals like Nag Panchami and Raksha Bandhan, and the spiritual importance of fasting and prayers during this period. It highlights cultural traditions and beliefs."
+        description: "A dialogue about rituals in the holy month of Shravan."
       },
       {
         id: "pracinakale-prathamam",
         title: "प्राचीनकाले प्रथमम्",
         title_en: "Leadership in Ancient Times",
-        description: "Insights into how leadership and governance were structured in ancient India.",
-        details: "This lesson explores the principles of kingship and administration as described in ancient texts like the Arthashastra. It covers the ideal qualities of a leader, their education, and their responsibilities towards the state and its people, emphasizing justice and welfare."
+        description: "Insights into governance in ancient India."
       },
       {
         id: "rajakartavyani",
         title: "प्रजापालायार्थं राजकर्तव्यानि",
         title_en: "Royal Duties for People’s Welfare",
-        description: "Describes a king’s duties toward his citizens — justice, protection, and prosperity.",
-        details: "Focusing on 'Raja Dharma', this section elaborates on the duties of a monarch. These include protecting the citizens (प्रजापालनम्), ensuring justice (दण्डनीति), managing the economy, and promoting righteousness. The king's personal life was expected to be exemplary."
+        description: "Describes a king’s duties toward his citizens."
       }
     ]
   },
@@ -130,15 +145,13 @@ export const newSyllabus: SyllabusSection[] = [
         id: "bharatiyavidya",
         title: "भारतीयविद्या",
         title_en: "Indian Knowledge Systems",
-        description: "Overview of Indian traditional sciences like Ayurveda, Yoga, and Sanskrit grammar.",
-        details: "This chapter introduces the vast landscape of traditional Indian knowledge. It touches upon the Vedas, Upanishads, the six schools of philosophy (Darshanas), and specialized fields like Ayurveda (medicine), Jyotisha (astronomy/astrology), and Vyakarana (grammar), showcasing the intellectual heritage of India."
+        description: "Overview of traditional sciences like Ayurveda, Yoga, and grammar."
       },
       {
         id: "natyavisesah",
         title: "नाट्यविशेषः",
         title_en: "Special Aspects of Drama",
-        description: "Introduces Sanskrit drama theory, characters, emotions (rasa), and aesthetics.",
-        details: "Based on Bharata Muni's Natya Shastra, this lesson explains the core components of Sanskrit drama. It covers concepts like 'Nandi' (prologue), 'Prastavana' (introduction), character types (Nayaka, Nayika, Vidushaka), and most importantly, the theory of 'Rasa'—the aesthetic sentiment evoked in the audience."
+        description: "Introduces Sanskrit drama theory, characters, and aesthetics (rasa)."
       }
     ]
   },
@@ -150,15 +163,13 @@ export const newSyllabus: SyllabusSection[] = [
             id: "bhimaghatotkachayoh",
             title: "भीमघटोत्कचयोः संवादः",
             title_en: "Dialogue of Bhima and Ghatotkacha",
-            description: "A dramatic scene from Bhāsa's 'Madhyamavyāyoga' where Bhima unknowingly confronts his own son, Ghatotkacha.",
-            details: "In this one-act play, the demon Ghatotkacha, son of Bhima, is ordered by his mother Hidimba to find a human for her meal. He stops a Brahmin family and demands one of their sons. As they argue, Bhima arrives and offers himself instead. The ensuing confrontation is full of dramatic irony, as neither father nor son recognizes the other, leading to a powerful climax of revelation."
+            description: "A dramatic scene from Bhāsa's 'Madhyamavyāyoga'."
         },
         {
             id: "duryodhanasya-manasthiti",
             title: "दुर्योधनस्य मनःस्थिति",
             title_en: "Duryodhana’s Mindset",
-            description: "Shows the psychological conflict and arrogance of Duryodhana.",
-            details: "This selection likely portrays a scene from a play like 'Urubhangam' by Bhasa, focusing on Duryodhana's state of mind. It would explore his arrogance, jealousy towards the Pandavas, and his internal justifications for his actions, providing a deep character study."
+            description: "Shows the psychological conflict of Duryodhana."
         }
     ]
   },
@@ -170,15 +181,13 @@ export const newSyllabus: SyllabusSection[] = [
         id: "nibandhalekhanam",
         title: "निबन्धलेखनम्",
         title_en: "Essay Writing",
-        description: "Teaches structured writing of Sanskrit essays.",
-        details: "This section provides guidelines and examples for composing essays in Sanskrit. Topics often include 'मम प्रियः कविः' (My favorite poet), 'संस्कृतभाषायाः महत्त्वम्' (The importance of Sanskrit), etc. It focuses on structure, vocabulary, and grammatical correctness."
+        description: "Guidelines and examples for composing essays in Sanskrit."
       },
       {
         id: "vrttalekhanam",
         title: "वृत्तालेखनम्",
         title_en: "Report Writing",
-        description: "How to write Sanskrit reports on events or observations.",
-        details: "This teaches the skill of report writing (vrittanta-lekhanam). Students learn to describe an event, such as a school function or a celebration, in a clear, sequential manner using appropriate Sanskrit vocabulary and sentence structures."
+        description: "How to write reports on events in Sanskrit."
       }
     ]
   },
@@ -196,79 +205,59 @@ export const newSyllabus: SyllabusSection[] = [
 ];
 
 export const practiceQuestions = [
-  // प्रथममण्डलम्
+  // व्यावहारिक-सूचना
   { chapterId: "vyavaharik-suchana", question: "How do you say 'Thank you' in Sanskrit?", options: ["कृपया", "स्वागतम्", "धन्यवादः", "अस्तु"], answer: "धन्यवादः" },
   { chapterId: "vyavaharik-suchana", question: "What does 'कृपया उपविशतु' mean?", options: ["Please come here", "Please sit down", "Please go there", "Please read"], answer: "Please sit down" },
+  
+  // व्यावहारिकशब्दसंग्रहः
   { chapterId: "vyavaharik-shabdasangrah", question: "The word 'भ्राता' refers to whom?", options: ["Father", "Son", "Brother", "Friend"], answer: "Brother" },
   { chapterId: "vyavaharik-shabdasangrah", question: "Which word means 'to read'?", options: ["लिखति", "पठति", "गच्छति", "खादति"], answer: "पठति" },
 
-  // द्वितीयमण्डलम्
-  { chapterId: "ksanam-manojnam", question: "In the verse 'क्षणं वित्तं क्षणं चित्तं', what is said to be the only true helper?", options: ["Wealth (वित्तम्)", "Mind (चित्तम्)", "Life (जीवितम्)", "Righteousness (धर्मः)"], answer: "Righteousness (धर्मः)" },
+  // क्षणं मनोविनोदनम्
+  { chapterId: "ksanam-manovinodanam", question: "In the weddings of camels (उष्ट्राणां विवाहेषु), who sings the songs?", options: ["Horses (अश्वाः)", "Elephants (गजाः)", "Donkeys (गर्दभाः)", "Crows (काकाः)"], answer: "Donkeys (गर्दभाः)" },
+  { chapterId: "ksanam-manovinodanam", question: "What do the camels and donkeys praise in each other?", options: ["Their strength and speed", "Their beauty and voice", "Their wealth and status", "Their wisdom and knowledge"], answer: "Their beauty and voice" },
+  { chapterId: "ksanam-manovinodanam", question: "Who is said to be lighter than cotton (तूलः)?", options: ["A feather (पिच्छः)", "A leaf (पत्रम्)", "A beggar (याचकः)", "A flower (पुष्पम्)"], answer: "A beggar (याचकः)" },
+  { chapterId: "ksanam-manovinodanam", question: "Who does the speaker sarcastically thank for making them a 'siddha' (invisible)?", options: ["The King (राजा)", "Wealth (धनम्)", "God (देवः)", "Poverty (दारिद्र्यम्)"], answer: "Poverty (दारिद्र्यम्)" },
+  { chapterId: "ksanam-manovinodanam", question: "What is the name of the 'maiden' who remains a virgin (कौमारम्)?", options: ["Praise (स्तुति)", "Wisdom (प्रज्ञा)", "Wealth (लक्ष्मी)", "Courage (धृति)"], answer: "Praise (स्तुति)" },
+
+  // Other Sections (placeholders)
   { chapterId: "yace-vinayakam-mudam", question: "The verse 'वक्रतुण्ड महाकाय' is a prayer to which deity?", options: ["Shiva", "Vishnu", "Ganesha", "Brahma"], answer: "Ganesha" },
-  { chapterId: "yace-vinayakam-mudam", question: "What does 'निर्विघ्नं कुरु' mean?", options: ["Grant me wealth", "Make me wise", "Remove obstacles", "Give me strength"], answer: "Remove obstacles" },
-  { chapterId: "hasupanktih", question: "In the humorous verse, who is called the 'brother of Yama'?", options: ["A king", "A teacher", "A physician", "A merchant"], answer: "A physician" },
-
-  // तृतीयमण्डलम्
   { chapterId: "rajakartavyani", question: "What is the primary duty of a king mentioned as 'प्रजापालनम्'?", options: ["Conquering lands", "Building palaces", "Protecting citizens", "Performing rituals"], answer: "Protecting citizens" },
-  { chapterId: "pracinakale-prathamam", question: "Which ancient text is a primary source for principles of governance?", options: ["Ramayana", "Natyashastra", "Arthashastra", "Manusmriti"], answer: "Arthashastra" },
-
-  // चतुर्थमण्डलम्
   { chapterId: "natyavisesah", question: "The aesthetic sentiment or emotion evoked in the audience of a Sanskrit drama is called:", options: ["Nandi", "Rasa", "Nayaka", "Vidushaka"], answer: "Rasa" },
-  { chapterId: "bharatiyavidya", question: "Which of these is NOT one of the 'Indian Knowledge Systems'?", options: ["Ayurveda", "Yoga", "Vyakarana", "Geometry"], answer: "Geometry" },
-
-  // पञ्चममण्डलम्
-  { chapterId: "bhimaghatotkachayoh", question: "Who is Ghatotkacha's father?", options: ["Arjuna", "Yudhishthira", "Bhima", "Nakula"], answer: "Bhima" },
-  { chapterId: "bhimaghatotkachayoh", question: "The play 'Madhyamavyāyoga' was written by which famous playwright?", options: ["Kalidasa", "Bhavabhuti", "Bhasa", "Shudraka"], answer: "Bhasa" },
-
-  // षष्ठमण्डलम्
-  { chapterId: "nibandhalekhanam", question: "What does 'निबन्धलेखनम्' translate to?", options: ["Letter Writing", "Report Writing", "Story Writing", "Essay Writing"], answer: "Essay Writing" },
-
-  // सप्तममण्डलम्
   { chapterId: "samasa", question: "The grammatical concept of 'Samāsa' refers to:", options: ["Verb conjugation", "Compound words", "Sentence structure", "Pronouns"], answer: "Compound words" },
-  { chapterId: "krdanta", question: "A 'Kṛdanta' is a word derived from a:", options: ["Noun", "Verb root", "Adjective", "Pronoun"], answer: "Verb root" },
-  { chapterId: "amarakosha", question: "The 'Amarakosha' is a famous text of:", options: ["Poetry", "Synonyms", "Fables", "Laws"], answer: "Synonyms" },
 ];
 
 export const flashcards = [
-  // प्रथममण्डलम्
+  // व्यावहारिक-सूचना
   { id: 1, chapterId: "vyavaharik-suchana", front: "सुप्रभातम्", back: "Good morning" },
   { id: 2, chapterId: "vyavaharik-suchana", front: "कथम् अस्ति?", back: "How are you?" },
+
+  // व्यावहारिकशब्दसंग्रहः
   { id: 3, chapterId: "vyavaharik-shabdasangrah", front: "भगिनी", back: "Sister" },
   { id: 4, chapterId: "vyavaharik-shabdasangrah", front: "गृहम्", back: "House" },
 
-  // द्वितीयमण्डलम्
-  { id: 5, chapterId: "ksanam-manojnam", front: "क्षणम्", back: "A moment" },
-  { id: 6, chapterId: "ksanam-manojnam", front: "धर्मः", back: "Righteousness, Duty" },
-  { id: 7, chapterId: "yace-vinayakam-mudam", front: "निर्विघ्नम्", back: "Without obstacles" },
-  { id: 8, chapterId: "yace-vinayakam-mudam", front: "सर्वदा", back: "Always" },
-  { id: 9, chapterId: "hasupanktih", front: "यमराजसहोदर", back: "Brother of Yama (God of Death)" },
-  { id: 10, chapterId: "hasupanktih", front: "वैद्यराज", back: "King of physicians" },
+  // क्षणं मनोविनोदनम्
+  { id: 5, chapterId: "ksanam-manovinodanam", front: "उष्ट्रः", back: "Camel" },
+  { id: 6, chapterId: "ksanam-manovinodanam", front: "गर्दभः", back: "Donkey" },
+  { id: 7, chapterId: "ksanam-manovinodanam", front: "विवाहः", back: "Wedding" },
+  { id: 8, chapterId: "ksanam-manovinodanam", front: "प्रशंसन्ति", back: "They praise" },
+  { id: 9, chapterId: "ksanam-manovinodanam", front: "ध्वनिः", back: "Voice / Sound" },
+  { id: 10, chapterId: "ksanam-manovinodanam", front: "रूपम्", back: "Form / Beauty" },
+  { id: 11, chapterId: "ksanam-manovinodanam", front: "याचकः", back: "Beggar" },
+  { id: 12, chapterId: "ksanam-manovinodanam", front: "लघुतरः", back: "Lighter" },
+  { id: 13, chapterId: "ksanam-manovinodanam", front: "दारिद्र्यम्", back: "Poverty" },
+  { id: 14, chapterId: "ksanam-manovinodanam", front: "त्वत्प्रसादतः", back: "By your grace" },
+  { id: 15, chapterId: "ksanam-manovinodanam", front: "पश्यामि", back: "I see" },
+  { id: 16, chapterId: "ksanam-manovinodanam", front: "कश्चन", back: "Anyone / Someone" },
+  { id: 17, chapterId: "ksanam-manovinodanam", front: "स्तुतिकन्या", back: "Maiden of flattery" },
+  { id: 18, chapterId: "ksanam-manovinodanam", front: "कौमारम्", back: "Virginity / Maidenhood" },
+  { id: 19, chapterId: "ksanam-manovinodanam", front: "रोचते", back: "Likes / Is pleasing to" },
 
-  // तृतीयमण्डलम्
-  { id: 11, chapterId: "rajakartavyani", front: "प्रजा", back: "Citizens / Subjects" },
-  { id: 12, chapterId: "rajakartavyani", front: "दण्डनीति", back: "Policy of justice/punishment" },
-  { id: 13, chapterId: "sravanasamvadah", front: "संवादः", back: "Dialogue / Conversation" },
-
-  // चतुर्थमण्डलम्
-  { id: 14, chapterId: "bharatiyavidya", front: "आयुर्वेदः", back: "The science of life (medicine)" },
-  { id: 15, chapterId: "natyavisesah", front: "रसः", back: "Aesthetic sentiment in drama" },
-  { id: 16, chapterId: "natyavisesah", front: "नायकः", back: "Hero / Protagonist" },
-
-  // पञ्चममण्डलम्
-  { id: 17, chapterId: "bhimaghatotkachayoh", front: "मध्यमव्यायोग", back: "Title of the play by Bhasa" },
-  { id: 18, chapterId: "bhimaghatotkachayoh", front: "घटोत्कचः", back: "Son of Bhima and Hidimba" },
-  { id: 19, chapterId: "duryodhanasya-manasthiti", front: "मनःस्थिति", back: "State of mind" },
-
-  // षष्ठमण्डलम्
-  { id: 20, chapterId: "nibandhalekhanam", front: "निबन्धः", back: "Essay" },
-  { id: 21, chapterId: "vrttalekhanam", front: "वृत्तान्तः", back: "Report / Account" },
-
-  // सप्तममण्डलम्
-  { id: 22, chapterId: "samasa", front: "समासः", back: "Compound Word" },
-  { id: 23, chapterId: "krdanta", front: "कृदन्तः", back: "Verbal derivative (participle)" },
-  { id: 24, chapterId: "taddhitanta", front: "तद्धितान्तः", back: "Nominal derivative (secondary suffix)" },
-  { id: 25, chapterId: "amarakosha", front: "कोशः", back: "Thesaurus / Dictionary" },
-  { id: 26, chapterId: "suchananusaram-parivartanam", front: "परिवर्तनम्", back: "Transformation / Change" },
+  // Other sections (placeholders)
+  { id: 20, chapterId: "yace-vinayakam-mudam", front: "निर्विघ्नम्", back: "Without obstacles" },
+  { id: 21, chapterId: "rajakartavyani", front: "प्रजा", back: "Citizens / Subjects" },
+  { id: 22, chapterId: "natyavisesah", front: "रसः", back: "Aesthetic sentiment in drama" },
+  { id: 23, chapterId: "samasa", front: "समासः", back: "Compound Word" },
 ];
 
 export const culturalFacts = [
@@ -276,8 +265,6 @@ export const culturalFacts = [
     { title: "The Two Great Epics", content: "The Rāmāyaṇa and the Mahābhārata are two of India's most famous epics, written in Sanskrit. They contain timeless stories of dharma, morality, and human struggle." },
     { title: "Sanskrit in Yoga", content: "Most Yoga postures (asanas) and philosophical concepts have Sanskrit names. For example, 'asana' means 'seat' or 'posture', and 'namaste' means 'I bow to you'." },
     { title: "Ayurveda's Language", content: "The foundational texts of Ayurveda, the traditional Indian system of medicine, like the Charaka Samhita and Sushruta Samhita, were composed in Sanskrit." },
-    { title: "The Concept of 'Dharma'", content: "A key concept in Sanskrit literature, 'dharma' is a complex term that encompasses duty, righteousness, cosmic law, and moral order. It's a central theme in texts like the Bhagavad Gita." },
-    { title: "Pāṇini's Grammar", content: "The Sanskrit grammarian Pāṇini composed the Aṣṭādhyāyī, a comprehensive and scientific grammar of Sanskrit, around the 4th century BCE. It's considered one of the greatest intellectual achievements of ancient India." }
 ];
 
 export const grammarToolSentence = {
@@ -383,3 +370,5 @@ export const mindMapData = [
     ],
   },
 ];
+
+    
