@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -37,8 +37,9 @@ const FlashcardWidget = () => {
     const [cardIndex, setCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
 
-    const shuffle = React.useCallback(() => {
-        setShuffledCards([...flashcards].sort(() => Math.random() - 0.5));
+    const shuffle = useCallback(() => {
+        const newShuffledCards = [...flashcards].sort(() => Math.random() - 0.5);
+        setShuffledCards(newShuffledCards);
         setCardIndex(0);
         setIsFlipped(false);
     }, []);
@@ -103,10 +104,15 @@ const FlashcardWidget = () => {
 
 const QuizWidget = () => {
     const { toast } = useToast();
+    const [questions, setQuestions] = useState<PracticeQuestion[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<Record<number, string>>({});
     
-    const currentQuestion = practiceQuestions[currentQuestionIndex];
+    useEffect(() => {
+        setQuestions([...practiceQuestions].sort(() => Math.random() - 0.5));
+    }, []);
+
+    const currentQuestion = questions[currentQuestionIndex];
     const selectedOption = answers[currentQuestionIndex];
     const isAnswered = selectedOption !== undefined;
 
@@ -124,7 +130,7 @@ const QuizWidget = () => {
     
     const changeQuestion = (direction: 'next' | 'prev') => {
         if (direction === 'next') {
-            setCurrentQuestionIndex(prev => Math.min(practiceQuestions.length - 1, prev + 1));
+            setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1));
         } else {
             setCurrentQuestionIndex(prev => Math.max(0, prev - 1));
         }
@@ -133,6 +139,7 @@ const QuizWidget = () => {
     const handleRestart = () => {
         setAnswers({});
         setCurrentQuestionIndex(0);
+        setQuestions([...practiceQuestions].sort(() => Math.random() - 0.5));
         toast({ title: "Quiz restarted!" });
     };
 
@@ -174,8 +181,8 @@ const QuizWidget = () => {
                     <Button variant="outline" onClick={() => changeQuestion('prev')} disabled={currentQuestionIndex === 0}>
                         <ChevronLeft className="mr-2 h-4 w-4" /> Prev
                     </Button>
-                    <span className="text-sm text-muted-foreground">{currentQuestionIndex + 1} / {practiceQuestions.length}</span>
-                    <Button variant="outline" onClick={() => changeQuestion('next')} disabled={currentQuestionIndex === practiceQuestions.length - 1}>
+                    <span className="text-sm text-muted-foreground">{currentQuestionIndex + 1} / {questions.length}</span>
+                    <Button variant="outline" onClick={() => changeQuestion('next')} disabled={currentQuestionIndex === questions.length - 1}>
                         Next <ChevronRight className="ml-2 h-4 w-4" />
                     </Button>
                 </div>
@@ -189,13 +196,15 @@ const QuizWidget = () => {
 
 
 const RandomVerseWidget = () => {
-    const [verse, setVerse] = useState<{ text: string; source: string } | null>(null);
+    const [verse, setVerse] = useState<{ text: string; source: string, translation?: string } | null>(null);
 
-    useEffect(() => {
-        const poetrySection = newSyllabus.find(s => s.title_en.includes("Poetry"));
-        if (poetrySection && poetrySection.content) {
-            const allVerses = poetrySection.content.flatMap(c => 
-                c.items?.map(i => ({ text: i.sanskrit, source: c.title })) || []
+    const getRandomVerse = useCallback(() => {
+        const poetrySections = newSyllabus.filter(s => s.title_en.toLowerCase().includes("poetry"));
+        if (poetrySections.length > 0) {
+            const allVerses = poetrySections.flatMap(section => 
+                section.content.flatMap(c => 
+                    c.items?.map(i => ({ text: i.sanskrit, source: c.title, translation: i.translation })) || []
+                )
             );
             if (allVerses.length > 0) {
                  const randomVerse = allVerses[Math.floor(Math.random() * allVerses.length)];
@@ -204,21 +213,31 @@ const RandomVerseWidget = () => {
         }
     }, []);
 
+    useEffect(() => {
+        getRandomVerse();
+    }, [getRandomVerse]);
+
     if (!verse) return null;
 
     return (
         <Card className="w-full bg-card flex flex-col">
             <CardHeader>
-                <div className="flex items-center gap-4">
-                    <div className="bg-primary/20 p-3 rounded-lg">
-                        <MessageSquareQuote className="h-6 w-6 text-primary"/>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <div className="bg-primary/20 p-3 rounded-lg">
+                            <MessageSquareQuote className="h-6 w-6 text-primary"/>
+                        </div>
+                        <CardTitle className="font-headline text-xl">Verse of the Day</CardTitle>
                     </div>
-                    <CardTitle className="font-headline text-xl">Verse of the Day</CardTitle>
+                     <Button variant="ghost" size="icon" onClick={getRandomVerse} aria-label="New Verse">
+                        <Shuffle className="h-5 w-5"/>
+                    </Button>
                 </div>
             </CardHeader>
-            <CardContent className="flex-grow space-y-2">
-                <p className="font-semibold break-words">{verse.text}</p>
-                <p className="text-muted-foreground text-sm italic">Source: {verse.source}</p>
+            <CardContent className="flex-grow space-y-3">
+                <p className="font-semibold break-words text-xl">{verse.text}</p>
+                {verse.translation && <p className="text-muted-foreground text-base italic">"{verse.translation}"</p>}
+                <p className="text-muted-foreground text-sm">Source: {verse.source}</p>
             </CardContent>
         </Card>
     );
@@ -248,5 +267,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    

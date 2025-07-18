@@ -11,7 +11,7 @@ import { Scaling } from "lucide-react";
 
 export default function GrammarPage() {
   const grammarSection = newSyllabus.find(s => s.title_en.includes("Appendix"));
-  const grammarTopics = grammarSection?.content?.filter(c => ['समासः', 'कृदन्ताः', 'तद्धितान्ताः', 'सूचनानुसारं परिवर्तनम्'].includes(c.title)) || [];
+  const grammarTopics = grammarSection?.content || [];
 
   return (
     <div>
@@ -25,7 +25,7 @@ export default function GrammarPage() {
         <CardHeader>
             <CardTitle className="flex items-center gap-2">
                 <Scaling className="text-primary"/>
-                Core Concepts
+                Core Concepts (from परिशिष्टम्)
             </CardTitle>
             <CardDescription>Expand each section to learn about the fundamentals of Sanskrit grammar.</CardDescription>
         </CardHeader>
@@ -34,7 +34,7 @@ export default function GrammarPage() {
             {grammarTopics.map((lesson, index) => (
                 <AccordionItem value={`item-${index}`} key={index}>
                 <AccordionTrigger className="text-xl font-headline text-left hover:no-underline">
-                    {lesson.title}
+                    {lesson.title} ({lesson.title_en})
                 </AccordionTrigger>
                 <AccordionContent className="text-base leading-relaxed p-2">
                     {lesson.description}
@@ -47,5 +47,3 @@ export default function GrammarPage() {
     </div>
   );
 }
-
-    

@@ -17,7 +17,7 @@ function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBa
       </Button>
 
       <header className="mb-8">
-        <h1 className="text-4xl font-headline font-bold break-words">{section.title}</h1>
+        <h1 className="text-4xl font-headline font-bold break-words">{section.title} ({section.title_en})</h1>
         {section.description && <p className="text-lg text-muted-foreground mt-2">{section.description}</p>}
       </header>
       
@@ -26,6 +26,11 @@ function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBa
           <CardTitle>Content</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
+          {section.details && (
+            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground">
+              <p>{section.details}</p>
+            </div>
+          )}
           {section.items?.map((item, index) => (
             <div key={index}>
               <div className="p-4 border rounded-lg bg-secondary/50">
@@ -37,11 +42,6 @@ function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBa
               {index < (section.items?.length || 0) - 1 && <Separator className="my-6"/>}
             </div>
           ))}
-          {section.details && (
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <p>{section.details}</p>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>
@@ -52,8 +52,8 @@ function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBa
 export default function TextbookPage() {
   const [selectedSection, setSelectedSection] = useState<SyllabusContent | null>(null);
 
-  // Filter for sections that have actual content to display, excluding appendix-style sections
-  const sectionsToShow = newSyllabus.filter(s => s.content && !s.title_en.includes("Appendix"));
+  // Exclude appendix-style sections from the main textbook view
+  const sectionsToShow = newSyllabus.filter(s => !s.title_en.includes("Appendix"));
 
   if (selectedSection) {
     return <ChapterDetailView section={selectedSection} onBack={() => setSelectedSection(null)} />;
@@ -64,7 +64,7 @@ export default function TextbookPage() {
       <header className="mb-8">
         <h1 className="text-4xl font-headline font-bold">Syllabus Sections</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Interactive guide to the official syllabus.
+          Interactive guide to the official "Alhad" syllabus.
         </p>
       </header>
       <div className="space-y-8">
@@ -75,7 +75,8 @@ export default function TextbookPage() {
               {section.content?.map((contentItem) => (
                 <Card key={contentItem.title} className="flex flex-col">
                   <CardHeader>
-                    <CardTitle className="font-headline text-2xl break-words">{contentItem.title}</CardTitle>
+                    <CardTitle className="font-headline text-2xl break-words">{contentItem.title_en}</CardTitle>
+                     <CardDescription>{contentItem.title}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <p className="text-sm text-muted-foreground">{contentItem.description}</p>
@@ -94,5 +95,3 @@ export default function TextbookPage() {
     </div>
   );
 }
-
-    

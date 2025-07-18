@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -11,18 +12,32 @@ import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function PracticePage() {
+  const allQuestions = useMemo(() => practiceQuestions, []);
+  const allChapterIds = useMemo(() => ['all', ...Array.from(new Set(allQuestions.map(q => q.chapterId)))], [allQuestions]);
+
+  const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  // Store user's selected answer for each question index
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
 
-  const currentQuestion = practiceQuestions[currentQuestionIndex];
+  const handleFilterChange = (chapterId: string) => {
+    let questionsToSet;
+    if (chapterId === 'all') {
+      questionsToSet = allQuestions;
+    } else {
+      questionsToSet = allQuestions.filter(q => q.chapterId === chapterId);
+    }
+    setFilteredQuestions(questionsToSet);
+    handleRestart(questionsToSet);
+  };
+
+  const currentQuestion = filteredQuestions[currentQuestionIndex];
   const selectedOption = answers[currentQuestionIndex];
   const isAnswered = selectedOption !== undefined;
 
   const handleSelectOption = (option: string) => {
-    if (isAnswered) return; // Don't allow changing answer
+    if (isAnswered) return;
 
     const newAnswers = { ...answers, [currentQuestionIndex]: option };
     setAnswers(newAnswers);
@@ -34,30 +49,58 @@ export default function PracticePage() {
         toast({ title: "Incorrect!", description: `The correct answer is: ${currentQuestion.answer}`, variant: "destructive" });
     }
 
-    if (Object.keys(newAnswers).length === practiceQuestions.length && !quizCompleted) {
+    if (Object.keys(newAnswers).length === filteredQuestions.length && !quizCompleted) {
         setQuizCompleted(true);
         toast({
             title: "Quiz Complete!",
-            description: "You've finished all the questions.",
+            description: "You've finished all the questions for this section.",
         });
     }
   };
   
   const handleQuestionChange = (index: number) => {
-    if (index >= 0 && index < practiceQuestions.length) {
+    if (index >= 0 && index < filteredQuestions.length) {
       setCurrentQuestionIndex(index);
     }
   };
 
-  const handleRestart = () => {
+  const handleRestart = (questions = filteredQuestions) => {
     setCurrentQuestionIndex(0);
     setAnswers({});
     setQuizCompleted(false);
+    setFilteredQuestions([...questions].sort(() => Math.random() - 0.5));
     toast({
         title: "Quiz Restarted",
         description: "Your answers have been cleared.",
     });
   };
+
+  if (!currentQuestion) {
+    return (
+      <div className="max-w-2xl mx-auto text-center">
+        <header className="mb-8">
+          <h1 className="text-4xl font-headline font-bold">Practice Quiz</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Test your knowledge with these questions.
+          </p>
+        </header>
+        <Card>
+            <CardContent className="p-8">
+                <p className="text-muted-foreground mb-4">No questions for this selection. Please choose a chapter.</p>
+                <Select onValueChange={handleFilterChange} defaultValue="all">
+                    <SelectTrigger className="w-[280px] mx-auto">
+                        <SelectValue placeholder="Filter by Chapter..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Chapters</SelectItem>
+                        {allChapterIds.slice(1).map(id => <SelectItem key={id} value={id}>{id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+            </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -70,25 +113,23 @@ export default function PracticePage() {
 
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
-            <CardTitle>Question {currentQuestionIndex + 1} of {practiceQuestions.length}</CardTitle>
-            <Select onValueChange={(value) => handleQuestionChange(parseInt(value))} value={currentQuestionIndex.toString()}>
-              <SelectTrigger className="w-[150px]">
-                <SelectValue placeholder="Jump to..." />
-              </SelectTrigger>
-              <SelectContent>
-                {practiceQuestions.map((_, index) => (
-                  <SelectItem key={index} value={index.toString()}>
-                    Question {index + 1}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+          <div className="flex justify-between items-center mb-4">
+            <CardTitle>Question {currentQuestionIndex + 1} of {filteredQuestions.length}</CardTitle>
+             <Select onValueChange={handleFilterChange} defaultValue="all">
+                <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by Chapter..." />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">All Chapters</SelectItem>
+                    {allChapterIds.slice(1).map(id => <SelectItem key={id} value={id}>{id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>)}
+                </SelectContent>
             </Select>
           </div>
           <CardDescription className="text-lg pt-2">{currentQuestion.question}</CardDescription>
         </CardHeader>
         <CardContent>
           <RadioGroup
+            key={currentQuestionIndex}
             value={selectedOption || ''}
             onValueChange={handleSelectOption}
             disabled={isAnswered}
@@ -115,11 +156,11 @@ export default function PracticePage() {
                 <Button variant="outline" onClick={() => handleQuestionChange(currentQuestionIndex - 1)} disabled={currentQuestionIndex === 0}>
                 <ChevronLeft className="mr-2 h-4 w-4" /> Previous
                 </Button>
-                <Button variant="outline" onClick={() => handleQuestionChange(currentQuestionIndex + 1)} disabled={currentQuestionIndex === practiceQuestions.length - 1}>
+                <Button variant="outline" onClick={() => handleQuestionChange(currentQuestionIndex + 1)} disabled={currentQuestionIndex === filteredQuestions.length - 1}>
                 Next <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>
-            <Button onClick={handleRestart} variant="secondary" className="w-full">
+            <Button onClick={() => handleRestart()} variant="secondary" className="w-full">
               <RotateCw className="mr-2 h-4 w-4" /> Restart Quiz
             </Button>
         </CardFooter>

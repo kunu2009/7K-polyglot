@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
@@ -5,24 +6,37 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { flashcards } from '@/lib/sanskrit-data';
 import { RotateCcw, ThumbsUp, ThumbsDown, Check, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type Flashcard = typeof flashcards[0];
 
 export default function FlashcardsPage() {
+  const allCards = useMemo(() => flashcards, []);
+  const allChapterIds = useMemo(() => ['all', ...Array.from(new Set(allCards.map(c => c.chapterId)))], [allCards]);
+  
+  const [filteredCards, setFilteredCards] = useState<Flashcard[]>(allCards);
   const [shuffledCards, setShuffledCards] = useState<Flashcard[]>([]);
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   
   const shuffleCards = useCallback(() => {
-    const shuffled = [...flashcards].sort(() => Math.random() - 0.5);
+    const shuffled = [...filteredCards].sort(() => Math.random() - 0.5);
     setShuffledCards(shuffled);
     setCardIndex(0);
     setIsFlipped(false);
-  }, []);
+  }, [filteredCards]);
   
   useEffect(() => {
     shuffleCards();
   }, [shuffleCards]);
+  
+  const handleFilterChange = (chapterId: string) => {
+    if (chapterId === 'all') {
+      setFilteredCards(allCards);
+    } else {
+      setFilteredCards(allCards.filter(card => card.chapterId === chapterId));
+    }
+  };
 
   const currentCard = useMemo(() => shuffledCards[cardIndex], [shuffledCards, cardIndex]);
 
@@ -38,7 +52,7 @@ export default function FlashcardsPage() {
       } else {
         setCardIndex((prevIndex) => Math.max(0, prevIndex - 1));
       }
-    }, 150); // Short delay for flip animation
+    }, 150);
   };
 
   const handleFeedback = (feedback: 'good' | 'easy' | 'hard') => {
@@ -48,7 +62,28 @@ export default function FlashcardsPage() {
   };
 
   if (shuffledCards.length === 0 || !currentCard) {
-    return <div>Loading...</div>;
+    return (
+        <div className="flex flex-col items-center">
+            <header className="mb-4 text-center">
+                <h1 className="text-4xl font-headline font-bold">Flashcards</h1>
+                <p className="text-lg text-muted-foreground mt-2">
+                Practice vocabulary with spaced repetition.
+                </p>
+            </header>
+            <div className="text-center p-8">
+                <p>No cards available for this filter. Please select a chapter.</p>
+                 <Select onValueChange={handleFilterChange} defaultValue="all">
+                    <SelectTrigger className="w-[280px] mt-4">
+                        <SelectValue placeholder="Filter by Chapter..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Chapters</SelectItem>
+                        {allChapterIds.slice(1).map(id => <SelectItem key={id} value={id}>{id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+            </div>
+        </div>
+    );
   }
 
   return (
@@ -60,21 +95,30 @@ export default function FlashcardsPage() {
         </p>
       </header>
 
-      <div className="w-full max-w-md flex justify-between items-center mb-4">
-        <div className="text-sm text-muted-foreground">
-          Card {cardIndex + 1} of {shuffledCards.length}
-        </div>
-        <Button onClick={shuffleCards} variant="outline">
+      <div className="w-full max-w-md flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+         <Select onValueChange={handleFilterChange} defaultValue="all">
+            <SelectTrigger className="w-full sm:w-[280px]">
+                <SelectValue placeholder="Filter by Chapter..." />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="all">All Chapters</SelectItem>
+                {allChapterIds.slice(1).map(id => <SelectItem key={id} value={id}>{id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SelectItem>)}
+            </SelectContent>
+        </Select>
+        <Button onClick={shuffleCards} variant="outline" className="w-full sm:w-auto">
           <Shuffle className="mr-2 h-4 w-4" /> Shuffle
         </Button>
       </div>
+
+       <div className="w-full max-w-md text-sm text-muted-foreground mb-4 text-center">
+          Card {cardIndex + 1} of {shuffledCards.length}
+        </div>
 
       <div className="w-full max-w-md perspective-1000">
         <div
           className={`relative w-full h-64 transform-style-preserve-3d transition-transform duration-500 ${isFlipped ? 'rotate-y-180' : ''}`}
           onClick={handleFlip}
         >
-          {/* Front of the card */}
           <div className="absolute w-full h-full backface-hidden">
             <Card className="w-full h-full flex items-center justify-center cursor-pointer bg-card hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
@@ -84,7 +128,6 @@ export default function FlashcardsPage() {
               </CardContent>
             </Card>
           </div>
-          {/* Back of the card */}
           <div className="absolute w-full h-full backface-hidden rotate-y-180">
             <Card className="w-full h-full flex items-center justify-center cursor-pointer bg-accent text-accent-foreground hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
@@ -121,7 +164,7 @@ export default function FlashcardsPage() {
         <Button variant="outline" onClick={() => changeCard('prev')} disabled={cardIndex === 0}>
           <ChevronLeft className="h-5 w-5 mr-2" /> Previous
         </Button>
-        <Button variant="outline" onClick={() => changeCard('next')} disabled={cardIndex === shuffledCards.length - 1}>
+        <Button variant="outline" onClick={() => changeCard('next')} disabled={cardIndex >= shuffledCards.length - 1}>
           Next <ChevronRight className="h-5 w-5 ml-2" />
         </Button>
       </div>
