@@ -6,5 +6,6 @@ import '@/ai/flows/text-to-speech';
 import '@/ai/flows/contextual-help';
 import '@/ai/flows/verse-explanation-feedback';
 import '@/ai/flows/name-generator';
+import '@/ai/flows/chapter-tools';
 
 export const { GET, POST } = nextHandler();

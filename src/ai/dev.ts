@@ -6,3 +6,4 @@ import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/contextual-help.ts';
 import '@/ai/flows/verse-explanation-feedback.ts';
 import '@/ai/flows/name-generator.ts';
+import '@/ai/flows/chapter-tools.ts';

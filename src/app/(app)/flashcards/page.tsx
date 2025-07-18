@@ -4,14 +4,27 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { flashcards } from '@/lib/sanskrit-data';
+import { flashcards as defaultFlashcards } from '@/lib/sanskrit-data';
 import { RotateCcw, ThumbsUp, ThumbsDown, Check, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-type Flashcard = typeof flashcards[0];
+type Flashcard = typeof defaultFlashcards[0];
 
 export default function FlashcardsPage() {
-  const allCards = useMemo(() => flashcards, []);
+  const [allCards, setAllCards] = useState<Flashcard[]>(defaultFlashcards);
+
+  useEffect(() => {
+    try {
+      const storedCards = localStorage.getItem('ai-generated-flashcards');
+      if (storedCards) {
+        const parsedCards: Flashcard[] = JSON.parse(storedCards);
+        setAllCards(prev => [...prev, ...parsedCards]);
+      }
+    } catch (error) {
+      console.error("Failed to load AI-generated flashcards from local storage", error);
+    }
+  }, []);
+
   const allChapterIds = useMemo(() => ['all', ...Array.from(new Set(allCards.map(c => c.chapterId)))], [allCards]);
   
   const [filteredCards, setFilteredCards] = useState<Flashcard[]>(allCards);
@@ -29,6 +42,10 @@ export default function FlashcardsPage() {
   useEffect(() => {
     shuffleCards();
   }, [shuffleCards]);
+
+  useEffect(() => {
+    setFilteredCards(allCards);
+  }, [allCards]);
   
   const handleFilterChange = (chapterId: string) => {
     if (chapterId === 'all') {

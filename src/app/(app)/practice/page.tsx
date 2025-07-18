@@ -1,18 +1,33 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { practiceQuestions } from '@/lib/sanskrit-data';
+import { practiceQuestions as defaultPracticeQuestions } from '@/lib/sanskrit-data';
 import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+type PracticeQuestion = typeof defaultPracticeQuestions[0];
+
 export default function PracticePage() {
-  const allQuestions = useMemo(() => practiceQuestions, []);
+  const [allQuestions, setAllQuestions] = useState<PracticeQuestion[]>(defaultPracticeQuestions);
+
+  useEffect(() => {
+    try {
+      const storedQuestions = localStorage.getItem('ai-generated-mcqs');
+      if (storedQuestions) {
+        const parsedQuestions: PracticeQuestion[] = JSON.parse(storedQuestions);
+        setAllQuestions(prev => [...prev, ...parsedQuestions]);
+      }
+    } catch (error) {
+      console.error("Failed to load AI-generated questions from local storage", error);
+    }
+  }, []);
+
   const allChapterIds = useMemo(() => ['all', ...Array.from(new Set(allQuestions.map(q => q.chapterId)))], [allQuestions]);
 
   const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
@@ -20,6 +35,12 @@ export default function PracticePage() {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    setFilteredQuestions(allQuestions);
+    handleRestart(allQuestions);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allQuestions]);
 
   const handleFilterChange = (chapterId: string) => {
     let questionsToSet;
@@ -68,7 +89,12 @@ export default function PracticePage() {
     setCurrentQuestionIndex(0);
     setAnswers({});
     setQuizCompleted(false);
-    setFilteredQuestions([...questions].sort(() => Math.random() - 0.5));
+    // Shuffle only if there are questions
+    if (questions.length > 0) {
+      setFilteredQuestions([...questions].sort(() => Math.random() - 0.5));
+    } else {
+      setFilteredQuestions([]);
+    }
     toast({
         title: "Quiz Restarted",
         description: "Your answers have been cleared.",
@@ -115,7 +141,7 @@ export default function PracticePage() {
         <CardHeader>
           <div className="flex justify-between items-center mb-4">
             <CardTitle>Question {currentQuestionIndex + 1} of {filteredQuestions.length}</CardTitle>
-             <Select onValueChange={handleFilterChange} defaultValue="all">
+             <Select onValueChange={handleFilterChange} defaultValue={currentQuestion.chapterId || 'all'}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Filter by Chapter..." />
                 </SelectTrigger>
@@ -160,7 +186,7 @@ export default function PracticePage() {
                 Next <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>
-            <Button onClick={() => handleRestart()} variant="secondary" className="w-full">
+            <Button onClick={() => handleRestart(filteredQuestions)} variant="secondary" className="w-full">
               <RotateCw className="mr-2 h-4 w-4" /> Restart Quiz
             </Button>
         </CardFooter>

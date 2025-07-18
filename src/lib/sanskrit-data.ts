@@ -10,8 +10,14 @@ export interface SyllabusContent {
   title: string;
   title_en: string;
   description?: string;
-  details?: string;
+  details?: string; // भूमिका
   items?: SyllabusItem[];
+  vocabulary?: { word: string; meaning: string }[];
+  grammar?: {
+    sandhi?: { rule: string; example: string }[];
+    samasa?: { compound: string; expansion: string; type: string }[];
+    forms?: { word: string; description: string }[];
+  };
 }
 
 export interface SyllabusSection {
@@ -19,6 +25,23 @@ export interface SyllabusSection {
   title_en: string;
   content: SyllabusContent[];
 }
+
+// Define types for Flashcards and Practice Questions
+export type Flashcard = {
+  id: string;
+  chapterId: string;
+  front: string;
+  back: string;
+};
+
+export type PracticeQuestion = {
+  id: string;
+  chapterId: string;
+  question: string;
+  options: string[];
+  answer: string;
+};
+
 
 export const newSyllabus: SyllabusSection[] = [
   {
@@ -67,51 +90,96 @@ export const newSyllabus: SyllabusSection[] = [
                 translation: "Clothes are indeed more important than qualification. Fortune deserts one who is without clothes. The ocean, seeing the one clad in yellow silk (Pītāmbara, i.e., Vishnu), gave his own daughter (Lakshmi). Seeing the one clad in the sky (Digambara, i.e., Shiva), he gave poison.",
                 explanation: "A satirical verse emphasizing the importance of appearance. The ocean gives his precious daughter Lakshmi to the well-dressed Vishnu but gives poison to the unclothed Shiva, judging them solely by their attire."
             }
-        ]
+        ],
+        vocabulary: [
+          { word: "उष्ट्रः", meaning: "Camel" },
+          { word: "गर्दभः", meaning: "Donkey" },
+          { word: "परस्परम्", meaning: "Mutually, each other" },
+          { word: "प्रशंसन्ति", meaning: "They praise" },
+          { word: "तूलः", meaning: "Cotton" },
+          { word: "याचकः", meaning: "Beggar" },
+          { word: "प्रार्थयेत्", meaning: "May ask, might request" },
+          { word: "दारिद्र्य", meaning: "Poverty" },
+          { word: "त्वत्प्रसादतः", meaning: "By your grace" },
+          { word: "सिद्धः", meaning: "Accomplished, perfected, invisible" },
+          { word: "कश्चन", meaning: "Anyone, someone" },
+          { word: "दुर्निवारम्", meaning: "Hard to stop, unavoidable" },
+          { word: "कौमारम्", meaning: "Virginity, maidenhood" },
+          { word: "सद्भ्यः", meaning: "To the good/virtuous people" },
+          { word: "रोचते", meaning: "Is pleasing to, likes" },
+          { word: "भर्ता", meaning: "Husband" },
+          { word: "वाचयति", meaning: "Reads" },
+          { word: "वासः", meaning: "Cloth, attire" },
+          { word: "विजहाति", meaning: "Abandons, leaves" },
+          { word: "वीक्ष्य", meaning: "Having seen" },
+          { word: "दिगम्बरम्", meaning: "Clothed in the sky, naked (Shiva)" },
+          { word: "पीताम्बरम्", meaning: "Clad in yellow silk (Vishnu)" },
+        ],
+        grammar: {
+          sandhi: [
+            { rule: "तृणात् + लघुतरः", example: "तृणाल्लघुतरः" },
+            { rule: "तूलः + तूलात् + अपि", example: "तूलस्तूलादपि" },
+            { rule: "सिद्धः + अहम्", example: "सिद्धोऽहम्" },
+            { rule: "अद्य + अपि", example: "अद्यापि" },
+            { rule: "द्विगुः + अपि + अहम्", example: "द्विगुरप्यहम्" },
+            { rule: "तत् + परः", example: "तत्परो" },
+          ],
+          samasa: [
+            { compound: "अव्ययीभावः", expansion: "व्ययस्य अभावः", type: "अव्ययीभाव" },
+            { compound: "तत्पुरुष", expansion: "तस्य पुरुषः", type: "षष्ठी तत्पुरुष" },
+            { compound: "बहुव्रीहिः", expansion: "बहु व्रीहिः यस्य सः", type: "बहुव्रीहि" },
+            { compound: "पीताम्बरम्", expansion: "पीतम् अम्बरं यस्य सः, तम्", type: "बहुव्रीहि" },
+          ],
+          forms: [
+            { word: "नमः", description: "अव्ययम् (indeclinable)" },
+            { word: "तुभ्यम्", description: "युष्मद् सर्वनाम, चतुर्थी, एकवचनम्" },
+            { word: "वीक्ष्य", description: "वि+ईक्ष् धातु, ल्यबन्त अव्ययम् (gerund)" },
+          ]
+        }
       }
     ]
   }
 ];
 
-export const practiceQuestions = [
+export const practiceQuestions: PracticeQuestion[] = [
   // क्षणं मनोविनोदनम्
-  { chapterId: "ksanam-manovinodanam", question: "In the weddings of camels (उष्ट्राणां विवाहेषु), who sings the songs?", options: ["Horses (अश्वाः)", "Elephants (गजाः)", "Donkeys (गर्दभाः)", "Crows (काकाः)"], answer: "Donkeys (गर्दभाः)" },
-  { chapterId: "ksanam-manovinodanam", question: "What do the camels and donkeys praise in each other?", options: ["Their strength and speed", "Their beauty and voice", "Their wealth and status", "Their wisdom and knowledge"], answer: "Their beauty and voice" },
-  { chapterId: "ksanam-manovinodanam", question: "Who is said to be lighter than cotton (तूलः)?", options: ["A feather (पिच्छः)", "A leaf (पत्रम्)", "A beggar (याचकः)", "A flower (पुष्पम्)"], answer: "A beggar (याचकः)" },
-  { chapterId: "ksanam-manovinodanam", question: "Why does the wind not carry away the beggar?", options: ["He is too heavy", "He is holding onto a post", "The wind is afraid the beggar will ask for something", "The wind likes the beggar"], answer: "The wind is afraid the beggar will ask for something" },
-  { chapterId: "ksanam-manovinodanam", question: "Who does the speaker sarcastically thank for making them a 'siddha' (invisible)?", options: ["The King (राजा)", "Wealth (धनम्)", "God (देवः)", "Poverty (दारिद्र्यम्)"], answer: "Poverty (दारिद्र्यम्)" },
-  { chapterId: "ksanam-manovinodanam", question: "What is the name of the 'maiden' who remains a virgin (कौमारम्)?", options: ["Praise (स्तुति)", "Wisdom (प्रज्ञा)", "Wealth (लक्ष्मी)", "Courage (धृति)"], answer: "Praise (स्तुति)" },
-  { chapterId: "ksanam-manovinodanam", question: "In verse 5, which word is used as a pun for 'a couple' and also a type of compound?", options: ["बहुव्रीहिः", "द्विगुः", "द्वन्द्वः", "अव्ययीभावः"], answer: "द्वन्द्वः" },
-  { chapterId: "ksanam-manovinodanam", question: "In verse 7, who does the ocean give poison to?", options: ["Vishnu", "Brahma", "Indra", "Shiva"], answer: "Shiva" },
-  { chapterId: "ksanam-manovinodanam", question: "What is the reason the ocean gives poison to Shiva?", options: ["Because he was thirsty", "Because he was poorly dressed (Digambara)", "Because he asked for it", "Because the ocean disliked him"], answer: "Because he was poorly dressed (Digambara)" },
+  { id: "km-q1", chapterId: "ksanam-manovinodanam", question: "In the weddings of camels (उष्ट्राणां विवाहेषु), who sings the songs?", options: ["Horses (अश्वाः)", "Elephants (गजाः)", "Donkeys (गर्दभाः)", "Crows (काकाः)"], answer: "Donkeys (गर्दभाः)" },
+  { id: "km-q2", chapterId: "ksanam-manovinodanam", question: "What do the camels and donkeys praise in each other?", options: ["Their strength and speed", "Their beauty and voice", "Their wealth and status", "Their wisdom and knowledge"], answer: "Their beauty and voice" },
+  { id: "km-q3", chapterId: "ksanam-manovinodanam", question: "Who is said to be lighter than cotton (तूलः)?", options: ["A feather (पिच्छः)", "A leaf (पत्रम्)", "A beggar (याचकः)", "A flower (पुष्पम्)"], answer: "A beggar (याचकः)" },
+  { id: "km-q4", chapterId: "ksanam-manovinodanam", question: "Why does the wind not carry away the beggar?", options: ["He is too heavy", "He is holding onto a post", "The wind is afraid the beggar will ask for something", "The wind likes the beggar"], answer: "The wind is afraid the beggar will ask for something" },
+  { id: "km-q5", chapterId: "ksanam-manovinodanam", question: "Who does the speaker sarcastically thank for making them a 'siddha' (invisible)?", options: ["The King (राजा)", "Wealth (धनम्)", "God (देवः)", "Poverty (दारिद्र्यम्)"], answer: "Poverty (दारिद्र्यम्)" },
+  { id: "km-q6", chapterId: "ksanam-manovinodanam", question: "What is the name of the 'maiden' who remains a virgin (कौमारम्)?", options: ["Praise (स्तुति)", "Wisdom (प्रज्ञा)", "Wealth (लक्ष्मी)", "Courage (धृति)"], answer: "Praise (स्तुति)" },
+  { id: "km-q7", chapterId: "ksanam-manovinodanam", question: "In verse 5, which word is used as a pun for 'a couple' and also a type of compound?", options: ["बहुव्रीहिः", "द्विगुः", "द्वन्द्वः", "अव्ययीभावः"], answer: "द्वन्द्वः" },
+  { id: "km-q8", chapterId: "ksanam-manovinodanam", question: "In verse 7, who does the ocean give poison to?", options: ["Vishnu", "Brahma", "Indra", "Shiva"], answer: "Shiva" },
+  { id: "km-q9", chapterId: "ksanam-manovinodanam", question: "What is the reason the ocean gives poison to Shiva?", options: ["Because he was thirsty", "Because he was poorly dressed (Digambara)", "Because he asked for it", "Because the ocean disliked him"], answer: "Because he was poorly dressed (Digambara)" },
 ];
 
-export const flashcards = [
+export const flashcards: Flashcard[] = [
   // क्षणं मनोविनोदनम्
-  { id: 5, chapterId: "ksanam-manovinodanam", front: "उष्ट्रः", back: "Camel" },
-  { id: 6, chapterId: "ksanam-manovinodanam", front: "गर्दभः", back: "Donkey" },
-  { id: 7, chapterId: "ksanam-manovinodanam", front: "विवाहः", back: "Wedding" },
-  { id: 8, chapterId: "ksanam-manovinodanam", front: "प्रशंसन्ति", back: "They praise" },
-  { id: 9, chapterId: "ksanam-manovinodanam", front: "ध्वनिः", back: "Voice / Sound" },
-  { id: 10, chapterId: "ksanam-manovinodanam", front: "रूपम्", back: "Form / Beauty" },
-  { id: 11, chapterId: "ksanam-manovinodanam", front: "याचकः", back: "Beggar" },
-  { id: 12, chapterId: "ksanam-manovinodanam", front: "लघुतरः", back: "Lighter" },
-  { id: 13, chapterId: "ksanam-manovinodanam", front: "दारिद्र्यम्", back: "Poverty" },
-  { id: 14, chapterId: "ksanam-manovinodanam", front: "त्वत्प्रसादतः", back: "By your grace" },
-  { id: 15, chapterId: "ksanam-manovinodanam", front: "पश्यामि", back: "I see" },
-  { id: 16, chapterId: "ksanam-manovinodanam", front: "कश्चन", back: "Anyone / Someone" },
-  { id: 17, chapterId: "ksanam-manovinodanam", front: "स्तुतिकन्या", back: "Maiden of flattery" },
-  { id: 18, chapterId: "ksanam-manovinodanam", front: "कौमारम्", back: "Virginity / Maidenhood" },
-  { id: 19, chapterId: "ksanam-manovinodanam", front: "रोचते", back: "Likes / Is pleasing to" },
-  { id: 20, chapterId: "ksanam-manovinodanam", front: "द्वन्द्वः", back: "A couple / A type of compound" },
-  { id: 21, chapterId: "ksanam-manovinodanam", front: "बहुव्रीहिः", back: "Rich in grain / A type of compound" },
-  { id: 22, chapterId: "ksanam-manovinodanam", front: "भर्ता", back: "Husband" },
-  { id: 23, chapterId: "ksanam-manovinodanam", front: "वाचयति", back: "Reads / causes to be read" },
-  { id: 24, chapterId: "ksanam-manovinodanam", front: "वासः", back: "Cloth / Attire" },
-  { id: 25, chapterId: "ksanam-manovinodanam", front: "पीताम्बरम्", back: "Yellow silk garment (worn by Vishnu)" },
-  { id: 26, chapterId: "ksanam-manovinodanam", front: "दिगम्बरम्", back: "Clothed in the sky / naked (an epithet of Shiva)" },
-  { id: 27, chapterId: "ksanam-manovinodanam", front: "वीक्ष्य", back: "Having seen" },
-  { id: 28, chapterId: "ksanam-manovinodanam", front: "समुद्रः", back: "Ocean" },
+  { id: "km-f1", chapterId: "ksanam-manovinodanam", front: "उष्ट्रः", back: "Camel" },
+  { id: "km-f2", chapterId: "ksanam-manovinodanam", front: "गर्दभः", back: "Donkey" },
+  { id: "km-f3", chapterId: "ksanam-manovinodanam", front: "विवाहः", back: "Wedding" },
+  { id: "km-f4", chapterId: "ksanam-manovinodanam", front: "प्रशंसन्ति", back: "They praise" },
+  { id: "km-f5", chapterId: "ksanam-manovinodanam", front: "ध्वनिः", back: "Voice / Sound" },
+  { id: "km-f6", chapterId: "ksanam-manovinodanam", front: "रूपम्", back: "Form / Beauty" },
+  { id: "km-f7", chapterId: "ksanam-manovinodanam", front: "याचकः", back: "Beggar" },
+  { id: "km-f8", chapterId: "ksanam-manovinodanam", front: "लघुतरः", back: "Lighter" },
+  { id: "km-f9", chapterId: "ksanam-manovinodanam", front: "दारिद्र्यम्", back: "Poverty" },
+  { id: "km-f10", chapterId: "ksanam-manovinodanam", front: "त्वत्प्रसादतः", back: "By your grace" },
+  { id: "km-f11", chapterId: "ksanam-manovinodanam", front: "पश्यामि", back: "I see" },
+  { id: "km-f12", chapterId: "ksanam-manovinodanam", front: "कश्चन", back: "Anyone / Someone" },
+  { id: "km-f13", chapterId: "ksanam-manovinodanam", front: "स्तुतिकन्या", back: "Maiden of flattery" },
+  { id: "km-f14", chapterId: "ksanam-manovinodanam", front: "कौमारम्", back: "Virginity / Maidenhood" },
+  { id: "km-f15", chapterId: "ksanam-manovinodanam", front: "रोचते", back: "Likes / Is pleasing to" },
+  { id: "km-f16", chapterId: "ksanam-manovinodanam", front: "द्वन्द्वः", back: "A couple / A type of compound" },
+  { id: "km-f17", chapterId: "ksanam-manovinodanam", front: "बहुव्रीहिः", back: "Rich in grain / A type of compound" },
+  { id: "km-f18", chapterId: "ksanam-manovinodanam", front: "भर्ता", back: "Husband" },
+  { id: "km-f19", chapterId: "ksanam-manovinodanam", front: "वाचयति", back: "Reads / causes to be read" },
+  { id: "km-f20", chapterId: "ksanam-manovinodanam", front: "वासः", back: "Cloth / Attire" },
+  { id: "km-f21", chapterId: "ksanam-manovinodanam", front: "पीताम्बरम्", back: "Yellow silk garment (worn by Vishnu)" },
+  { id: "km-f22", chapterId: "ksanam-manovinodanam", front: "दिगम्बरम्", back: "Clothed in the sky / naked (an epithet of Shiva)" },
+  { id: "km-f23", chapterId: "ksanam-manovinodanam", front: "वीक्ष्य", back: "Having seen" },
+  { id: "km-f24", chapterId: "ksanam-manovinodanam", front: "समुद्रः", back: "Ocean" },
 ];
 
 export const culturalFacts = [
