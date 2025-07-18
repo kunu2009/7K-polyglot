@@ -20,9 +20,9 @@ import {
   RotateCw,
 } from "lucide-react";
 import {
-  textbookChapters,
   flashcards,
   practiceQuestions,
+  newSyllabus,
 } from "@/lib/sanskrit-data";
 import { useToast } from "@/hooks/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -188,12 +188,19 @@ const QuizWidget = () => {
 
 
 const RandomVerseWidget = () => {
-    const [verse, setVerse] = useState<{ sanskrit: string; translation: string } | null>(null);
+    const [verse, setVerse] = useState<{ text: string; source: string } | null>(null);
 
     useEffect(() => {
-        const randomChapter = textbookChapters[Math.floor(Math.random() * textbookChapters.length)];
-        const randomVerse = randomChapter.content[Math.floor(Math.random() * randomChapter.content.length)];
-        setVerse(randomVerse);
+        const poetrySection = newSyllabus.find(s => s.title_en === "Poetry");
+        if (poetrySection && poetrySection.content) {
+            const allVerses = poetrySection.content.flatMap(c => 
+                c.items?.map(i => ({ text: i.sanskrit, source: c.title })) || []
+            );
+            if (allVerses.length > 0) {
+                 const randomVerse = allVerses[Math.floor(Math.random() * allVerses.length)];
+                 setVerse(randomVerse);
+            }
+        }
     }, []);
 
     if (!verse) return null;
@@ -209,8 +216,8 @@ const RandomVerseWidget = () => {
                 </div>
             </CardHeader>
             <CardContent className="flex-grow space-y-2">
-                <p className="font-semibold break-words">{verse.sanskrit}</p>
-                <p className="text-muted-foreground text-sm italic">"{verse.translation}"</p>
+                <p className="font-semibold break-words">{verse.text}</p>
+                <p className="text-muted-foreground text-sm italic">Source: {verse.source}</p>
             </CardContent>
         </Card>
     );

@@ -5,16 +5,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { grammarLessons } from "@/lib/sanskrit-data";
+import { newSyllabus } from "@/lib/sanskrit-data";
 import { Scaling } from "lucide-react";
 
 export default function GrammarPage() {
+  const grammarSection = newSyllabus.find(s => s.title_en === "Appendix");
+  const grammarTopics = grammarSection?.content?.filter(c => ['समासः', 'कृदन्ताः', 'तद्धितान्ताः'].includes(c.title)) || [];
+
   return (
     <div>
       <header className="mb-8">
         <h1 className="text-4xl font-headline font-bold">Grammar Lessons</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Step-by-step lessons on basic Sanskrit grammar concepts.
+          Core concepts from the syllabus appendix.
         </p>
       </header>
       <Card>
@@ -27,13 +30,13 @@ export default function GrammarPage() {
         </CardHeader>
         <CardContent>
             <Accordion type="single" collapsible className="w-full">
-            {grammarLessons.map((lesson, index) => (
+            {grammarTopics.map((lesson, index) => (
                 <AccordionItem value={`item-${index}`} key={index}>
                 <AccordionTrigger className="text-xl font-headline text-left hover:no-underline">
                     {lesson.title}
                 </AccordionTrigger>
                 <AccordionContent className="text-base leading-relaxed p-2">
-                    {lesson.content}
+                    {lesson.description}
                 </AccordionContent>
                 </AccordionItem>
             ))}
