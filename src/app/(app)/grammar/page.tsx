@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -9,8 +10,8 @@ import { newSyllabus } from "@/lib/sanskrit-data";
 import { Scaling } from "lucide-react";
 
 export default function GrammarPage() {
-  const grammarSection = newSyllabus.find(s => s.title_en === "Appendix");
-  const grammarTopics = grammarSection?.content?.filter(c => ['समासः', 'कृदन्ताः', 'तद्धितान्ताः'].includes(c.title)) || [];
+  const grammarSection = newSyllabus.find(s => s.title_en.includes("Appendix"));
+  const grammarTopics = grammarSection?.content?.filter(c => ['समासः', 'कृदन्ताः', 'तद्धितान्ताः', 'सूचनानुसारं परिवर्तनम्'].includes(c.title)) || [];
 
   return (
     <div>
@@ -46,3 +47,5 @@ export default function GrammarPage() {
     </div>
   );
 }
+
+    

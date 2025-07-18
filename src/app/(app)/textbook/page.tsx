@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -5,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { newSyllabus } from "@/lib/sanskrit-data";
-import type { SyllabusSection, SyllabusContent } from "@/lib/sanskrit-data";
+import type { SyllabusContent } from "@/lib/sanskrit-data";
 import { ArrowLeft, BookOpenCheck } from "lucide-react";
 
 function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBack: () => void }) {
@@ -51,7 +52,8 @@ function ChapterDetailView({ section, onBack }: { section: SyllabusContent; onBa
 export default function TextbookPage() {
   const [selectedSection, setSelectedSection] = useState<SyllabusContent | null>(null);
 
-  const sectionsToShow = newSyllabus.filter(s => ['Poetry', 'Prose'].includes(s.title_en));
+  // Filter for sections that have actual content to display, excluding appendix-style sections
+  const sectionsToShow = newSyllabus.filter(s => s.content && !s.title_en.includes("Appendix"));
 
   if (selectedSection) {
     return <ChapterDetailView section={selectedSection} onBack={() => setSelectedSection(null)} />;
@@ -68,7 +70,7 @@ export default function TextbookPage() {
       <div className="space-y-8">
         {sectionsToShow.map(section => (
           <div key={section.title}>
-            <h2 className="text-3xl font-headline mb-4">{section.title} ({section.title_en})</h2>
+            <h2 className="text-3xl font-headline mb-4">{section.title_en} ({section.title})</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {section.content?.map((contentItem) => (
                 <Card key={contentItem.title} className="flex flex-col">
@@ -92,3 +94,5 @@ export default function TextbookPage() {
     </div>
   );
 }
+
+    

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useState } from "react";
@@ -191,7 +192,7 @@ const RandomVerseWidget = () => {
     const [verse, setVerse] = useState<{ text: string; source: string } | null>(null);
 
     useEffect(() => {
-        const poetrySection = newSyllabus.find(s => s.title_en === "Poetry");
+        const poetrySection = newSyllabus.find(s => s.title_en.includes("Poetry"));
         if (poetrySection && poetrySection.content) {
             const allVerses = poetrySection.content.flatMap(c => 
                 c.items?.map(i => ({ text: i.sanskrit, source: c.title })) || []
@@ -247,3 +248,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
