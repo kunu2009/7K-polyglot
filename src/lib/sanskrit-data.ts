@@ -69,7 +69,7 @@ export const newSyllabus: SyllabusSection[] = [
             },
             {
               sanskrit: "तृणाल्लघुतरस्तूलस्तूलादपि च याचकः।\nवायुना किं न नीतोऽसौ मामयं प्रार्थयेदिति॥२॥",
-              translation: "Lighter than grass is cotton, and even lighter than cotton is a beggar. Why is he not carried away by the wind? Because he thinks, 'This fellow might ask something from me!'",
+              translation: "Lighter than grass is cotton, and even lighter than cotton is a beggar. Why is he not carried away by the wind? Because the wind fears, 'This fellow might ask something from me!'",
               explanation: "A humorous take on the extreme lightness and perceived worthlessness of a beggar, suggesting even the wind avoids him for fear of being asked for something."
             },
             {
@@ -81,6 +81,21 @@ export const newSyllabus: SyllabusSection[] = [
               sanskrit: "अद्यापि दुर्निवारं स्तुतिकन्या वहति कौमारम्।\nसद्भ्यो न रोचते साऽसन्तोऽप्यस्यै न रोचन्ते॥४॥",
               translation: "To this day, the maiden named 'Flattery' (Stuti-kanyā), who is hard to stop, remains a virgin. She is not liked by the good people, and the wicked people are not liked by her.",
               explanation: "This is a clever personification of flattery. It says that good/wise people dislike being flattered, and flattery itself (being a 'noble' maiden in this analogy) doesn't like the wicked. Thus, it remains 'unmarried' or unused in ideal situations."
+            },
+            {
+                sanskrit: "द्वन्द्वोऽहं द्विगुरप्यहं मद्गेहे नित्यमव्ययीभावः।\nतत्पुरुष कर्मधारय येनाहं स्यां बहुव्रीहिः॥५॥",
+                translation: "I am a couple (dvandva), I am also a master of two cows (dvigu), in my house there is always a lack of spending (avyayībhāva). O great man (tatpuruṣa), do your duty (karmadhāraya), so that I may become one with much grain (bahuvrīhi)!",
+                explanation: "A brilliant verse where a poor but witty poet uses the names of the six main types of Sanskrit compounds (samāsa) as puns to cleverly ask the king for wealth."
+            },
+            {
+                sanskrit: "चतुरः सखि मे भर्ता यल्लिखति तत्परो न वाचयति।\nतस्मादप्यधिको मे स्वयमपि लिखितं स्वयं न वाचयति॥६॥",
+                translation: "First friend: 'My husband is so clever, friend, that whatever he writes, another person cannot read it.' Second friend: 'Mine is even more clever than that; whatever he himself writes, he himself cannot read.'",
+                explanation: "A humorous dialogue between two friends, each boasting about their husband's 'cleverness,' which is ironically a complete lack of writing skill."
+            },
+            {
+                sanskrit: "वासः प्रधानं खलु योग्यताया वासोविहीनं विजहाति लक्ष्मीः।\nपीताम्बरं वीक्ष्य ददौ स्वकन्यां दिगम्बरं वीक्ष्य विषं समुद्रः॥७॥",
+                translation: "Clothes are indeed more important than qualification. Fortune deserts one who is without clothes. The ocean, seeing the one clad in yellow silk (Pītāmbara, i.e., Vishnu), gave his own daughter (Lakshmi). Seeing the one clad in the sky (Digambara, i.e., Shiva), he gave poison.",
+                explanation: "A satirical verse emphasizing the importance of appearance. The ocean gives his precious daughter Lakshmi to the well-dressed Vishnu but gives poison to the unclothed Shiva, judging them solely by their attire."
             }
         ]
       },
@@ -217,8 +232,12 @@ export const practiceQuestions = [
   { chapterId: "ksanam-manovinodanam", question: "In the weddings of camels (उष्ट्राणां विवाहेषु), who sings the songs?", options: ["Horses (अश्वाः)", "Elephants (गजाः)", "Donkeys (गर्दभाः)", "Crows (काकाः)"], answer: "Donkeys (गर्दभाः)" },
   { chapterId: "ksanam-manovinodanam", question: "What do the camels and donkeys praise in each other?", options: ["Their strength and speed", "Their beauty and voice", "Their wealth and status", "Their wisdom and knowledge"], answer: "Their beauty and voice" },
   { chapterId: "ksanam-manovinodanam", question: "Who is said to be lighter than cotton (तूलः)?", options: ["A feather (पिच्छः)", "A leaf (पत्रम्)", "A beggar (याचकः)", "A flower (पुष्पम्)"], answer: "A beggar (याचकः)" },
+  { chapterId: "ksanam-manovinodanam", question: "Why does the wind not carry away the beggar?", options: ["He is too heavy", "He is holding onto a post", "The wind is afraid the beggar will ask for something", "The wind likes the beggar"], answer: "The wind is afraid the beggar will ask for something" },
   { chapterId: "ksanam-manovinodanam", question: "Who does the speaker sarcastically thank for making them a 'siddha' (invisible)?", options: ["The King (राजा)", "Wealth (धनम्)", "God (देवः)", "Poverty (दारिद्र्यम्)"], answer: "Poverty (दारिद्र्यम्)" },
   { chapterId: "ksanam-manovinodanam", question: "What is the name of the 'maiden' who remains a virgin (कौमारम्)?", options: ["Praise (स्तुति)", "Wisdom (प्रज्ञा)", "Wealth (लक्ष्मी)", "Courage (धृति)"], answer: "Praise (स्तुति)" },
+  { chapterId: "ksanam-manovinodanam", question: "In verse 5, which word is used as a pun for 'a couple' and also a type of compound?", options: ["बहुव्रीहिः", "द्विगुः", "द्वन्द्वः", "अव्ययीभावः"], answer: "द्वन्द्वः" },
+  { chapterId: "ksanam-manovinodanam", question: "In verse 7, who does the ocean give poison to?", options: ["Vishnu", "Brahma", "Indra", "Shiva"], answer: "Shiva" },
+  { chapterId: "ksanam-manovinodanam", question: "What is the reason the ocean gives poison to Shiva?", options: ["Because he was thirsty", "Because he was poorly dressed (Digambara)", "Because he asked for it", "Because the ocean disliked him"], answer: "Because he was poorly dressed (Digambara)" },
 
   // Other Sections (placeholders)
   { chapterId: "yace-vinayakam-mudam", question: "The verse 'वक्रतुण्ड महाकाय' is a prayer to which deity?", options: ["Shiva", "Vishnu", "Ganesha", "Brahma"], answer: "Ganesha" },
@@ -252,12 +271,22 @@ export const flashcards = [
   { id: 17, chapterId: "ksanam-manovinodanam", front: "स्तुतिकन्या", back: "Maiden of flattery" },
   { id: 18, chapterId: "ksanam-manovinodanam", front: "कौमारम्", back: "Virginity / Maidenhood" },
   { id: 19, chapterId: "ksanam-manovinodanam", front: "रोचते", back: "Likes / Is pleasing to" },
+  { id: 20, chapterId: "ksanam-manovinodanam", front: "द्वन्द्वः", back: "A couple / A type of compound" },
+  { id: 21, chapterId: "ksanam-manovinodanam", front: "बहुव्रीहिः", back: "Rich in grain / A type of compound" },
+  { id: 22, chapterId: "ksanam-manovinodanam", front: "भर्ता", back: "Husband" },
+  { id: 23, chapterId: "ksanam-manovinodanam", front: "वाचयति", back: "Reads / causes to be read" },
+  { id: 24, chapterId: "ksanam-manovinodanam", front: "वासः", back: "Cloth / Attire" },
+  { id: 25, chapterId: "ksanam-manovinodanam", front: "पीताम्बरम्", back: "Yellow silk garment (worn by Vishnu)" },
+  { id: 26, chapterId: "ksanam-manovinodanam", front: "दिगम्बरम्", back: "Clothed in the sky / naked (an epithet of Shiva)" },
+  { id: 27, chapterId: "ksanam-manovinodanam", front: "वीक्ष्य", back: "Having seen" },
+  { id: 28, chapterId: "ksanam-manovinodanam", front: "समुद्रः", back: "Ocean" },
+
 
   // Other sections (placeholders)
-  { id: 20, chapterId: "yace-vinayakam-mudam", front: "निर्विघ्नम्", back: "Without obstacles" },
-  { id: 21, chapterId: "rajakartavyani", front: "प्रजा", back: "Citizens / Subjects" },
-  { id: 22, chapterId: "natyavisesah", front: "रसः", back: "Aesthetic sentiment in drama" },
-  { id: 23, chapterId: "samasa", front: "समासः", back: "Compound Word" },
+  { id: 29, chapterId: "yace-vinayakam-mudam", front: "निर्विघ्नम्", back: "Without obstacles" },
+  { id: 30, chapterId: "rajakartavyani", front: "प्रजा", back: "Citizens / Subjects" },
+  { id: 31, chapterId: "natyavisesah", front: "रसः", back: "Aesthetic sentiment in drama" },
+  { id: 32, chapterId: "samasa", front: "समासः", back: "Compound Word" },
 ];
 
 export const culturalFacts = [
