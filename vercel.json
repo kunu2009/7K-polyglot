@@ -1,7 +1,8 @@
 {
   "functions": {
     "src/app/api/genkit/[...flow]/route.ts": {
-      "memory": 1024
+      "memory": 1024,
+      "maxDuration": 120
     }
   }
 }
