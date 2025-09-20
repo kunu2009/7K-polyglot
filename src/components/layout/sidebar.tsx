@@ -1,6 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     Sidebar,
     SidebarHeader,
@@ -24,7 +25,7 @@ import {
     Swords,
     Wand2,
 } from 'lucide-react';
-import { DiyaLampIcon, Logo } from '@/components/icons';
+import { DiyaLampIcon } from '@/components/icons';
 import { SidebarTrigger } from '../ui/sidebar';
 
 const menuItems = [
@@ -54,7 +55,7 @@ export function AppSidebar() {
         <Sidebar collapsible="icon" className="border-r">
             <SidebarHeader className="h-16 flex items-center justify-between p-2">
                 <div className="flex items-center gap-2 [&_span]:opacity-100 group-data-[collapsible=icon]:[&_span]:opacity-0 transition-opacity duration-200">
-                    <Logo className="w-8 h-8 text-primary" />
+                    <Image src="/logo.png" alt="7K Polyglot Logo" width={32} height={32} className="w-8 h-8"/>
                     <span className="font-headline text-2xl font-bold">7K polyglot</span>
                 </div>
                 <div className="hidden md:block">
