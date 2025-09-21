@@ -2,7 +2,6 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  swcMinify: true,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -19,11 +18,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    serverComponentsExternalPackages: [
-      '@genkit-ai/googleai',
-    ],
-  },
+  serverExternalPackages: [
+    '@genkit-ai/googleai',
+  ],
 };
 
 export default nextConfig;

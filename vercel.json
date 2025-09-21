@@ -1,8 +1,12 @@
 {
+  "buildCommand": "npm run build:next-only",
   "functions": {
     "src/app/api/genkit/[...flow]/route.ts": {
       "memory": 1024,
       "maxDuration": 120
     }
+  },
+  "env": {
+    "NODE_ENV": "production"
   }
 }
